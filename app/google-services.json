@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "281684617660",
+    "project_id": "restauraap-69c20",
+    "storage_bucket": "restauraap-69c20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281684617660:android:0edab45569deab712363b9",
+        "android_client_info": {
+          "package_name": "com.example.restaurapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281684617660-ot7g7vc2m6m2k20f3bf940efg04jr1cm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.restaurapp",
+            "certificate_hash": "5118d52a1629944c993570129ba1a55dfc5edb97"
+          }
+        },
+        {
+          "client_id": "281684617660-7g7cn8erpdor40cvuretcufutia5s5qn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhYaUxv2IiEbGUh5u48cOR0Osb5iTFtyU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "281684617660-7g7cn8erpdor40cvuretcufutia5s5qn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
