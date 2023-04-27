@@ -18,10 +18,23 @@ class MainActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        // SIGN OUT BUTTON FUNCTION
         binding.btnSignOut.setOnClickListener {
             firebaseAuth.signOut()
             startActivity(Intent(this, SignInActivity::class.java))
             finish()
+        }
+
+        // SELECT TABLE OPTION
+        binding.btnSelectTable.setOnClickListener {
+            val intent = Intent(this, SelectTableActivity::class.java)
+            startActivity(intent)
+        }
+
+        // COMMAND LIST OPTION
+        binding.btnComList.setOnClickListener {
+            val intent = Intent(this, ComListActivity::class.java)
+            startActivity(intent)
         }
 
 
