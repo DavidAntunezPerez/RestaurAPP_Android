@@ -27,7 +27,7 @@
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type your Email"/>
+            android:hint="@string/txt_type_email"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -50,7 +50,7 @@
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type Your Password"
+            android:hint="@string/txt_type_pass"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,10 +58,10 @@
     <Button
         android:id="@+id/btnSignInGoogle"
         style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="381dp"
-        android:layout_height="61dp"
+        android:layout_width="368dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="20dp"
-        android:text="Sign In With Google"
+        android:text="@string/txt_type_google"
         android:textColor="@color/black"
         android:translationZ="1dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:background="@color/yellow"
-        android:text="Sign In"
+        android:text="@string/txt_type_signin"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -99,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="Not Registered Yet , Sign Up !"
+        android:text="@string/txt_sign_up_now"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

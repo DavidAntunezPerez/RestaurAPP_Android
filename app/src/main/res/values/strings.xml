@@ -2,4 +2,12 @@
     <string name="app_name">RestaurAPP</string>
     <string name="google_logo_description">Google Logo</string>
     <string name="back_btn_desc">Go Back</string>
+    <string name="txt_type_email">Type your Email</string>
+    <string name="txt_type_pass">Type your Password</string>
+    <string name="txt_type_repass">Retype your Password</string>
+    <string name="txt_type_google">Sign In With Google</string>
+    <string name="txt_type_signin">Sign In</string>
+    <string name="txt_type_signup">Sign Up</string>
+    <string name="txt_sign_up_now">Not Registered Yet , Sign Up !</string>
+    <string name="txt_sign_in_now">Already Registered , Sign In !</string>
 </resources>
