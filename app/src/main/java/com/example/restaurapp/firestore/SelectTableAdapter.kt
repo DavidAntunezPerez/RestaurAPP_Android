@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.restaurapp.ComListActivity
 import com.example.restaurapp.CreateComActivity
 import com.example.restaurapp.R
-import com.example.restaurapp.SelectTableActivity
 
 class SelectTableAdapter(private val tableList: ArrayList<Table>) :
     RecyclerView.Adapter<SelectTableAdapter.SelectTableViewHolder>() {
@@ -31,6 +29,8 @@ class SelectTableAdapter(private val tableList: ArrayList<Table>) :
 
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, CreateComActivity::class.java)
+            // WE WILL SEND THE TABLE NUMBER INFORMATION TO CREATE COMMANDS
+            intent.putExtra("tableNumber", holder.tvNumber.text)
             holder.itemView.context.startActivity(intent)
         }
     }

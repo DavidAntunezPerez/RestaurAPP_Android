@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">RestaurAPP</string>
+
+    <!--FOR LOGIN-->
     <string name="google_logo_description">Google Logo</string>
     <string name="back_btn_desc">Go Back</string>
     <string name="txt_type_email">Type your Email</string>
@@ -10,4 +12,10 @@
     <string name="txt_type_signup">Sign Up</string>
     <string name="txt_sign_up_now">Not Registered Yet , Sign Up !</string>
     <string name="txt_sign_in_now">Already Registered , Sign In !</string>
+
+    <!--FOR TABLE LIST-->
+
+    <!--FOR COMMAND CREATION-->
+    <string name="txt_commandcreate_tableinfo">Creating command for Table #</string>
+    <string name="txt_testNumber">25</string>
 </resources>
