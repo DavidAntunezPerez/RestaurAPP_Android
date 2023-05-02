@@ -1,5 +1,6 @@
 package com.example.restaurapp
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -22,8 +23,9 @@ class SelectTableActivity : AppCompatActivity() {
         binding = ActivitySelectTableBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // RETRIEVE USER UID
-        val userUID = intent.getStringExtra("userUID")
+        // CREATE SHARED PREFERENCES ITEM
+        val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        val userUID = sharedPreference.getString("userUID", "userUID")
 
         // GO BACK BUTTON FUNCTION
         binding.btnBack.setOnClickListener {
@@ -43,7 +45,7 @@ class SelectTableActivity : AppCompatActivity() {
                 if (!it.isEmpty) {
                     for (data in it.documents) {
                         val table: Table? = data.toObject(Table::class.java)
-                        if ((table != null)&& (table.idRestaurant == userUID)) {
+                        if ((table != null) && (table.idRestaurant == userUID)) {
                             tableList.add(table)
                         }
                     }
@@ -53,7 +55,6 @@ class SelectTableActivity : AppCompatActivity() {
             .addOnFailureListener {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
             }
-
 
     }
 }

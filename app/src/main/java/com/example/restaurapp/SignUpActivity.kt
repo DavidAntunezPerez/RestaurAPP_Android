@@ -1,5 +1,6 @@
 package com.example.restaurapp
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -53,13 +54,10 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please confirm your password", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(
-                    this,
-                    "Invalid credentials, please try again",
-                    Toast.LENGTH_SHORT
+                    this, "Invalid credentials, please try again", Toast.LENGTH_SHORT
                 ).show()
             }
         }
-
 
     }
 
@@ -70,6 +68,10 @@ class SignUpActivity : AppCompatActivity() {
         if (firebaseAuth.currentUser != null) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+        } else {
+            // IF NOT ALREADY LOGGED IN, DELETE THE SHARED PREFERENCES VARIABLE
+            val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+            sharedPreference.edit().clear()
         }
     }
 }

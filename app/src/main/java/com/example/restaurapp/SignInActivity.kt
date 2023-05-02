@@ -1,10 +1,10 @@
 package com.example.restaurapp
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.restaurapp.databinding.ActivitySignInBinding
@@ -15,7 +15,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import kotlin.math.sign
 
 
 class SignInActivity : AppCompatActivity() {
@@ -84,6 +83,10 @@ class SignInActivity : AppCompatActivity() {
         if (firebaseAuth.currentUser != null) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+        } else {
+            // IF NOT ALREADY LOGGED IN, DELETE THE SHARED PREFERENCES VARIABLE
+            val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+            sharedPreference.edit().clear()
         }
     }
 

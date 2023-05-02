@@ -6,14 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".CreateComActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/back_btn_desc"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrowback1" />
+
     <TextView
         android:id="@+id/txtCreateComFor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="24dp"
         android:text="@string/txt_commandcreate_tableinfo"
-        android:textSize="20sp"
+        android:textColor="@color/blue"
+        android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,10 +35,22 @@
         android:id="@+id/txtNumberTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:text="@string/txt_testNumber"
-        android:textSize="20sp"
+        android:textColor="@color/blue"
+        android:textSize="34sp"
         app:layout_constraintStart_toEndOf="@+id/txtCreateComFor"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="409dp"
+        android:layout_height="650dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBack"
+        tools:listitem="@layout/dishes_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:backgroundTint="@color/blue"
+    android:backgroundTint="@color/teal_700"
     app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             android:paddingStart="20dp"
             android:paddingTop="15dp"
             android:paddingEnd="5dp"
-            android:text="#"
+            android:text="@string/txt_testdishname"
             android:textColor="@color/yellow"
             android:textSize="40sp"
             android:textStyle="bold"
@@ -29,41 +29,38 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textNumber"
+            android:id="@+id/txtPrizeDollar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="50dp"
-            android:paddingTop="15dp"
-            android:paddingEnd="5dp"
-            android:text="1"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="12dp"
+            android:paddingBottom="18dp"
+            android:text="@string/txt_dollarsymbol"
             android:textColor="@color/yellow"
-            android:textSize="40sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textDishName" />
 
         <TextView
-            android:id="@+id/textInfo"
-            android:layout_width="match_parent"
+            android:id="@+id/txtDishPrize"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="20dp"
-            android:text="This should be a small short information about a table to test te RecyclerView list."
+            android:layout_marginTop="12dp"
+            android:paddingBottom="18dp"
+            android:text="@string/txt_testNumber"
             android:textColor="@color/yellow"
+            android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textNumber" />
+            app:layout_constraintStart_toEndOf="@+id/txtPrizeDollar"
+            app:layout_constraintTop_toBottomOf="@+id/textDishName" />
 
         <ImageView
             android:id="@+id/imgDishes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="296dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintStart_toStartOf="@+id/textDishName"
             app:layout_constraintTop_toTopOf="@+id/textDishName"
             app:srcCompat="@drawable/tableicon" />
