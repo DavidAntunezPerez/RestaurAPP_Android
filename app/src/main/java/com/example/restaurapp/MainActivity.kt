@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.restaurapp.databinding.ActivityMainBinding
-import com.example.restaurapp.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +17,9 @@ class MainActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        // GET USER UID
+        val userUID = firebaseAuth.currentUser?.uid
+
         // SIGN OUT BUTTON FUNCTION
         binding.btnSignOut.setOnClickListener {
             firebaseAuth.signOut()
@@ -28,12 +30,16 @@ class MainActivity : AppCompatActivity() {
         // SELECT TABLE OPTION
         binding.btnSelectTable.setOnClickListener {
             val intent = Intent(this, SelectTableActivity::class.java)
+            // SEND USER UID TO NEXT ACTIVITY
+            intent.putExtra("userUID", userUID)
             startActivity(intent)
         }
 
         // COMMAND LIST OPTION
         binding.btnComList.setOnClickListener {
             val intent = Intent(this, ComListActivity::class.java)
+            // SEND USER UID TO NEXT ACTIVITY
+            intent.putExtra("userUID", userUID)
             startActivity(intent)
         }
 
