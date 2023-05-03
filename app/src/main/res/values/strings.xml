@@ -16,7 +16,7 @@
     <!--FOR TABLE LIST-->
 
     <!--FOR COMMAND CREATION-->
-    <string name="txt_commandcreate_tableinfo">Table #</string>
+    <string name="txt_commandcreate_tableinfo">TABLE #</string>
     <string name="txt_testNumber">25</string>
     <string name="txt_testdishname">Spaghetti</string>
     <string name="txt_dollarsymbol">$</string>
