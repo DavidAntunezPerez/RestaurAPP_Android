@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textDishName"
+            android:id="@+id/textTableName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
@@ -59,13 +59,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textNumber" />
 
         <ImageView
-            android:id="@+id/imgDishes"
+            android:id="@+id/imgTable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="296dp"
             android:layout_marginTop="14dp"
-            app:layout_constraintStart_toStartOf="@+id/textDishName"
-            app:layout_constraintTop_toTopOf="@+id/textDishName"
+            app:layout_constraintStart_toStartOf="@+id/textTableName"
+            app:layout_constraintTop_toTopOf="@+id/textTableName"
             app:srcCompat="@drawable/tableicon" />
 
 

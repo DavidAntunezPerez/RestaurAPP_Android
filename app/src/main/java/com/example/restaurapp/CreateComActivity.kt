@@ -38,6 +38,7 @@ class CreateComActivity : AppCompatActivity() {
         val message = intent.getStringExtra("tableNumber")
         binding.txtNumberTable.text = message
 
+
         // SET UP THE RECYCLER VIEW
         recyclerView = binding.recyclerview
         recyclerView.layoutManager = LinearLayoutManager(this)

@@ -56,14 +56,16 @@
             app:layout_constraintTop_toBottomOf="@+id/textDishName" />
 
         <ImageView
-            android:id="@+id/imgDishes"
+            android:id="@+id/imgDish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="248dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="140dp"
             android:paddingBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textDishName"
             app:layout_constraintTop_toTopOf="@+id/textDishName"
+            app:layout_constraintVertical_bias="0.0"
             tools:srcCompat="@tools:sample/avatars" />
 
 
