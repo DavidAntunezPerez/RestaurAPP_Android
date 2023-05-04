@@ -32,9 +32,20 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
     override fun onBindViewHolder(holder: DishViewHolder, position: Int) {
         holder.tvName.text = dishList[position].name
         holder.tvPrice.text = dishList[position].price.toString()
+
         // LOAD IMAGES
+        // REFERENCING FIREBASE STORAGE
         var storageRef = Firebase.storage.reference
-        val pathReference = storageRef.child(dishList[position].image.toString())
+
+        // REMOVING THE FAKE PATH IN CASE OF EXISTING IN ITEM FIELD
+        val cleanedPath =
+            "/images/" + pathClean(dishList[position].image.toString(), "C:\\fakepath\\")
+        Log.i("cleanedPathVAL", cleanedPath)
+
+        // REFERENCING THE RESULTING PATH INTO A CHILD
+        val pathReference = storageRef.child(cleanedPath)
+
+        // GENERATING AN EMPTY LOCAL FILE  AND MAKING IT RETRIEVE THE DOWNLOADED IMAGE FROM STORAGE
         val localFile = File.createTempFile("images", ".jpg")
         pathReference.getFile(localFile).addOnSuccessListener {
             Picasso.get().load(localFile).into(holder.ivImage)
@@ -47,5 +58,9 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
         return dishList.size
     }
 
+    // FUNCTION TO REMOVE THE FAKE LOCATION CREATED BY DEFAULT IN WEB APPLICATION
+    private fun pathClean(text: String, remove: String): String {
+        return (text.replace(remove, ""))
+    }
 
 }
