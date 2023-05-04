@@ -8,7 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurapp.R
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
+import java.io.File
 
 class DishAdapter(private val dishList: ArrayList<Dish>) :
     RecyclerView.Adapter<DishAdapter.DishViewHolder>() {
@@ -30,8 +33,14 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
         holder.tvName.text = dishList[position].name
         holder.tvPrice.text = dishList[position].price.toString()
         // LOAD IMAGES
-        Picasso.get().load(dishList[position].image).into(holder.ivImage)
-        Log.i("DISHLIST URL", dishList[position].image.toString())
+        var storageRef = Firebase.storage.reference
+        val pathReference = storageRef.child(dishList[position].image.toString())
+        val localFile = File.createTempFile("images", ".jpg")
+        pathReference.getFile(localFile).addOnSuccessListener {
+            Picasso.get().load(localFile).into(holder.ivImage)
+        }.addOnFailureListener {
+            Log.e("IMG STORAGE ERROR", "Error getting the temp file")
+        }
     }
 
     override fun getItemCount(): Int {
