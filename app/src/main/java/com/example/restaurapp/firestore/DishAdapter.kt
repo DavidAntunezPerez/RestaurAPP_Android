@@ -16,6 +16,8 @@ import java.io.File
 class DishAdapter(private val dishList: ArrayList<Dish>) :
     RecyclerView.Adapter<DishAdapter.DishViewHolder>() {
 
+    private var dishCreateList = mutableListOf<Dish>()
+
     class DishViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(R.id.textDishName)
         val tvPrice: TextView = itemView.findViewById(R.id.txtDishPrize)
@@ -52,6 +54,21 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
         }.addOnFailureListener {
             Log.e("IMG STORAGE ERROR", "Error getting the temp file")
         }
+
+        holder.itemView.setOnClickListener {
+            // RETRIEVE ITEM DATA
+            val selectedId = dishList[position].id
+            val selectedIdRestaurant = dishList[position].idRestaurant
+            val selectedName = dishList[position].name
+            val selectedPrice = dishList[position].price
+            val selectedImage = dishList[position].image
+            // CREATING OBJECT DISH AND ADDING IT TO THE LIST
+            val dish =
+                Dish(selectedId, selectedIdRestaurant, selectedName, selectedPrice, selectedImage)
+            addDishCreateList(dish)
+            Log.i("DISHCREATE LIST CHECK", dishCreateList.toString())
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -63,4 +80,15 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
         return (text.replace(remove, ""))
     }
 
+    fun addDishCreateList(dish: Dish) {
+        dishCreateList.add(dish)
+    }
+
+    fun deleteDishCreateList(dish: Dish) {
+        dishCreateList.remove(dish)
+    }
+
+    fun getDishCreateList(): List<Dish> {
+        return dishCreateList.toList()
+    }
 }

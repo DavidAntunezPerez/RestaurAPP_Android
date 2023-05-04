@@ -97,6 +97,7 @@
                 app:layout_constraintVertical_bias="0.514" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnCreateCom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="28dp"
