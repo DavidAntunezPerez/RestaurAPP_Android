@@ -105,6 +105,7 @@ class CreateComActivity : AppCompatActivity() {
             )
         }.addOnFailureListener { e ->
             Log.w("Error adding command", e)
+            Snackbar.make(view, "ERROR, could not create the Command", Snackbar.LENGTH_LONG).show()
         }
 
     }

@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurapp.R
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
@@ -66,6 +67,7 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
             val dish =
                 Dish(selectedId, selectedIdRestaurant, selectedName, selectedPrice, selectedImage)
             addDishCreateList(dish)
+            Snackbar.make(it, "Dish added to the Command", Snackbar.LENGTH_SHORT).show()
             Log.i("DISHCREATE LIST CHECK", dishCreateList.toString())
         }
 
