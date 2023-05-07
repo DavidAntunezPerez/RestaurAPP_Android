@@ -31,6 +31,7 @@ class SelectTableAdapter(private val tableList: ArrayList<Table>) :
             val intent = Intent(holder.itemView.context, CreateComActivity::class.java)
             // WE WILL SEND THE TABLE NUMBER INFORMATION TO CREATE COMMANDS
             intent.putExtra("tableNumber", holder.tvNumber.text)
+            intent.putExtra("tableDocId", tableList[position].documentId)
             holder.itemView.context.startActivity(intent)
         }
     }

@@ -90,6 +90,10 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
         dishCreateList.remove(dish)
     }
 
+    fun deleteAllDishCreateList() {
+        dishCreateList.clear()
+    }
+
     fun getDishCreateList(): List<Dish> {
         return dishCreateList.toList()
     }

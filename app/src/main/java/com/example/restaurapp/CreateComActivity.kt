@@ -45,12 +45,14 @@ class CreateComActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        // GETTING THE TABLE NUMBER INFORMATION
+        // GETTING THE TABLE NUMBER INFORMATION AND DOCUMENT ID
         val tableNumber = intent.getStringExtra("tableNumber")
         binding.txtNumberTable.text = tableNumber
 
+        val tableDocId = intent.getStringExtra("tableDocId")
 
-        // SET UP THE RECYCLER VIEW
+
+        // SET UP THE RECYCLER VIEW--
         recyclerView = binding.recyclerview
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -74,7 +76,7 @@ class CreateComActivity : AppCompatActivity() {
 
         // SET FUNCTION TO CREATE COM
         binding.btnCreateCom.setOnClickListener {
-            saveComFirestore(userUID, tableNumber, it)
+            saveComFirestore(userUID, tableDocId, it)
         }
 
     }
@@ -82,10 +84,13 @@ class CreateComActivity : AppCompatActivity() {
     private fun saveComFirestore(userUID: String?, idTable: String?, view: View) {
         val selectedDishes = (recyclerView.adapter as DishAdapter).getDishCreateList()
 
-        // TODO: MAKE FUNCTIONAL TOTALPRICE, RETRIEVE TABLE COLLECTION ID AND NOT NUMBER ID,
-        //  ADD SNACKBARS WHEN CLICKING EACH OF THE ITEMS
+        Log.i(
+            "DISH LIST GET FROM ADAPTER",
+            (recyclerView.adapter as DishAdapter).getDishCreateList().toString()
+        )
+        // TODO: MAKE FUNCTIONAL TOTALPRICE
 
-        // TEST TO SEE IF YOU CAN CREATE A COLLECTION WITH ANY INFORMATION
+        // CREATING A HASH MAP WITH THE INFORMATION NEEDED
         val command = hashMapOf(
             "title" to "Command",
             "idRestaurant" to userUID,
@@ -107,6 +112,9 @@ class CreateComActivity : AppCompatActivity() {
             Log.w("Error adding command", e)
             Snackbar.make(view, "ERROR, could not create the Command", Snackbar.LENGTH_LONG).show()
         }
+
+        // DELETE THE ACTUAL LIST WHEN PROCCESS ENDED
+        (recyclerView.adapter as DishAdapter).deleteAllDishCreateList()
 
     }
 }

@@ -41,19 +41,20 @@ class SelectTableActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
 
         db.collection("tables").get()
-            .addOnSuccessListener {
-                if (!it.isEmpty) {
-                    for (data in it.documents) {
-                        val table: Table? = data.toObject(Table::class.java)
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    for (documentSnapshot in querySnapshot.documents) {
+                        val table: Table? = documentSnapshot.toObject(Table::class.java)
                         if ((table != null) && (table.idRestaurant == userUID)) {
+                            table.documentId = documentSnapshot.id // Set the document ID
                             tableList.add(table)
                         }
                     }
                     recyclerView.adapter = SelectTableAdapter(tableList)
                 }
             }
-            .addOnFailureListener {
-                Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, exception.toString(), Toast.LENGTH_SHORT).show()
             }
 
     }
