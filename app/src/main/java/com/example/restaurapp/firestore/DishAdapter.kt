@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurapp.R
 import com.google.android.material.snackbar.Snackbar
@@ -17,7 +18,11 @@ import java.io.File
 class DishAdapter(private val dishList: ArrayList<Dish>) :
     RecyclerView.Adapter<DishAdapter.DishViewHolder>() {
 
+    // MUTABLE LIST CONTAINING ALL THE DISHES ADDED IN A COMMAND
     private var dishCreateList = mutableListOf<Dish>()
+
+    // VARIABLE CONTAINING THE TOTAL PRICE OF THE COMMAND
+    private var totalPrice: Double = 0.0
 
     class DishViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(R.id.textDishName)
@@ -57,16 +62,30 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
         }
 
         holder.itemView.setOnClickListener {
+
             // RETRIEVE ITEM DATA
             val selectedId = dishList[position].id
             val selectedIdRestaurant = dishList[position].idRestaurant
             val selectedName = dishList[position].name
             val selectedPrice = dishList[position].price
             val selectedImage = dishList[position].image
+
             // CREATING OBJECT DISH AND ADDING IT TO THE LIST
             val dish =
                 Dish(selectedId, selectedIdRestaurant, selectedName, selectedPrice, selectedImage)
             addDishCreateList(dish)
+
+            // ADDING DISH PRICE TO TOTAL PRICE
+            if (selectedPrice != null) {
+                totalPrice = totalPrice.plus(selectedPrice)
+            }
+
+            // UPDATE THE TOTAL PRICE
+            val txtTotalPrice: TextView =
+                (it.context as AppCompatActivity).findViewById(R.id.txtTotalPrize)
+            txtTotalPrice.text = "$totalPrice"
+
+            // CREATING A SNACK BAR TO INFORM ITEM WAS ADDED
             Snackbar.make(it, "Dish added to the Command", Snackbar.LENGTH_SHORT).show()
             Log.i("DISHCREATE LIST CHECK", dishCreateList.toString())
         }
@@ -82,6 +101,7 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
         return (text.replace(remove, ""))
     }
 
+    // DISH CREATE LIST FUNCTIONS
     fun addDishCreateList(dish: Dish) {
         dishCreateList.add(dish)
     }
@@ -97,4 +117,15 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
     fun getDishCreateList(): List<Dish> {
         return dishCreateList.toList()
     }
+
+    // TOTAL PRICE FUNCTIONS
+    fun getTotalPrice(): Double {
+        return totalPrice
+    }
+
+    fun clearTotalPrice(): Double {
+        totalPrice = 0.0
+        return totalPrice
+    }
+
 }

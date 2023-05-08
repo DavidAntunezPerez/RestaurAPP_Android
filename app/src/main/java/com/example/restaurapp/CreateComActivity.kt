@@ -84,19 +84,19 @@ class CreateComActivity : AppCompatActivity() {
 
     private fun saveComFirestore(userUID: String?, idTable: String?, view: View) {
         val selectedDishes = (recyclerView.adapter as DishAdapter).getDishCreateList()
+        val totalPrice = (recyclerView.adapter as DishAdapter).getTotalPrice()
 
         Log.i(
             "DISH LIST GET FROM ADAPTER",
             (recyclerView.adapter as DishAdapter).getDishCreateList().toString()
         )
-        // TODO: MAKE FUNCTIONAL TOTALPRICE
 
         // CREATING A HASH MAP WITH THE INFORMATION NEEDED
         val command = hashMapOf(
             "title" to "Command",
             "idRestaurant" to userUID,
             "idTable" to idTable,
-            "totalPrice" to 0,
+            "totalPrice" to totalPrice,
             "dishesList" to selectedDishes
         )
 
@@ -121,8 +121,12 @@ class CreateComActivity : AppCompatActivity() {
             Snackbar.make(view, "You cannot create an empty Command!", Snackbar.LENGTH_LONG).show()
         }
 
-        // DELETE THE ACTUAL LIST WHEN PROCCESS ENDED
+        // DELETE TOTAL PRICE WHEN PROCESS ENDED
+        (recyclerView.adapter as DishAdapter).clearTotalPrice()
+
+        // DELETE THE ACTUAL LIST WHEN PROCESS ENDED
         (recyclerView.adapter as DishAdapter).deleteAllDishCreateList()
 
     }
+
 }

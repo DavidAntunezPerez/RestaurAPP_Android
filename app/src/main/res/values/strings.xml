@@ -18,6 +18,7 @@
     <!--FOR COMMAND CREATION-->
     <string name="txt_commandcreate_tableinfo">TABLE #</string>
     <string name="txt_testNumber">25</string>
+    <string name="txt_zeroNumber">0.0</string>
     <string name="txt_testdishname">Spaghetti</string>
     <string name="txt_dollarsymbol">$</string>
 </resources>
