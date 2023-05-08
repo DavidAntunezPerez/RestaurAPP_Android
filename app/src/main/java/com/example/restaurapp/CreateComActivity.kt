@@ -60,18 +60,19 @@ class CreateComActivity : AppCompatActivity() {
 
         db = FirebaseFirestore.getInstance()
 
-        db.collection("dishes").get().addOnSuccessListener {
-            if (!it.isEmpty) {
-                for (data in it.documents) {
-                    val dish: Dish? = data.toObject(Dish::class.java)
+        db.collection("dishes").get().addOnSuccessListener { querySnapshot ->
+            if (!querySnapshot.isEmpty) {
+                for (documentSnapshot in querySnapshot.documents) {
+                    val dish: Dish? = documentSnapshot.toObject(Dish::class.java)
                     if ((dish != null) && (dish.idRestaurant == userUID)) {
+                        dish.id = documentSnapshot.id // Set the document ID
                         dishList.add(dish)
                     }
                 }
                 recyclerView.adapter = DishAdapter(dishList)
             }
-        }.addOnFailureListener {
-            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener { exception ->
+            Toast.makeText(this, exception.toString(), Toast.LENGTH_SHORT).show()
         }
 
         // SET FUNCTION TO CREATE COM
@@ -101,16 +102,23 @@ class CreateComActivity : AppCompatActivity() {
 
         Log.i("DISHCREATELIST TO STRING", selectedDishes.toString())
 
-        // Add a new document with a generated ID
-        db.collection("commands").add(command).addOnSuccessListener { documentReference ->
-            Snackbar.make(view, "Command created successfully", Snackbar.LENGTH_LONG).show()
-            Log.d(
-                "Added command successfully",
-                "DocumentSnapshot added with ID: ${documentReference.id}"
-            )
-        }.addOnFailureListener { e ->
-            Log.w("Error adding command", e)
-            Snackbar.make(view, "ERROR, could not create the Command", Snackbar.LENGTH_LONG).show()
+
+        if (selectedDishes.isNotEmpty()) {
+            // Add a new document with a generated ID
+            db.collection("commands").add(command).addOnSuccessListener { documentReference ->
+                Snackbar.make(view, "Command created successfully", Snackbar.LENGTH_LONG).show()
+                Log.d(
+                    "Added command successfully",
+                    "DocumentSnapshot added with ID: ${documentReference.id}"
+                )
+            }.addOnFailureListener { e ->
+                Log.w("Error adding command", e)
+                Snackbar.make(view, "ERROR, could not create the Command", Snackbar.LENGTH_LONG)
+                    .show()
+            }
+        } else {
+            // IF THE LIST OF DISHES IS EMPTY, YOU SHOULD NOT BE ABLE TO CREATE A COMMAND
+            Snackbar.make(view, "You cannot create an empty Command!", Snackbar.LENGTH_LONG).show()
         }
 
         // DELETE THE ACTUAL LIST WHEN PROCCESS ENDED
