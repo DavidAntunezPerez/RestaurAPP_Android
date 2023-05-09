@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +17,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlin.math.log
 
 class CreateComActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateComBinding
@@ -25,6 +25,7 @@ class CreateComActivity : AppCompatActivity() {
     private lateinit var adapter: DishAdapter
     private lateinit var moreFragment: CreateComFragment
     private var db = Firebase.firestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -44,11 +45,10 @@ class CreateComActivity : AppCompatActivity() {
         // INITIALIZING FRAGMENT
         moreFragment = CreateComFragment()
 
-        // HIDING THE MORE OPTIONS FRAGMENT IN THE ONCREATE
+        // HIDING THE MORE OPTIONS FRAGMENT IN THE ON CREATE
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragmentMoreCreateComInterface, moreFragment)
-            .hide(moreFragment)
-            .commit()
+            .add(R.id.fragmentMoreCreateComInterface, moreFragment).hide(moreFragment).commit()
+
         Log.d("MoreFragmentHidden", "Fragment hidden: ${moreFragment.isHidden}")
 
 
@@ -62,6 +62,32 @@ class CreateComActivity : AppCompatActivity() {
         binding.txtNumberTable.text = tableNumber
 
         val tableDocId = intent.getStringExtra("tableDocId")
+
+        // BUTTON TO ADD MORE OPTIONS (LOAD FRAGMENT)
+        binding.btnMore.setOnClickListener {
+            val transaction = supportFragmentManager.beginTransaction()
+            if (moreFragment.isHidden) {
+                // Show the fragment
+                transaction.show(moreFragment)
+
+                // Set up the fragment to consume touch events when it's visible
+                moreFragment.view?.setOnTouchListener { _, event ->
+                    if (event.action == MotionEvent.ACTION_DOWN) {
+                        // Call performClick() to simulate a click event
+                        moreFragment.view?.performClick()
+                        return@setOnTouchListener true
+                    }
+                    moreFragment.isVisible
+
+                }
+            } else {
+                // Hide the fragment
+                transaction.hide(moreFragment)
+                findViewById<View>(R.id.fragmentMoreCreateComInterface)
+                    .setOnTouchListener { _, _ -> false }
+            }
+            transaction.commit()
+        }
 
 
         // SET UP THE RECYCLER VIEW--
