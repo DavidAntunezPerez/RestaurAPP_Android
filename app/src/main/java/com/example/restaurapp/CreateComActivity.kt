@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurapp.databinding.ActivityCreateComBinding
 import com.example.restaurapp.firestore.Dish
 import com.example.restaurapp.firestore.DishAdapter
+import com.example.restaurapp.fragments.CreateComFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -22,6 +23,7 @@ class CreateComActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var dishList: ArrayList<Dish>
     private lateinit var adapter: DishAdapter
+    private lateinit var moreFragment: CreateComFragment
     private var db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -38,6 +40,16 @@ class CreateComActivity : AppCompatActivity() {
         // CREATE SHARED PREFERENCES ITEM AND RETRIEVING USER UID
         val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         val userUID = sharedPreference.getString("userUID", "userUID")
+
+        // INITIALIZING FRAGMENT
+        moreFragment = CreateComFragment()
+
+        // HIDING THE MORE OPTIONS FRAGMENT IN THE ONCREATE
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragmentMoreCreateComInterface, moreFragment)
+            .hide(moreFragment)
+            .commit()
+        Log.d("MoreFragmentHidden", "Fragment hidden: ${moreFragment.isHidden}")
 
 
         // BUTTON TO GO BACK TO PREVIOUS ACTIVITY
