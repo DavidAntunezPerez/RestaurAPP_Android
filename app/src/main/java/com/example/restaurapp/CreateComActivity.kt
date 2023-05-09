@@ -18,13 +18,17 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class CreateComActivity : AppCompatActivity() {
+class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
     private lateinit var binding: ActivityCreateComBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var dishList: ArrayList<Dish>
     private lateinit var adapter: DishAdapter
     private lateinit var moreFragment: CreateComFragment
     private var db = Firebase.firestore
+
+    // TITLE AND DESCRIPTION RETRIEVED IN THE FRAGMENT INPUT
+    private var title: String? = null
+    private var description: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -115,12 +119,24 @@ class CreateComActivity : AppCompatActivity() {
 
         // SET FUNCTION TO CREATE COM
         binding.btnCreateCom.setOnClickListener {
-            saveComFirestore(userUID, tableDocId, it)
+            saveComFirestore(userUID, tableDocId, title, description, it)
         }
 
     }
 
-    private fun saveComFirestore(userUID: String?, idTable: String?, view: View) {
+    // RETRIEVE ON DATA PASS INTERFACE FROM FRAGMENT TO GET THE TITLE AND DESCRIPTION
+    override fun onDataPass(title: String, description: String) {
+        this.title = title
+        this.description = description
+    }
+
+    private fun saveComFirestore(
+        userUID: String?,
+        idTable: String?,
+        title: String?,
+        description: String?,
+        view: View
+    ) {
         val selectedDishes = (recyclerView.adapter as DishAdapter).getDishCreateList()
         val totalPrice = (recyclerView.adapter as DishAdapter).getTotalPrice()
 
@@ -131,7 +147,8 @@ class CreateComActivity : AppCompatActivity() {
 
         // CREATING A HASH MAP WITH THE INFORMATION NEEDED
         val command = hashMapOf(
-            "title" to "Command",
+            "title" to title,
+            "description" to description,
             "idRestaurant" to userUID,
             "idTable" to idTable,
             "totalPrice" to totalPrice,
