@@ -70,6 +70,7 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
         // BUTTON TO ADD MORE OPTIONS (LOAD FRAGMENT)
         binding.btnMore.setOnClickListener {
             val transaction = supportFragmentManager.beginTransaction()
+            moreFragment.setDishList((recyclerView.adapter as DishAdapter).getDishCreateList())
             if (moreFragment.isHidden) {
                 // Show the fragment
                 transaction.show(moreFragment)

@@ -4,16 +4,26 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurapp.R
+import com.example.restaurapp.firestore.Dish
+import com.example.restaurapp.firestore.DishAdapter
+import com.example.restaurapp.firestore.DishCCMoreAdapter
 
 class CreateComFragment : Fragment() {
 
     private lateinit var dataPasser: OnDataPass
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var dishCCMoreAdapter: DishCCMoreAdapter
+    private lateinit var dishList: ArrayList<Dish>
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,7 +31,16 @@ class CreateComFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_com, container, false)
+        val view = inflater.inflate(R.layout.fragment_create_com, container, false)
+
+        // INITIALIZING DISH LIST
+        dishList = ArrayList()
+
+        // SET UP RECYCLER VIEW
+        recyclerView = view.findViewById(R.id.recyclerViewFragmentCreateCom)
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,6 +72,9 @@ class CreateComFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
+
+        dishCCMoreAdapter = DishCCMoreAdapter(dishList)
+        recyclerView.adapter = dishCCMoreAdapter
     }
 
     interface OnDataPass {
@@ -62,5 +84,11 @@ class CreateComFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         dataPasser = context as OnDataPass
+    }
+
+    fun setDishList(dishes: List<Dish>) {
+        dishList.clear()
+        dishList.addAll(dishes)
+        dishCCMoreAdapter.notifyDataSetChanged()
     }
 }
