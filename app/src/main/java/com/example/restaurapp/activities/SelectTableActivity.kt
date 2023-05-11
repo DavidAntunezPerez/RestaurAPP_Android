@@ -1,4 +1,4 @@
-package com.example.restaurapp
+package com.example.restaurapp.activities
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -7,8 +7,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurapp.databinding.ActivitySelectTableBinding
-import com.example.restaurapp.firestore.SelectTableAdapter
-import com.example.restaurapp.firestore.Table
+import com.example.restaurapp.adapters.SelectTableAdapter
+import com.example.restaurapp.entities.Table
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

@@ -1,4 +1,4 @@
-package com.example.restaurapp.firestore
+package com.example.restaurapp.entities
 
 import android.os.Parcel
 import android.os.Parcelable

@@ -1,12 +1,12 @@
-package com.example.restaurapp.firestore
+package com.example.restaurapp.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurapp.R
+import com.example.restaurapp.entities.Dish
 
 class DishCCMoreAdapter(private val dishesList: List<Dish>) :
     RecyclerView.Adapter<DishCCMoreAdapter.DishCCMoreViewHolder>() {

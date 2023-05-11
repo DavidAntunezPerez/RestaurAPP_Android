@@ -1,4 +1,4 @@
-package com.example.restaurapp
+package com.example.restaurapp.activities
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -9,9 +9,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.restaurapp.R
 import com.example.restaurapp.databinding.ActivityCreateComBinding
-import com.example.restaurapp.firestore.Dish
-import com.example.restaurapp.firestore.DishAdapter
+import com.example.restaurapp.entities.Dish
+import com.example.restaurapp.adapters.DishAdapter
 import com.example.restaurapp.fragments.CreateComFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore

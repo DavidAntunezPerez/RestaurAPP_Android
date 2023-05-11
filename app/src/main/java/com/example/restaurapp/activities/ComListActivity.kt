@@ -1,4 +1,4 @@
-package com.example.restaurapp
+package com.example.restaurapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

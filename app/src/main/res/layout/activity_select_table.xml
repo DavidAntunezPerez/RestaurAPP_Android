@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ComListActivity">
+    tools:context=".activities.ComListActivity">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -25,6 +25,7 @@
         android:layout_width="409dp"
         android:layout_height="650dp"
         android:layout_marginTop="5dp"
+        android:paddingHorizontal="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBack"

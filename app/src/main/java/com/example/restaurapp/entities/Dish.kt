@@ -1,4 +1,4 @@
-package com.example.restaurapp.firestore
+package com.example.restaurapp.entities
 
 data class Dish(
     var id: String? = null,

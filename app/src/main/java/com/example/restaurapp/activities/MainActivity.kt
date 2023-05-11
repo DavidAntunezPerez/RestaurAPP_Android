@@ -1,4 +1,4 @@
-package com.example.restaurapp
+package com.example.restaurapp.activities
 
 import android.content.Context
 import android.content.Intent

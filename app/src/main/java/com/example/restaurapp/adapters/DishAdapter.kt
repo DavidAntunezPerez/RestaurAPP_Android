@@ -1,4 +1,4 @@
-package com.example.restaurapp.firestore
+package com.example.restaurapp.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurapp.R
+import com.example.restaurapp.entities.Dish
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage

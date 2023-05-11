@@ -1,4 +1,4 @@
-package com.example.restaurapp.firestore
+package com.example.restaurapp.adapters
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.restaurapp.CreateComActivity
+import com.example.restaurapp.activities.CreateComActivity
 import com.example.restaurapp.R
+import com.example.restaurapp.entities.Table
 
 class SelectTableAdapter(private val tableList: ArrayList<Table>) :
     RecyclerView.Adapter<SelectTableAdapter.SelectTableViewHolder>() {
