@@ -23,7 +23,7 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
     private lateinit var binding: ActivityCreateComBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var dishList: ArrayList<Dish>
-    private lateinit var adapter: DishAdapter
+    lateinit var adapter: DishAdapter
     private lateinit var moreFragment: CreateComFragment
     private var db = Firebase.firestore
 
@@ -71,8 +71,9 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
         // BUTTON TO ADD MORE OPTIONS (LOAD FRAGMENT)
         binding.btnMore.setOnClickListener {
             val transaction = supportFragmentManager.beginTransaction()
-            moreFragment.setDishList((recyclerView.adapter as DishAdapter).getDishCreateList())
             if (moreFragment.isHidden) {
+
+                moreFragment.setDishList((recyclerView.adapter as DishAdapter).getDishCreateList())
                 // Show the fragment
                 transaction.show(moreFragment)
 
@@ -139,12 +140,12 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
         description: String?,
         view: View
     ) {
-        val selectedDishes = (recyclerView.adapter as DishAdapter).getDishCreateList()
-        val totalPrice = (recyclerView.adapter as DishAdapter).getTotalPrice()
+        val selectedDishes = adapter.getDishCreateList()
+        val totalPrice = adapter.getTotalPrice()
 
         Log.i(
-            "DISH LIST GET FROM ADAPTER",
-            (recyclerView.adapter as DishAdapter).getDishCreateList().toString()
+            "TDL DISH LIST GET FROM ADAPTER",
+            "${adapter.getDishCreateList()}"
         )
 
         // CREATING A HASH MAP WITH THE INFORMATION NEEDED

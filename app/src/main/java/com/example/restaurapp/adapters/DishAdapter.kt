@@ -111,6 +111,11 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
         dishCreateList.remove(dish)
     }
 
+    fun replaceDishCreateList(list: MutableList<Dish>) {
+        dishCreateList = list
+        Log.i("TDL DISH REPLACED", "$dishCreateList")
+    }
+
     fun deleteAllDishCreateList() {
         dishCreateList.clear()
     }
