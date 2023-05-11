@@ -56,7 +56,7 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
         // GENERATING AN EMPTY LOCAL FILE  AND MAKING IT RETRIEVE THE DOWNLOADED IMAGE FROM STORAGE
         val localFile = File.createTempFile("images", ".jpg")
         pathReference.getFile(localFile).addOnSuccessListener {
-            Picasso.get().load(localFile).into(holder.ivImage)
+            Picasso.get().load(localFile).resize(400, 400).centerCrop().into(holder.ivImage)
         }.addOnFailureListener {
             Log.e("IMG STORAGE ERROR", "Error getting the temp file")
         }
