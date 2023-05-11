@@ -13,7 +13,6 @@ class DishCCMoreAdapter(private val dishesList: List<Dish>) :
     class DishCCMoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvDishName: TextView = itemView.findViewById(R.id.textCCMoreDishName)
         val tvDishPrice: TextView = itemView.findViewById(R.id.txtCCMoreDishPrize)
-        val ivDishImage: ImageView = itemView.findViewById(R.id.imgCCMoreDish)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DishCCMoreViewHolder {

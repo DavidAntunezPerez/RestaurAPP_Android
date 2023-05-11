@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="5dp"
     android:backgroundTint="@color/teal_700"
     app:cardCornerRadius="8dp">
 
@@ -15,58 +14,59 @@
 
         <TextView
             android:id="@+id/textCCMoreDishName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingTop="15dp"
-            android:paddingEnd="5dp"
+            android:layout_marginStart="135dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:paddingBottom="18dp"
             android:text="@string/txt_testdishname"
             android:textColor="@color/yellow"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtCCMorePrizeDollar"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtCCMorePrizeDollar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
             android:paddingBottom="18dp"
             android:text="@string/txt_dollarsymbol"
             android:textColor="@color/yellow"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textCCMoreDishName" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtCCMoreDishPrize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:paddingBottom="18dp"
             android:text="@string/txt_testNumber"
             android:textColor="@color/yellow"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/txtCCMorePrizeDollar"
-            app:layout_constraintTop_toBottomOf="@+id/textCCMoreDishName" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imgCCMoreDish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="196dp"
-            android:layout_marginTop="15dp"
-            android:paddingBottom="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textCCMoreDishName"
-            app:layout_constraintTop_toTopOf="@+id/textCCMoreDishName"
-            app:layout_constraintVertical_bias="0.0"
-            tools:srcCompat="@tools:sample/avatars" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCCMoreDelete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="5dp"
+            app:backgroundTint="@color/light_red"
+            app:icon="@drawable/ic_trash"
+            app:iconGravity="textTop"
+            app:iconSize="30dp"
+            app:iconTint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
