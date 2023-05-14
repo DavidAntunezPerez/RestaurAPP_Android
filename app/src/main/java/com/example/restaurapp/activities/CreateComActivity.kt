@@ -138,8 +138,8 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
     private fun saveComFirestore(
         userUID: String?, idTable: String?, title: String?, description: String?, view: View
     ) {
-        val selectedDishes = adapter.getDishCreateList()
-        val totalPrice = adapter.getTotalPrice()
+        val selectedDishes = (recyclerView.adapter as DishAdapter).getDishCreateList()
+        val totalPrice = (recyclerView.adapter as DishAdapter).getTotalPrice()
 
         Log.i(
             "TDL DISH LIST GET FROM ADAPTER", "${adapter.getDishCreateList()}"

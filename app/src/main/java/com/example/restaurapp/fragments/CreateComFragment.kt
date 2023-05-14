@@ -86,20 +86,13 @@ class CreateComFragment : Fragment() {
     }
 
     fun setDishList(dishes: List<Dish>) {
-//        if (dishCCMoreAdapter.getCCMoreList().isEmpty()) {
         dishList.clear()
         dishList.addAll(dishes)
-//        } else {
-//            dishList = dishCCMoreAdapter.getCCMoreList() as ArrayList<Dish>
-//        }
 
         dishCCMoreAdapter.notifyDataSetChanged()
     }
 
     fun hideFragment(): MutableList<Dish> {
-//        dishCCMoreAdapter.clearCCMoreList()
-//        dishCCMoreAdapter.notifyDataSetChanged()
-
         return dishCCMoreAdapter.getCCMoreList()
     }
 

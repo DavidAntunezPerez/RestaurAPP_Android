@@ -25,6 +25,9 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
     // VARIABLE CONTAINING THE TOTAL PRICE OF THE COMMAND
     private var totalPrice: Double = 0.0
 
+    // Reference to the total price TextView
+    private var totalPriceTextView: TextView? = null
+
     class DishViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(R.id.textDishName)
         val tvPrice: TextView = itemView.findViewById(R.id.txtDishPrize)
@@ -84,6 +87,7 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
             // UPDATE THE TOTAL PRICE
             val txtTotalPrice: TextView =
                 (it.context as AppCompatActivity).findViewById(R.id.txtTotalPrize)
+            totalPriceTextView = txtTotalPrice
             txtTotalPrice.text = "$totalPrice"
 
             // CREATING A SNACK BAR TO INFORM ITEM WAS ADDED
@@ -131,9 +135,9 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
         return totalPrice
     }
 
-    fun clearTotalPrice(): Double {
+    fun clearTotalPrice() {
         totalPrice = 0.0
-        return totalPrice
+        totalPriceTextView?.text = "0" // Set the value to 0
     }
 
 }
