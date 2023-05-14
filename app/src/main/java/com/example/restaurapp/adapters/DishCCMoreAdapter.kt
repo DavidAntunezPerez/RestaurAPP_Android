@@ -52,4 +52,8 @@ class DishCCMoreAdapter(private val dishesList: MutableList<Dish>) :
         return dishesList
     }
 
+    fun clearCCMoreList() {
+        dishesList.clear()
+    }
+
 }

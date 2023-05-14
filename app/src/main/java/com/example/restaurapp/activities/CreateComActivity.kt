@@ -88,6 +88,8 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
 
                 }
             } else {
+
+                (recyclerView.adapter as DishAdapter).replaceDishCreateList(moreFragment.hideFragment())
                 // Hide the fragment
                 transaction.hide(moreFragment)
                 findViewById<View>(R.id.fragmentMoreCreateComInterface)
@@ -134,18 +136,13 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
     }
 
     private fun saveComFirestore(
-        userUID: String?,
-        idTable: String?,
-        title: String?,
-        description: String?,
-        view: View
+        userUID: String?, idTable: String?, title: String?, description: String?, view: View
     ) {
         val selectedDishes = adapter.getDishCreateList()
         val totalPrice = adapter.getTotalPrice()
 
         Log.i(
-            "TDL DISH LIST GET FROM ADAPTER",
-            "${adapter.getDishCreateList()}"
+            "TDL DISH LIST GET FROM ADAPTER", "${adapter.getDishCreateList()}"
         )
 
         // CREATING A HASH MAP WITH THE INFORMATION NEEDED

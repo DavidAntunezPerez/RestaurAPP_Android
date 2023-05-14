@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -85,14 +86,21 @@ class CreateComFragment : Fragment() {
     }
 
     fun setDishList(dishes: List<Dish>) {
-        if (dishCCMoreAdapter.getCCMoreList().isEmpty()) {
-            dishList.clear()
-            dishList.addAll(dishes)
-        } else {
-            dishList = dishCCMoreAdapter.getCCMoreList() as ArrayList<Dish>
-        }
+//        if (dishCCMoreAdapter.getCCMoreList().isEmpty()) {
+        dishList.clear()
+        dishList.addAll(dishes)
+//        } else {
+//            dishList = dishCCMoreAdapter.getCCMoreList() as ArrayList<Dish>
+//        }
 
         dishCCMoreAdapter.notifyDataSetChanged()
+    }
+
+    fun hideFragment(): MutableList<Dish> {
+//        dishCCMoreAdapter.clearCCMoreList()
+//        dishCCMoreAdapter.notifyDataSetChanged()
+
+        return dishCCMoreAdapter.getCCMoreList()
     }
 
 
