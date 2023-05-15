@@ -13,17 +13,19 @@ import com.example.restaurapp.R
 import com.example.restaurapp.databinding.ActivityCreateComBinding
 import com.example.restaurapp.entities.Dish
 import com.example.restaurapp.adapters.DishAdapter
+import com.example.restaurapp.adapters.DishCCMoreAdapter
 import com.example.restaurapp.fragments.CreateComFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
+class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
+    DishCCMoreAdapter.DishRemovedListener {
     private lateinit var binding: ActivityCreateComBinding
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var dishRecyclerView: RecyclerView
     private lateinit var dishList: ArrayList<Dish>
-    lateinit var adapter: DishAdapter
+    private lateinit var adapter: DishAdapter
     private lateinit var moreFragment: CreateComFragment
     private var db = Firebase.firestore
 
@@ -49,6 +51,7 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
 
         // INITIALIZING FRAGMENT
         moreFragment = CreateComFragment()
+        moreFragment.dishRemovedListener = this // Set the listener to the activity
 
         // HIDING THE MORE OPTIONS FRAGMENT IN THE ON CREATE
         supportFragmentManager.beginTransaction()
@@ -73,7 +76,7 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
             val transaction = supportFragmentManager.beginTransaction()
             if (moreFragment.isHidden) {
 
-                moreFragment.setDishList((recyclerView.adapter as DishAdapter).getDishCreateList())
+                moreFragment.setDishList((dishRecyclerView.adapter as DishAdapter).getDishCreateList())
                 // Show the fragment
                 transaction.show(moreFragment)
 
@@ -89,7 +92,7 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
                 }
             } else {
 
-                (recyclerView.adapter as DishAdapter).replaceDishCreateList(moreFragment.hideFragment())
+                (dishRecyclerView.adapter as DishAdapter).replaceDishCreateList(moreFragment.hideFragment())
                 // Hide the fragment
                 transaction.hide(moreFragment)
                 findViewById<View>(R.id.fragmentMoreCreateComInterface)
@@ -100,8 +103,8 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
 
 
         // SET UP THE RECYCLER VIEW--
-        recyclerView = binding.recyclerview
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        dishRecyclerView = binding.recyclerview
+        dishRecyclerView.layoutManager = LinearLayoutManager(this)
 
         dishList = arrayListOf()
 
@@ -116,7 +119,7 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
                         dishList.add(dish)
                     }
                 }
-                recyclerView.adapter = DishAdapter(dishList)
+                dishRecyclerView.adapter = DishAdapter(dishList)
             }
         }.addOnFailureListener { exception ->
             Toast.makeText(this, exception.toString(), Toast.LENGTH_SHORT).show()
@@ -138,12 +141,8 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
     private fun saveComFirestore(
         userUID: String?, idTable: String?, title: String?, description: String?, view: View
     ) {
-        val selectedDishes = (recyclerView.adapter as DishAdapter).getDishCreateList()
-        val totalPrice = (recyclerView.adapter as DishAdapter).getTotalPrice()
-
-        Log.i(
-            "TDL DISH LIST GET FROM ADAPTER", "${adapter.getDishCreateList()}"
-        )
+        val selectedDishes = (dishRecyclerView.adapter as DishAdapter).getDishCreateList()
+        val totalPrice = (dishRecyclerView.adapter as DishAdapter).getTotalPrice()
 
         // CREATING A HASH MAP WITH THE INFORMATION NEEDED
         val command = hashMapOf(
@@ -177,11 +176,19 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass {
         }
 
         // DELETE TOTAL PRICE WHEN PROCESS ENDED
-        (recyclerView.adapter as DishAdapter).clearTotalPrice()
+        (dishRecyclerView.adapter as DishAdapter).clearTotalPrice()
 
         // DELETE THE ACTUAL LIST WHEN PROCESS ENDED
-        (recyclerView.adapter as DishAdapter).deleteAllDishCreateList()
+        (dishRecyclerView.adapter as DishAdapter).deleteAllDishCreateList()
 
+        // CLEAR FRAGMENT ADAPTER
+        moreFragment.clearCCMoreAdapter()
+
+    }
+
+    override fun onDishRemovedUpdatePrice(dishRemovedPrice: Double) {
+        (dishRecyclerView.adapter as DishAdapter).removeDishPrice(dishRemovedPrice)
+        Log.i("TPD ONDISHREMOVED ACTIVITY", "$dishRemovedPrice")
     }
 
 }

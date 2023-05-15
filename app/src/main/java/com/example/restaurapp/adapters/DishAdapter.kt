@@ -93,6 +93,7 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
             // CREATING A SNACK BAR TO INFORM ITEM WAS ADDED
             Snackbar.make(it, "Dish added to the Command", Snackbar.LENGTH_SHORT).show()
             Log.i("DISHCREATE LIST CHECK", dishCreateList.toString())
+            Log.i("TPD TOTAL PRICE", "$totalPrice")
         }
 
     }
@@ -119,6 +120,16 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
         dishCreateList = list
         Log.i("TDL DISH REPLACED", "$dishCreateList")
         Log.i("TDL DISH REPLACED SIZE", "${dishCreateList.size}")
+        notifyDataSetChanged()
+    }
+
+    fun removeDishPrice(dishRemovedPrice: Double) {
+        Log.i("TPD TOTALPRICE onRemoveDish", "$totalPrice, $dishRemovedPrice")
+        // WE SUBTRACT THE PRICE OF THE DISH ELIMINATED IN THE TOTAL PRICE
+        totalPrice -= dishRemovedPrice
+        Log.i("TPD TOTALPRICE AFTER REMOVEDISHPRICE", "$totalPrice")
+        // SET THE VALUE IN SCREEN
+        totalPriceTextView?.text = totalPrice.toString()
         notifyDataSetChanged()
     }
 
