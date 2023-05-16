@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">RestaurAPP</string>
+
+    <!--PARA EL LOGIN-->
+    <string name="google_logo_description">Logo de Google</string>
+    <string name="back_btn_desc">Volver</string>
+    <string name="txt_type_email">Escribe tu Email</string>
+    <string name="txt_type_pass">Escribe tu Contraseña</string>
+    <string name="txt_type_repass">Vuelve a escribir tu Contraseña</string>
+    <string name="txt_type_google">Iniciar Sesión con Google</string>
+    <string name="txt_type_signin">Iniciar Sesión</string>
+    <string name="txt_type_signup">Registrarme</string>
+    <string name="txt_sign_up_now">¿Aun no estás registrado? Registrate ahora</string>
+    <string name="txt_sign_in_now">¿Ya estás registrado? Inicia sesión</string>
+
+    <!--FOR TABLE LIST-->
+
+    <!--FOR COMMAND CREATION-->
+    <string name="txt_commandcreate_tableinfo">MESA #</string>
+    <string name="txt_testNumber">25</string>
+    <string name="txt_zeroNumber">0.0</string>
+    <string name="txt_testdishname">Espaguetis</string>
+    <string name="txt_dollarsymbol">$</string>
+
+</resources>

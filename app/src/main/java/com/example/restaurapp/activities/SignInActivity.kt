@@ -5,7 +5,10 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.restaurapp.R
 import com.example.restaurapp.databinding.ActivitySignInBinding
@@ -23,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.GoogleAuthProvider
+import java.util.Locale
 
 
 class SignInActivity : AppCompatActivity() {
@@ -45,6 +49,10 @@ class SignInActivity : AppCompatActivity() {
         // INITIALIZING FIREBASE AUTH
         firebaseAuth = FirebaseAuth.getInstance()
 
+
+        // SET ACTION TOOLBAR
+        val toolbar: Toolbar = binding.signInToolbar
+        setSupportActionBar(toolbar)
 
         // SETTING BUTTON FUNCTIONALITIES
 
@@ -147,6 +155,40 @@ class SignInActivity : AppCompatActivity() {
             sharedPreference.edit().clear()
         }
     }
+
+    // LANGUAGE MENU INFLATION
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_language, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_english -> {
+                setLocale(Locale.ENGLISH)
+                true
+            }
+
+            R.id.action_spanish -> {
+                setLocale(Locale("es"))
+                true
+            }
+            // Handle other language items here
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    // Set the app's locale
+    private fun setLocale(locale: Locale) {
+        val resources = resources
+        val configuration = resources.configuration
+        configuration.setLocale(locale)
+        resources.updateConfiguration(configuration, resources.displayMetrics)
+
+        // Restart the activity for the locale change to take effect
+        recreate()
+    }
+
 
     // SIGN IN WITH GOOGLE FUNCTIONS
     private fun signInGoogle() {

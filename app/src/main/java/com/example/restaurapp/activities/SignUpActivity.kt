@@ -4,7 +4,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import com.example.restaurapp.R
 import com.example.restaurapp.databinding.ActivitySignUpBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseNetworkException
@@ -14,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import java.util.Locale
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -29,6 +34,10 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
+
+        // SET ACTION TOOLBAR
+        val toolbar: Toolbar = binding.signUpToolbar
+        setSupportActionBar(toolbar)
 
         binding.textView.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
@@ -132,4 +141,38 @@ class SignUpActivity : AppCompatActivity() {
             sharedPreference.edit().clear()
         }
     }
+
+    // LANGUAGE MENU INFLATION
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_language, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_english -> {
+                setLocale(Locale.ENGLISH)
+                true
+            }
+
+            R.id.action_spanish -> {
+                setLocale(Locale("es"))
+                true
+            }
+            // Handle other language items here
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    // Set the app's locale
+    private fun setLocale(locale: Locale) {
+        val resources = resources
+        val configuration = resources.configuration
+        configuration.setLocale(locale)
+        resources.updateConfiguration(configuration, resources.displayMetrics)
+
+        // Restart the activity for the locale change to take effect
+        recreate()
+    }
+
 }
