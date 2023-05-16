@@ -64,13 +64,17 @@ class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Co
 
         pathReference.getBytes(fileMaxSize).addOnSuccessListener { path ->
 
-            // LOAD THE IMAGE USING GLIDE
-            Glide.with(context).load(path)
-                .diskCacheStrategy(DiskCacheStrategy.ALL) // Enable caching
-                .override(400, 400) // Resize the image
-                .centerCrop().into(holder.ivImage)
+            // LOADING THE IMAGE WITH GLIDE USING THE PATH GIVEN
+            Glide.with(context)
+                .load(path)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .override(400, 400)
+                .centerCrop()
+                .error(R.drawable.dish_error_img) // Error image if loading fails
+                .into(holder.ivImage)
+
         }
-        
+
         holder.itemView.setOnClickListener {
 
             // RETRIEVE ITEM DATA
