@@ -53,6 +53,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     // GOOGLE SIGN IN DEPENDENCY
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
-    // PICASSO TO SHOW IMAGES
-    implementation 'com.squareup.picasso:picasso:2.8'
+    // GLIDE TO SHOW IMAGES
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
 }

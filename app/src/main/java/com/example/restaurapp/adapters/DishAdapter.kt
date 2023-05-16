@@ -1,5 +1,6 @@
 package com.example.restaurapp.adapters
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,15 +9,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.restaurapp.R
 import com.example.restaurapp.entities.Dish
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.squareup.picasso.Picasso
 import java.io.File
 
-class DishAdapter(private val dishList: ArrayList<Dish>) :
+class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Context) :
     RecyclerView.Adapter<DishAdapter.DishViewHolder>() {
 
     // MUTABLE LIST CONTAINING ALL THE DISHES ADDED IN A COMMAND
@@ -47,7 +49,7 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
 
         // LOAD IMAGES
         // REFERENCING FIREBASE STORAGE
-        var storageRef = Firebase.storage.reference
+        val storageRef = Firebase.storage.reference
 
         // REMOVING THE FAKE PATH IN CASE OF EXISTING IN ITEM FIELD
         val cleanedPath =
@@ -57,14 +59,18 @@ class DishAdapter(private val dishList: ArrayList<Dish>) :
         // REFERENCING THE RESULTING PATH INTO A CHILD
         val pathReference = storageRef.child(cleanedPath)
 
-        // GENERATING AN EMPTY LOCAL FILE  AND MAKING IT RETRIEVE THE DOWNLOADED IMAGE FROM STORAGE
-        val localFile = File.createTempFile("images", ".jpg")
-        pathReference.getFile(localFile).addOnSuccessListener {
-            Picasso.get().load(localFile).resize(400, 400).centerCrop().into(holder.ivImage)
-        }.addOnFailureListener {
-            Log.e("IMG STORAGE ERROR", "Error getting the temp file")
-        }
+        // SET THE MAX SIZE OF THE IMAGE (5MB IN THIS CASE)
+        val fileMaxSize: Long = 5 * 1000000
 
+        pathReference.getBytes(fileMaxSize).addOnSuccessListener { path ->
+
+            // LOAD THE IMAGE USING GLIDE
+            Glide.with(context).load(path)
+                .diskCacheStrategy(DiskCacheStrategy.ALL) // Enable caching
+                .override(400, 400) // Resize the image
+                .centerCrop().into(holder.ivImage)
+        }
+        
         holder.itemView.setOnClickListener {
 
             // RETRIEVE ITEM DATA

@@ -43,7 +43,7 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
         dishList = ArrayList()
 
         // INITIALIZING THE ADAPTER
-        adapter = DishAdapter(dishList)
+        adapter = DishAdapter(dishList, this)
 
         // CREATE SHARED PREFERENCES ITEM AND RETRIEVING USER UID
         val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
@@ -119,7 +119,7 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
                         dishList.add(dish)
                     }
                 }
-                dishRecyclerView.adapter = DishAdapter(dishList)
+                dishRecyclerView.adapter = DishAdapter(dishList, this)
             }
         }.addOnFailureListener { exception ->
             Toast.makeText(this, exception.toString(), Toast.LENGTH_SHORT).show()
