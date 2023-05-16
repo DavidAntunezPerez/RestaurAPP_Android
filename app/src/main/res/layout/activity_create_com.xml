@@ -43,16 +43,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="409dp"
-        android:layout_height="550dp"
-        android:layout_marginTop="5dp"
-        android:paddingHorizontal="5dp"
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/materialCardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBack"
-        tools:listitem="@layout/dishes_list" />
+        app:layout_constraintTop_toBottomOf="@+id/btnBack">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="5dp"
+            tools:listitem="@layout/dishes_list" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentMoreCreateComInterface"
+            android:name="androidx.fragment.app.Fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
 
 
     <com.google.android.material.card.MaterialCardView
@@ -123,15 +136,5 @@
 
 
     </com.google.android.material.card.MaterialCardView>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentMoreCreateComInterface"
-        android:name="androidx.fragment.app.Fragment"
-        android:layout_width="405dp"
-        android:layout_height="549dp"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

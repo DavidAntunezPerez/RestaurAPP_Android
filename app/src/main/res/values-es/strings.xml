@@ -14,6 +14,7 @@
     <string name="txt_sign_in_now">¿Ya estás registrado? Inicia sesión</string>
 
     <!--FOR TABLE LIST-->
+    <string name="txt_table_page_information">Selecciona una Mesa para tomar las Comandas:</string>
 
     <!--FOR COMMAND CREATION-->
     <string name="txt_commandcreate_tableinfo">MESA #</string>

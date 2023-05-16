@@ -14,6 +14,7 @@
     <string name="txt_sign_in_now">Already Registered , Sign In !</string>
 
     <!--FOR TABLE LIST-->
+    <string name="txt_table_page_information">Select a Table to take the Commands:</string>
 
     <!--FOR COMMAND CREATION-->
     <string name="txt_commandcreate_tableinfo">TABLE #</string>
