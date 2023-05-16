@@ -14,7 +14,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.GoogleAuthProvider
 
 
@@ -62,17 +69,67 @@ class SignInActivity : AppCompatActivity() {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+
+                        // MANAGE USER LOGIN EXCEPTIONS
+                        if (it.exception is FirebaseAuthInvalidCredentialsException) {
+                            // if the provided credential is invalid or expired
+                            Snackbar.make(
+                                binding.root,
+                                "Error. Credentials are not valid or are expired.",
+                                Snackbar.LENGTH_SHORT
+                            )
+                                .show()
+                        } else if (it.exception is FirebaseAuthInvalidUserException) {
+                            // IF THE USER DOES NOT EXIST OR IS DISABLED
+                            Snackbar.make(
+                                binding.root,
+                                "Error. User does not exist or is disabled",
+                                Snackbar.LENGTH_SHORT
+                            )
+                                .show()
+                        } else if (it.exception is FirebaseAuthRecentLoginRequiredException) {
+                            // if the user's credential requires additional verification or reauthentication
+                            Snackbar.make(
+                                binding.root,
+                                "Error. User's credential requires additional verification or reauthentication",
+                                Snackbar.LENGTH_SHORT
+                            )
+                                .show()
+                        } else if (it.exception is FirebaseAuthUserCollisionException) {
+                            // if the credential used for sign-in is already associated with another user account
+                            Snackbar.make(
+                                binding.root,
+                                "Error. Credential used for sign-in is already associated with another user account.",
+                                Snackbar.LENGTH_SHORT
+                            )
+                                .show()
+                        } else if (it.exception is FirebaseNetworkException) {
+                            // if the app cannot connect to Firebase servers
+                            Snackbar.make(
+                                binding.root,
+                                "Network Error. Cannot connect to the server. Please check your Internet connection or try again later.",
+                                Snackbar.LENGTH_SHORT
+                            )
+                                .show()
+                        } else if (it.exception is FirebaseAuthException) {
+                            Snackbar.make(
+                                binding.root,
+                                it.exception.toString(),
+                                Snackbar.LENGTH_SHORT
+                            )
+                                .show()
+                        }
+
                     }
                 }
             } else if (email.isEmpty()) {
-                Toast.makeText(this, "Email cannot be empty", Toast.LENGTH_SHORT).show()
+                Snackbar.make(it, "Email cannot be empty", Snackbar.LENGTH_SHORT)
+                    .show()
             } else if (pass.isEmpty()) {
-                Toast.makeText(this, "Password cannot be empty", Toast.LENGTH_SHORT).show()
+                Snackbar.make(it, "Password cannot be empty", Snackbar.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(
-                    this, "Invalid credentials, please try again", Toast.LENGTH_SHORT
-                ).show()
+                Snackbar.make(it, "Invalid credentials, please try again", Snackbar.LENGTH_SHORT)
+                    .show()
             }
         }
     }
@@ -127,7 +184,6 @@ class SignInActivity : AppCompatActivity() {
                 startActivity(intent)
             } else {
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-
             }
         }
     }

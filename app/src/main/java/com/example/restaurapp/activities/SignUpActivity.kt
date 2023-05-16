@@ -6,7 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.restaurapp.databinding.ActivitySignUpBinding
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -40,23 +47,74 @@ class SignUpActivity : AppCompatActivity() {
                             val intent = Intent(this, SignInActivity::class.java)
                             startActivity(intent)
                         } else {
-                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                            // MANAGE CREATE USER EXCEPTIONS
+                            if (it.exception is FirebaseAuthWeakPasswordException) {
+                                // IF THE PASSWORD IS WEAK
+                                val weakPasswordException =
+                                    it.exception as FirebaseAuthWeakPasswordException
+                                val reason = weakPasswordException.reason
+                                val errorMessage = "Error. Password is too weak. $reason"
+
+                                Snackbar.make(
+                                    binding.root,
+                                    errorMessage,
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            } else if (it.exception is FirebaseAuthInvalidCredentialsException) {
+                                // IF EMAIL IS MALFORMED OR INVALID
+                                Snackbar.make(
+                                    binding.root,
+                                    "Error. Email is malformed or invalid.",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            } else if (it.exception is FirebaseAuthUserCollisionException) {
+                                // IF THERE IS ALREADY AN EXISTING USER WITH THAT MAIL
+                                Snackbar.make(
+                                    binding.root,
+                                    "Error. User already exists with the given email.",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            } else if (it.exception is FirebaseNetworkException) {
+                                // IF IS A NETWORK ERROR
+                                Snackbar.make(
+                                    binding.root,
+                                    "Network Error. Cannot connect to the server. Please check your Internet connection or try again later.",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+
+                            } else if (it.exception is FirebaseTooManyRequestsException) {
+                                // IF THERE IS TOO MANY REQUESTS
+                                Snackbar.make(
+                                    binding.root,
+                                    "Error. You have sent too many requests, please try again later.",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            } else if (it.exception is FirebaseAuthException) {
+                                // IF IS ANOTHER EXCEPTION
+                                Snackbar.make(
+                                    binding.root,
+                                    it.exception.toString(),
+                                    Snackbar.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
                         }
                     }
+
                 } else {
-                    Toast.makeText(this, "Password does not match", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(it, "Password does not match", Snackbar.LENGTH_SHORT).show()
                 }
             } else if (email.isEmpty()) {
-                Toast.makeText(this, "Email cannot be empty", Toast.LENGTH_SHORT).show()
+                Snackbar.make(it, "Email cannot be empty", Snackbar.LENGTH_SHORT).show()
             } else if (pass.isEmpty()) {
-                Toast.makeText(this, "Password cannot be empty", Toast.LENGTH_SHORT).show()
+                Snackbar.make(it, "Password cannot be empty", Snackbar.LENGTH_SHORT).show()
             } else if (confirmPass.isEmpty()) {
-                Toast.makeText(this, "Please confirm your password", Toast.LENGTH_SHORT).show()
+                Snackbar.make(it, "Please confirm your password", Snackbar.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(
-                    this, "Invalid credentials, please try again", Toast.LENGTH_SHORT
-                ).show()
+                Snackbar.make(it, "Invalid credentials, please try again", Snackbar.LENGTH_SHORT)
+                    .show()
             }
+
         }
 
     }
