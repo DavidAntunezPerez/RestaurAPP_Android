@@ -28,4 +28,12 @@
     <string name="txt_testCommandTitle">Command title</string>
     <string name="txt_command_page_information">Select a Command to Edit its information</string>
 
+    <!--COMMAND DELETION STRINGS-->
+    <string name="delete_confirmation_title">Delete Command</string>
+    <string name="delete_confirmation_message">Are you sure you want to delete this command?</string>
+    <string name="delete_confirmation_positive_button">Delete</string>
+    <string name="delete_confirmation_negative_button">Cancel</string>
+    <string name="command_deleted_success">Command deleted successfully</string>
+    <string name="failed_to_delete_command">Failed to delete command: %1$s</string>
+
 </resources>

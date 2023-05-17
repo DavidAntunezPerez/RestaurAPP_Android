@@ -26,4 +26,13 @@
     <!--PARA LA LISTA DE COMANDAS-->
     <string name="txt_testCommandTitle">Título de comanda</string>
     <string name="txt_command_page_information">Selecciona una comanda para editar su información</string>
+
+    <!--COMMAND DELETION STRINGS-->
+    <string name="delete_confirmation_title">Eliminar Comanda</string>
+    <string name="delete_confirmation_message">¿Estas seguro de que quieres eliminar esta comanda?</string>
+    <string name="delete_confirmation_positive_button">Borrar</string>
+    <string name="delete_confirmation_negative_button">Cancelar</string>
+    <string name="command_deleted_success">Comanda eliminada correctamente</string>
+    <string name="failed_to_delete_command">Problema al eliminar la comanda: %1$s</string>
+
 </resources>

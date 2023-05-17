@@ -142,22 +142,26 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
         imageView.visibility = View.GONE // Hide the ImageView
     }
 
+
     override fun onCommandLongClick(command: Command) {
-        MaterialAlertDialogBuilder(this).setTitle("Delete Command")
-            .setMessage("Are you sure you want to delete this command?")
-            .setPositiveButton("Delete") { dialog, _ ->
+        MaterialAlertDialogBuilder(this).setTitle(getString(R.string.delete_confirmation_title))
+            .setMessage(getString(R.string.delete_confirmation_message))
+            .setPositiveButton(getString(R.string.delete_confirmation_positive_button)) { dialog, _ ->
                 // Delete the command here
                 deleteCommand(command)
                 dialog.dismiss()
-            }.setNegativeButton("Cancel") { dialog, _ ->
+            }
+            .setNegativeButton(getString(R.string.delete_confirmation_negative_button)) { dialog, _ ->
                 dialog.dismiss()
             }.show()
     }
 
     private fun deleteCommand(command: Command) {
         db.collection("commands").document(command.id!!).delete().addOnSuccessListener {
-            Snackbar.make(binding.root, "Command deleted successfully", Snackbar.LENGTH_SHORT)
-                .show()
+            Snackbar.make(
+                binding.root, getString(R.string.command_deleted_success), Snackbar.LENGTH_SHORT
+            ).show()
+
             // Remove the command from the list
             val removedIndex = commandList.indexOf(command)
             if (removedIndex != -1) {
@@ -165,11 +169,11 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
                 commandRecyclerView.adapter?.notifyItemRemoved(removedIndex)
             }
         }.addOnFailureListener { exception ->
-            Snackbar.make(
-                binding.root,
-                "Failed to delete command: ${exception.message}",
-                Snackbar.LENGTH_SHORT
-            ).show()
+            val errorMessage = getString(
+                R.string.failed_to_delete_command, exception.message
+            )
+            Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT).show()
+
             // Handle the failure to delete the command
         }
     }
