@@ -14,11 +14,13 @@ import com.example.restaurapp.adapters.CommandAdapter
 import com.example.restaurapp.databinding.ActivityComListBinding
 import com.example.restaurapp.entities.Command
 import com.example.restaurapp.entities.Dish
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.Locale
 
-class ComListActivity : AppCompatActivity() {
+class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickListener {
     private lateinit var binding: ActivityComListBinding
     private lateinit var commandRecyclerView: RecyclerView
     private lateinit var commandList: ArrayList<Command>
@@ -32,9 +34,8 @@ class ComListActivity : AppCompatActivity() {
         // GET SHARED PREFERENCES ITEM
         val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         val userUID = sharedPreference.getString("userUID", "userUID")
+        val language = sharedPreference.getString("language", Locale.getDefault().language)
 
-        // GET THE LANGUAGE SETTED
-        val language = Locale.getDefault().language
 
         // GO BACK BUTTON FUNCTION
         binding.btnBack.setOnClickListener {
@@ -83,31 +84,33 @@ class ComListActivity : AppCompatActivity() {
                         // Set the dishList in the command object
                         command.dishesList = dishList
 
-                        // Check if the title is null and set it based on the language
+                        // Check if the title is null or empty or contains only whitespace and set it
+                        // based on the language
                         when (language) {
                             "es" -> {
-                                if (command.title == null) {
+                                if (command.title.isNullOrBlank()) {
                                     command.title = "Comando sin Título"
                                 }
                             }
 
                             else -> {
-                                if (command.title == null) {
+                                if (command.title.isNullOrBlank()) {
                                     command.title = "Untitled Command"
                                 }
                             }
                         }
 
-                        // Check if the description is null and set it based on the language
+                        // Check if the description is null or empty or contains only whitespace and
+                        // set it based on the language
                         when (language) {
                             "es" -> {
-                                if (command.description == null) {
+                                if (command.description.isNullOrBlank()) {
                                     command.description = "Sin descripción"
                                 }
                             }
 
                             else -> {
-                                if (command.description == null) {
+                                if (command.description.isNullOrBlank()) {
                                     command.description = "No description provided"
                                 }
                             }
@@ -116,7 +119,7 @@ class ComListActivity : AppCompatActivity() {
                         commandList.add(command)
                     }
                 }
-                commandRecyclerView.adapter = CommandAdapter(commandList)
+                commandRecyclerView.adapter = CommandAdapter(commandList, this)
 
                 // ADD ANIMATION WHEN LOADING ALL THE RV
                 commandRecyclerView.startLayoutAnimation()
@@ -137,6 +140,38 @@ class ComListActivity : AppCompatActivity() {
     private fun stopAnimation(imageView: ImageView) {
         imageView.clearAnimation() // Clear the animation
         imageView.visibility = View.GONE // Hide the ImageView
+    }
+
+    override fun onCommandLongClick(command: Command) {
+        MaterialAlertDialogBuilder(this).setTitle("Delete Command")
+            .setMessage("Are you sure you want to delete this command?")
+            .setPositiveButton("Delete") { dialog, _ ->
+                // Delete the command here
+                deleteCommand(command)
+                dialog.dismiss()
+            }.setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }.show()
+    }
+
+    private fun deleteCommand(command: Command) {
+        db.collection("commands").document(command.id!!).delete().addOnSuccessListener {
+            Snackbar.make(binding.root, "Command deleted successfully", Snackbar.LENGTH_SHORT)
+                .show()
+            // Remove the command from the list
+            val removedIndex = commandList.indexOf(command)
+            if (removedIndex != -1) {
+                commandList.removeAt(removedIndex)
+                commandRecyclerView.adapter?.notifyItemRemoved(removedIndex)
+            }
+        }.addOnFailureListener { exception ->
+            Snackbar.make(
+                binding.root,
+                "Failed to delete command: ${exception.message}",
+                Snackbar.LENGTH_SHORT
+            ).show()
+            // Handle the failure to delete the command
+        }
     }
 
 }

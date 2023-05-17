@@ -9,13 +9,31 @@ import com.example.restaurapp.R
 import com.example.restaurapp.entities.Command
 import java.util.Locale
 
-class CommandAdapter(private val commandList: ArrayList<Command>) :
-    RecyclerView.Adapter<CommandAdapter.CommandViewHolder>() {
+class CommandAdapter(
+    private val commandList: ArrayList<Command>,
+    private val onCommandLongClickListener: OnCommandLongClickListener
+) : RecyclerView.Adapter<CommandAdapter.CommandViewHolder>() {
 
-    class CommandViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    interface OnCommandLongClickListener {
+        fun onCommandLongClick(command: Command)
+    }
+
+    inner class CommandViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.findViewById(R.id.textCommandTitle)
         val tvDescr: TextView = itemView.findViewById(R.id.textCommandDescr)
         val tvTotalPrice: TextView = itemView.findViewById(R.id.textCommandTotalPrice)
+
+        init {
+            itemView.setOnLongClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val command = commandList[position]
+                    onCommandLongClickListener.onCommandLongClick(command)
+                    return@setOnLongClickListener true
+                }
+                return@setOnLongClickListener false
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommandViewHolder {

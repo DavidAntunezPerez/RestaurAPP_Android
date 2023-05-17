@@ -85,54 +85,45 @@ class SignInActivity : AppCompatActivity() {
                                 binding.root,
                                 "Error. Credentials are not valid or are expired.",
                                 Snackbar.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
                         } else if (it.exception is FirebaseAuthInvalidUserException) {
                             // IF THE USER DOES NOT EXIST OR IS DISABLED
                             Snackbar.make(
                                 binding.root,
                                 "Error. User does not exist or is disabled",
                                 Snackbar.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
                         } else if (it.exception is FirebaseAuthRecentLoginRequiredException) {
                             // if the user's credential requires additional verification or reauthentication
                             Snackbar.make(
                                 binding.root,
                                 "Error. User's credential requires additional verification or reauthentication",
                                 Snackbar.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
                         } else if (it.exception is FirebaseAuthUserCollisionException) {
                             // if the credential used for sign-in is already associated with another user account
                             Snackbar.make(
                                 binding.root,
                                 "Error. Credential used for sign-in is already associated with another user account.",
                                 Snackbar.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
                         } else if (it.exception is FirebaseNetworkException) {
                             // if the app cannot connect to Firebase servers
                             Snackbar.make(
                                 binding.root,
                                 "Network Error. Cannot connect to the server. Please check your Internet connection or try again later.",
                                 Snackbar.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
                         } else if (it.exception is FirebaseAuthException) {
                             Snackbar.make(
-                                binding.root,
-                                it.exception.toString(),
-                                Snackbar.LENGTH_SHORT
-                            )
-                                .show()
+                                binding.root, it.exception.toString(), Snackbar.LENGTH_SHORT
+                            ).show()
                         }
 
                     }
                 }
             } else if (email.isEmpty()) {
-                Snackbar.make(it, "Email cannot be empty", Snackbar.LENGTH_SHORT)
-                    .show()
+                Snackbar.make(it, "Email cannot be empty", Snackbar.LENGTH_SHORT).show()
             } else if (pass.isEmpty()) {
                 Snackbar.make(it, "Password cannot be empty", Snackbar.LENGTH_SHORT).show()
             } else {
@@ -166,11 +157,13 @@ class SignInActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_english -> {
                 setLocale(Locale.ENGLISH)
+                saveLanguage("en") // Save the language in shared preferences
                 true
             }
 
             R.id.action_spanish -> {
                 setLocale(Locale("es"))
+                saveLanguage("es") // Save the language in shared preferences
                 true
             }
             // Handle other language items here
@@ -187,6 +180,14 @@ class SignInActivity : AppCompatActivity() {
 
         // Restart the activity for the locale change to take effect
         recreate()
+    }
+
+    // Save the selected language in shared preferences
+    private fun saveLanguage(language: String) {
+        val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        val editor = sharedPreference.edit()
+        editor.putString("language", language)
+        editor.apply()
     }
 
 
