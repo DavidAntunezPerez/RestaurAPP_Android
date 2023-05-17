@@ -1,5 +1,6 @@
 package com.example.restaurapp.adapters
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -47,6 +48,11 @@ class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Co
         holder.tvName.text = dishList[position].name
         holder.tvPrice.text = dishList[position].price.toString()
 
+        // Apply fade-in animation to the ImageView
+        val fadeInAnimator = ObjectAnimator.ofFloat(holder.ivImage, "alpha", 0f, 1f)
+        fadeInAnimator.duration = 1000 // Animation duration in milliseconds
+        fadeInAnimator.start()
+
         // LOAD IMAGES
         // REFERENCING FIREBASE STORAGE
         val storageRef = Firebase.storage.reference
@@ -65,13 +71,12 @@ class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Co
         pathReference.getBytes(fileMaxSize).addOnSuccessListener { path ->
 
             // LOADING THE IMAGE WITH GLIDE USING THE PATH GIVEN
-            Glide.with(context)
-                .load(path)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .override(400, 400)
-                .centerCrop()
+            Glide.with(context).load(path).diskCacheStrategy(DiskCacheStrategy.ALL)
+                .override(350, 350).centerCrop()
                 .error(R.drawable.dish_error_img) // Error image if loading fails
                 .into(holder.ivImage)
+
+            fadeInAnimator.start() // Start the fade-in animation
 
         }
 

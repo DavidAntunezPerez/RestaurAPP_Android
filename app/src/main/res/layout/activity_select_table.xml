@@ -34,22 +34,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/arrowback1" />
 
-    <LinearLayout
-        android:id="@+id/linearrecycler"
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnBack">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
-            android:layoutAnimation="@anim/rv_load_anim_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layoutAnimation="@anim/rv_load_anim_layout"
             android:paddingHorizontal="5dp"
             tools:listitem="@layout/table_list" />
 
-    </LinearLayout>
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/loadingAnimation"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_load_1" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

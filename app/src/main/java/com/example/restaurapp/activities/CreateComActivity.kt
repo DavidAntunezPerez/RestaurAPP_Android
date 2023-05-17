@@ -59,7 +59,6 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
 
         Log.d("MoreFragmentHidden", "Fragment hidden: ${moreFragment.isHidden}")
 
-
         // BUTTON TO GO BACK TO PREVIOUS ACTIVITY
         binding.btnBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
