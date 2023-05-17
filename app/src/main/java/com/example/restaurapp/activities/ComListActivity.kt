@@ -41,17 +41,22 @@ class ComListActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        // LOADING ANIMATION
+        // LOADING ANIMATIONS
+        // LOAD RV
         val loadingImageView: ImageView = binding.loadingAnimation
+        // LOADING SPINNER
+        binding.loadingAnimation.startAnimation(
+            AnimationUtils.loadAnimation(
+                this, R.anim.loading_anim
+            )
+        )
+
 
         // SETTING UP THE RECYCLERVIEW
         commandRecyclerView = binding.commandrecyclerview
         commandRecyclerView.layoutManager = LinearLayoutManager(this)
 
         commandList = arrayListOf()
-
-        val animation = AnimationUtils.loadAnimation(this, R.anim.loading_anim)
-        loadingImageView.startAnimation(animation)
 
         db.collection("commands").get().addOnSuccessListener { querySnapshot ->
             if (!querySnapshot.isEmpty) {
@@ -130,8 +135,8 @@ class ComListActivity : AppCompatActivity() {
 
     // FUNCTION TO STOP THE ANIMATION WHEN THE RV LOADS
     private fun stopAnimation(imageView: ImageView) {
-        imageView.clearAnimation()
-        imageView.visibility = View.GONE
+        imageView.clearAnimation() // Clear the animation
+        imageView.visibility = View.GONE // Hide the ImageView
     }
 
 }

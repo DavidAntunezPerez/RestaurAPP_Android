@@ -51,15 +51,18 @@
             tools:listitem="@layout/table_list" />
 
         <ImageView
-            android:layout_gravity="center"
             android:id="@+id/loadingAnimation"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:rotation="0"
+            android:src="@drawable/ic_load_1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_load_1" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </FrameLayout>
 
