@@ -79,6 +79,7 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
                 moreFragment.setDishList((dishRecyclerView.adapter as DishAdapter).getDishCreateList())
                 // Show the fragment
                 transaction.show(moreFragment)
+                moreFragment.rvLoadAnimation()
 
                 // Set up the fragment to consume touch events when it's visible
                 moreFragment.view?.setOnTouchListener { _, event ->
@@ -88,8 +89,8 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
                         return@setOnTouchListener true
                     }
                     moreFragment.isVisible
-
                 }
+
             } else {
 
                 (dishRecyclerView.adapter as DishAdapter).replaceDishCreateList(moreFragment.hideFragment())
@@ -97,7 +98,11 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
                 transaction.hide(moreFragment)
                 findViewById<View>(R.id.fragmentMoreCreateComInterface)
                     .setOnTouchListener { _, _ -> false }
+
+                // ADD ANIMATION WHEN LOADING ALL THE RV
+                dishRecyclerView.startLayoutAnimation()
             }
+
             transaction.commit()
         }
 
@@ -120,6 +125,10 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
                     }
                 }
                 dishRecyclerView.adapter = DishAdapter(dishList, this)
+
+                // ADD ANIMATION WHEN LOADING ALL THE RV
+                dishRecyclerView.startLayoutAnimation()
+
             }
         }.addOnFailureListener { exception ->
             Toast.makeText(this, exception.toString(), Toast.LENGTH_SHORT).show()

@@ -53,6 +53,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFragmentCreateCom"
+        android:layoutAnimation="@anim/rv_load_anim_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"

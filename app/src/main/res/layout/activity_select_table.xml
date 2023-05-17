@@ -44,6 +44,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
+            android:layoutAnimation="@anim/rv_load_anim_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="5dp"

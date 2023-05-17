@@ -51,11 +51,13 @@ class SelectTableActivity : AppCompatActivity() {
                         }
                     }
                     recyclerView.adapter = SelectTableAdapter(tableList)
+
+                    // ADD ANIMATION WHEN LOADING ALL THE RV
+                    recyclerView.startLayoutAnimation()
                 }
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this, exception.toString(), Toast.LENGTH_SHORT).show()
             }
-
     }
 }

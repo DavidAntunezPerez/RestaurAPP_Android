@@ -75,6 +75,13 @@ class CreateComFragment : Fragment(), DishCCMoreAdapter.DishRemovedListener {
         dishCCMoreAdapter = DishCCMoreAdapter(dishList)
         dishCCMoreAdapter.dishRemovedListener = this
         fragmentRecyclerView.adapter = dishCCMoreAdapter
+
+
+    }
+
+    fun rvLoadAnimation() {
+        // ADD ANIMATION WHEN LOADING ALL THE RV
+        fragmentRecyclerView.startLayoutAnimation()
     }
 
     interface OnDataPass {
