@@ -26,7 +26,7 @@ class SelectTableActivity : AppCompatActivity() {
         binding = ActivitySelectTableBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // CREATE SHARED PREFERENCES ITEM
+        // GET SHARED PREFERENCES ITEM
         val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         val userUID = sharedPreference.getString("userUID", "userUID")
 
@@ -35,7 +35,7 @@ class SelectTableActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        // LOADING ANIMATION TEST
+        // LOADING ANIMATION
         val loadingImageView: ImageView = binding.loadingAnimation
 
         // SETTING UP THE RECYCLERVIEW

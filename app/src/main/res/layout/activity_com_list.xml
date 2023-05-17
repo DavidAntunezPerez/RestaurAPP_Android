@@ -6,19 +6,61 @@
     android:layout_height="match_parent"
     tools:context=".activities.ComListActivity">
 
+    <TextView
+        android:layout_width="318dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="fill"
+        android:text="@string/txt_command_page_information"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btnBack" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:contentDescription="@string/back_btn_desc"
         android:layout_margin="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/back_btn_desc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/arrowback1" />
 
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnBack">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/commandrecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutAnimation="@anim/rv_load_anim_layout"
+            android:paddingHorizontal="5dp"
+            tools:listitem="@layout/command_list" />
+
+        <ImageView
+            android:id="@+id/loadingAnimation"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_load_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

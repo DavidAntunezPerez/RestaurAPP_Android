@@ -15,6 +15,7 @@
 
     <!--FOR TABLE LIST-->
     <string name="txt_table_page_information">Select a Table to take the Commands:</string>
+    <string name="txt_descr_example" translatable="false">This should be a small short information about a table to test te RecyclerView list.</string>
 
     <!--FOR COMMAND CREATION-->
     <string name="txt_commandcreate_tableinfo">TABLE #</string>
@@ -22,5 +23,9 @@
     <string name="txt_zeroNumber">0.0</string>
     <string name="txt_testdishname">Spaghetti</string>
     <string name="txt_dollarsymbol">$</string>
-    
+
+    <!-- FOR COMMAND LIST -->
+    <string name="txt_testCommandTitle">Command title</string>
+    <string name="txt_command_page_information">Select a Command to Edit its information</string>
+
 </resources>

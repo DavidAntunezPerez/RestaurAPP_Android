@@ -23,4 +23,7 @@
     <string name="txt_testdishname">Espaguetis</string>
     <string name="txt_dollarsymbol">$</string>
 
+    <!--PARA LA LISTA DE COMANDAS-->
+    <string name="txt_testCommandTitle">Título de comanda</string>
+    <string name="txt_command_page_information">Selecciona una comanda para editar su información</string>
 </resources>

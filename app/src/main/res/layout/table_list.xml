@@ -52,7 +52,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingBottom="20dp"
-            android:text="This should be a small short information about a table to test te RecyclerView list."
+            android:text="@string/txt_descr_example"
             android:textColor="@color/yellow"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
