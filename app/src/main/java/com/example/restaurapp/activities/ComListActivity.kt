@@ -16,6 +16,7 @@ import com.example.restaurapp.entities.Command
 import com.example.restaurapp.entities.Dish
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.Locale
 
 class ComListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityComListBinding
@@ -31,6 +32,9 @@ class ComListActivity : AppCompatActivity() {
         // GET SHARED PREFERENCES ITEM
         val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         val userUID = sharedPreference.getString("userUID", "userUID")
+
+        // GET THE LANGUAGE SETTED
+        val language = Locale.getDefault().language
 
         // GO BACK BUTTON FUNCTION
         binding.btnBack.setOnClickListener {
@@ -74,9 +78,34 @@ class ComListActivity : AppCompatActivity() {
                         // Set the dishList in the command object
                         command.dishesList = dishList
 
-                        // Check if the title is null and set it to "Untitled Command" if so
-                        if (command.title == null) {
-                            command.title = "Untitled Command"
+                        // Check if the title is null and set it based on the language
+                        when (language) {
+                            "es" -> {
+                                if (command.title == null) {
+                                    command.title = "Comando sin Título"
+                                }
+                            }
+
+                            else -> {
+                                if (command.title == null) {
+                                    command.title = "Untitled Command"
+                                }
+                            }
+                        }
+
+                        // Check if the description is null and set it based on the language
+                        when (language) {
+                            "es" -> {
+                                if (command.description == null) {
+                                    command.description = "Sin descripción"
+                                }
+                            }
+
+                            else -> {
+                                if (command.description == null) {
+                                    command.description = "No description provided"
+                                }
+                            }
                         }
 
                         commandList.add(command)

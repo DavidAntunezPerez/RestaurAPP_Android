@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurapp.R
 import com.example.restaurapp.entities.Command
+import java.util.Locale
 
 class CommandAdapter(private val commandList: ArrayList<Command>) :
     RecyclerView.Adapter<CommandAdapter.CommandViewHolder>() {
@@ -29,7 +30,14 @@ class CommandAdapter(private val commandList: ArrayList<Command>) :
 
         holder.tvTitle.text = commandList[position].title
         holder.tvDescr.text = commandList[position].description
-        holder.tvTotalPrice.text = commandList[position].totalPrice.toString()
+
+        // TRANSLATE THE TEXT DEPENDING ON THE LANGUAGE SETTED
+        val totalPriceText = when (Locale.getDefault().language) {
+            "es" -> "PRECIO TOTAL: $${commandList[position].totalPrice}"
+            else -> "TOTAL PRICE: $${commandList[position].totalPrice}"
+        }
+
+        holder.tvTotalPrice.text = totalPriceText
 
     }
 
