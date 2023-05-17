@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    // OFFICIAL RESTAURAPP PALETTE
+    <color name="app_primary">#081B45</color>
+    <color name="app_secondary_pink">#EB5079</color>
+    <color name="app_tertiary_brown">#E98710</color>
+    <color name="app_other_light_pink">#F6B3E1</color>
+    <color name="app_other_dark_pink">#C15DA4</color>
+    <color name="app_other_beige">#FAE9E1</color>
+
+    // TEST AND DEFAULT COLORS
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
