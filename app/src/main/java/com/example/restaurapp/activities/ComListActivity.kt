@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -144,6 +145,29 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
 
 
     override fun onCommandLongClick(command: Command) {
+        val itemView = commandRecyclerView.findViewWithTag<View>(command)
+        itemView?.let { view ->
+            showContextMenu(view, command)
+        }
+    }
+
+    private fun showContextMenu(view: View, command: Command) {
+        val popupMenu = PopupMenu(this, view)
+        popupMenu.menuInflater.inflate(R.menu.menu_delete_command, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.menu_delete -> {
+                    showDeleteConfirmationDialog(command)
+                    true
+                }
+
+                else -> false
+            }
+        }
+        popupMenu.show()
+    }
+
+    private fun showDeleteConfirmationDialog(command: Command) {
         MaterialAlertDialogBuilder(this).setTitle(getString(R.string.delete_confirmation_title))
             .setMessage(getString(R.string.delete_confirmation_message))
             .setPositiveButton(getString(R.string.delete_confirmation_positive_button)) { dialog, _ ->
@@ -157,6 +181,7 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
     }
 
     private fun deleteCommand(command: Command) {
+        // Perform the deletion
         db.collection("commands").document(command.id!!).delete().addOnSuccessListener {
             Snackbar.make(
                 binding.root, getString(R.string.command_deleted_success), Snackbar.LENGTH_SHORT

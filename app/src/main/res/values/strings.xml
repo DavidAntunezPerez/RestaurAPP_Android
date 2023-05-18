@@ -35,5 +35,6 @@
     <string name="delete_confirmation_negative_button">Cancel</string>
     <string name="command_deleted_success">Command deleted successfully</string>
     <string name="failed_to_delete_command">Failed to delete command: %1$s</string>
+    <string name="txt_delete_command_menu">Delete</string>
 
 </resources>

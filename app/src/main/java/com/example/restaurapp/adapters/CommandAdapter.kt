@@ -10,58 +10,58 @@ import com.example.restaurapp.entities.Command
 import java.util.Locale
 
 class CommandAdapter(
-    private val commandList: ArrayList<Command>,
-    private val onCommandLongClickListener: OnCommandLongClickListener
+    private val commandList: List<Command>,
+    private val longClickListener: OnCommandLongClickListener
 ) : RecyclerView.Adapter<CommandAdapter.CommandViewHolder>() {
 
     interface OnCommandLongClickListener {
         fun onCommandLongClick(command: Command)
     }
 
-    inner class CommandViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CommandViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnLongClickListener {
         val tvTitle: TextView = itemView.findViewById(R.id.textCommandTitle)
         val tvDescr: TextView = itemView.findViewById(R.id.textCommandDescr)
         val tvTotalPrice: TextView = itemView.findViewById(R.id.textCommandTotalPrice)
 
         init {
-            itemView.setOnLongClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val command = commandList[position]
-                    onCommandLongClickListener.onCommandLongClick(command)
-                    return@setOnLongClickListener true
-                }
-                return@setOnLongClickListener false
+            itemView.setOnLongClickListener(this) // Set the long click listener
+        }
+
+        override fun onLongClick(view: View): Boolean {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                val command = commandList[position]
+                longClickListener.onCommandLongClick(command)
+                return true
             }
+            return false
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommandViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.command_list, parent, false)
-
         return CommandViewHolder(itemView)
     }
 
-
     override fun onBindViewHolder(holder: CommandViewHolder, position: Int) {
+        val command = commandList[position]
 
-        holder.tvTitle.text = commandList[position].title
-        holder.tvDescr.text = commandList[position].description
+        holder.itemView.tag = command // Set the command object as the tag for the itemView
 
-        // TRANSLATE THE TEXT DEPENDING ON THE LANGUAGE SETTED
+        holder.tvTitle.text = command.title
+        holder.tvDescr.text = command.description
+
+        // TRANSLATE THE TEXT DEPENDING ON THE LANGUAGE SETTING
         val totalPriceText = when (Locale.getDefault().language) {
-            "es" -> "PRECIO TOTAL: $${commandList[position].totalPrice}"
-            else -> "TOTAL PRICE: $${commandList[position].totalPrice}"
+            "es" -> "PRECIO TOTAL: $${command.totalPrice}"
+            else -> "TOTAL PRICE: $${command.totalPrice}"
         }
-
         holder.tvTotalPrice.text = totalPriceText
-
     }
 
     override fun getItemCount(): Int {
         return commandList.size
     }
-
-
 }
