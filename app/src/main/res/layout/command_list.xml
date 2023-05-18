@@ -35,26 +35,42 @@
             android:layout_marginTop="8dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:paddingBottom="5dp"
+            android:paddingBottom="15dp"
             android:text="@string/txt_descr_example"
             android:textColor="@color/app_other_beige"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textCommandTitle" />
 
-
         <TextView
             android:id="@+id/textCommandTotalPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="199dp"
+            android:layout_height="30dp"
+            android:gravity="right"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingBottom="15dp"
             android:text="TOTAL: "
             android:textColor="@color/app_other_beige"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/textCommandDescr" />
+
+
+        <TextView
+            android:id="@+id/textTableAssigned"
+            android:layout_width="199dp"
+            android:layout_height="30dp"
+            android:paddingStart="22dp"
+            android:paddingEnd="22dp"
+            android:text="TABLE: "
+            android:textColor="@color/app_other_beige"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textCommandDescr" />
+
 
         <ImageView
             android:id="@+id/imgCommand"
@@ -65,6 +81,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/commandicon" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

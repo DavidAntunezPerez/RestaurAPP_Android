@@ -31,7 +31,6 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
         binding = ActivityComListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         // GET SHARED PREFERENCES ITEM
         val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         val userUID = sharedPreference.getString("userUID", "userUID")
@@ -145,9 +144,12 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
 
 
     override fun onCommandLongClick(command: Command) {
-        val itemView = commandRecyclerView.findViewWithTag<View>(command)
-        itemView?.let { view ->
-            showContextMenu(view, command)
+        val position = commandList.indexOf(command)
+        if (position != -1) {
+            val itemView = commandRecyclerView.findViewHolderForAdapterPosition(position)?.itemView
+            itemView?.let { view ->
+                showContextMenu(view, command)
+            }
         }
     }
 
