@@ -13,8 +13,13 @@ import java.util.Locale
 
 class CommandAdapter(
     private val commandList: List<Command>,
-    private val longClickListener: OnCommandLongClickListener
+    private val longClickListener: OnCommandLongClickListener,
+    private val itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<CommandAdapter.CommandViewHolder>() {
+
+    interface OnItemClickListener {
+        fun onItemClick(command: Command)
+    }
 
     interface OnCommandLongClickListener {
         fun onCommandLongClick(command: Command)
@@ -86,6 +91,13 @@ class CommandAdapter(
             holder.tvTableAssigned.text = tableText
             Log.e("CommandAdapter", "Failed to fetch table document: $exception")
         }
+
+        // SET THE ONCLICK LISTENER
+        holder.itemView.setOnClickListener {
+            // Handle the click event
+            itemClickListener.onItemClick(commandList[position])
+        }
+
     }
 
 

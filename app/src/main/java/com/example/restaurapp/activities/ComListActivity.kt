@@ -3,6 +3,7 @@ package com.example.restaurapp.activities
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -21,7 +22,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.Locale
 
-class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickListener {
+class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickListener,
+    CommandAdapter.OnItemClickListener {
     private lateinit var binding: ActivityComListBinding
     private lateinit var commandRecyclerView: RecyclerView
     private lateinit var commandList: ArrayList<Command>
@@ -89,7 +91,7 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
                         when (language) {
                             "es" -> {
                                 if (command.title.isNullOrBlank()) {
-                                    command.title = "Comando sin Título"
+                                    command.title = "Comanda sin Título"
                                 }
                             }
 
@@ -119,7 +121,7 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
                         commandList.add(command)
                     }
                 }
-                commandRecyclerView.adapter = CommandAdapter(commandList, this)
+                commandRecyclerView.adapter = CommandAdapter(commandList, this, this)
 
                 // ADD ANIMATION WHEN LOADING ALL THE RV
                 commandRecyclerView.startLayoutAnimation()
@@ -203,6 +205,15 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
 
             // Handle the failure to delete the command
         }
+    }
+
+    override fun onItemClick(command: Command) {
+        // Display the full-screen fragment
+        val fragment = ComListFragment.newInstance(command)
+        supportFragmentManager.beginTransaction()
+            .replace(android.R.id.content, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
 }
