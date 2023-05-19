@@ -3,7 +3,6 @@ package com.example.restaurapp.activities
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -16,6 +15,7 @@ import com.example.restaurapp.adapters.CommandAdapter
 import com.example.restaurapp.databinding.ActivityComListBinding
 import com.example.restaurapp.entities.Command
 import com.example.restaurapp.entities.Dish
+import com.example.restaurapp.fragments.ComListFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
@@ -202,7 +202,6 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
                 R.string.failed_to_delete_command, exception.message
             )
             Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT).show()
-
             // Handle the failure to delete the command
         }
     }
