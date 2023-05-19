@@ -1,3 +1,5 @@
+package com.example.restaurapp.fragments
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +12,6 @@ import com.example.restaurapp.entities.Command
 class ComListFragment : Fragment() {
     private var _binding: FragmentComListBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var overlayView: View
 
     companion object {
         private const val ARG_COMMAND = "command"
