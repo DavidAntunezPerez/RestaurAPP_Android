@@ -1,13 +1,19 @@
 package com.example.restaurapp.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.restaurapp.adapters.ComListDishAdapter
 import com.example.restaurapp.databinding.FragmentComListBinding
 import com.example.restaurapp.entities.Command
+import com.example.restaurapp.entities.Dish
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Locale
 
 class ComListFragment : Fragment() {
     private var _binding: FragmentComListBinding? = null
@@ -43,8 +49,7 @@ class ComListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val command: Command? = arguments?.getParcelable(ARG_COMMAND)
-
+        // SET BUTTON CLOSE FUNCTION
         binding.btnClose.setOnClickListener {
             // Enable touch events on the window
             requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -52,6 +57,47 @@ class ComListFragment : Fragment() {
             // Close the fragment
             parentFragmentManager.popBackStack()
         }
+
+        val command: Command? = arguments?.getParcelable(ARG_COMMAND)
+        val dishesList: List<Dish> = command?.dishesList ?: emptyList()
+
+        val adapter = ComListDishAdapter(dishesList)
+        binding.rvDishes.adapter = adapter
+        binding.rvDishes.layoutManager = LinearLayoutManager(requireContext())
+
+        // SHOW THE DATA OF THE COMMAND
+        binding.tvTitle.text = command?.title
+        binding.tvDescription.text = command?.description
+        binding.tvTotalPrice.text = command?.totalPrice.toString()
+
+        // SHOW TABLE NUMBER
+        val firestore = FirebaseFirestore.getInstance()
+        val tableRef = command?.idTable?.let { firestore.collection("tables").document(it) }
+        tableRef?.get()?.addOnSuccessListener { documentSnapshot ->
+            if (documentSnapshot?.exists() == true) {
+                val tableNumber = documentSnapshot.getLong("number")
+                val tableText = when (Locale.getDefault().language) {
+                    "es" -> "MESA: ${tableNumber ?: "N/A"}"
+                    else -> "TABLE: ${tableNumber ?: "N/A"}"
+                }
+                binding.tvTableLabel.text = tableText
+            } else {
+                val tableText = when (Locale.getDefault().language) {
+                    "es" -> "MESA: N/A"
+                    else -> "TABLE: N/A"
+                }
+                binding.tvTableLabel.text = tableText
+            }
+        }?.addOnFailureListener { exception ->
+            val tableText = when (Locale.getDefault().language) {
+                "es" -> "MESA: N/A"
+                else -> "TABLE: N/A"
+            }
+            binding.tvTableLabel.text = tableText
+            Log.e("CommandAdapter", "Failed to fetch table document: $exception")
+        }
+
+
     }
 
     override fun onDestroyView() {
