@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.restaurapp.R
 import com.example.restaurapp.adapters.ComListDishAdapter
 import com.example.restaurapp.databinding.FragmentComListBinding
 import com.example.restaurapp.entities.Command
@@ -60,6 +61,7 @@ class ComListFragment : Fragment() {
 
         val command: Command? = arguments?.getParcelable(ARG_COMMAND)
         val dishesList: List<Dish> = command?.dishesList ?: emptyList()
+        var tableNumberInt: Long? = 0
 
         val adapter = ComListDishAdapter(dishesList)
         binding.rvDishes.adapter = adapter
@@ -76,6 +78,7 @@ class ComListFragment : Fragment() {
         tableRef?.get()?.addOnSuccessListener { documentSnapshot ->
             if (documentSnapshot?.exists() == true) {
                 val tableNumber = documentSnapshot.getLong("number")
+                tableNumberInt = tableNumber
                 val tableText = when (Locale.getDefault().language) {
                     "es" -> "MESA: ${tableNumber ?: "N/A"}"
                     else -> "TABLE: ${tableNumber ?: "N/A"}"
@@ -95,6 +98,14 @@ class ComListFragment : Fragment() {
             }
             binding.tvTableLabel.text = tableText
             Log.e("CommandAdapter", "Failed to fetch table document: $exception")
+        }
+
+        binding.btnEdit.setOnClickListener {
+            // Create the new fragment instance and pass the command item
+            val editFragment = EditComFragment.newInstance(command, tableNumberInt)
+            // Perform the fragment transaction to replace the current fragment
+            parentFragmentManager.beginTransaction().replace(android.R.id.content, editFragment)
+                .addToBackStack(null).commit()
         }
 
 
