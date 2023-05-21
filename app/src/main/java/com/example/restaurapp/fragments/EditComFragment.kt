@@ -5,10 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.restaurapp.R
-import com.example.restaurapp.databinding.FragmentComListBinding
+import com.example.restaurapp.activities.ComListActivity
 import com.example.restaurapp.databinding.FragmentEditComBinding
 import com.example.restaurapp.entities.Command
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.FirebaseFirestore
 
 class EditComFragment : Fragment() {
 
@@ -63,6 +64,42 @@ class EditComFragment : Fragment() {
         binding.txtInputTotalPrice.setText(command?.totalPrice.toString())
         binding.txtInputTable.setText(tableNumber.toString())
 
+        binding.btnSaveEdit.setOnClickListener {
+            // Get the new title and description from the text inputs
+            val inputTitle = binding.txtInputTitle.text.toString()
+            val inputDescription = binding.txtInputDescr.text.toString()
+
+            val commandId = command?.id
+
+            // Update the document in Firebase Firestore
+            if (commandId != null) {
+                val firestore = FirebaseFirestore.getInstance()
+                val commandRef = firestore.collection("commands").document(commandId)
+
+                val newData = hashMapOf<String, Any>(
+                    "title" to inputTitle, "description" to inputDescription
+                    // Add any other fields you want to update
+                )
+
+                commandRef.update(newData).addOnSuccessListener {
+                    // Document updated successfully
+
+                    // Reload the command list in the activity
+                    (requireActivity() as? ComListActivity)?.reloadComList()
+
+                    // Remove the fragments
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .remove(this@EditComFragment).commit()
+
+                    Snackbar.make(view, "Command edited successfully", Snackbar.LENGTH_LONG).show()
+
+                }.addOnFailureListener { exception ->
+                    // Error occurred while updating document
+                    // Handle the error or display a toast message
+                    Snackbar.make(view, "ERROR. $exception", Snackbar.LENGTH_LONG).show()
+                }
+            }
+        }
 
     }
 

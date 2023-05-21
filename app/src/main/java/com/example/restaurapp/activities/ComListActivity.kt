@@ -41,7 +41,7 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
 
         // GO BACK BUTTON FUNCTION
         binding.btnBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+            finish()
         }
 
         // LOADING ANIMATIONS
@@ -209,10 +209,83 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
     override fun onItemClick(command: Command) {
         // Display the full-screen fragment
         val fragment = ComListFragment.newInstance(command)
-        supportFragmentManager.beginTransaction()
-            .replace(android.R.id.content, fragment)
-            .addToBackStack(null)
-            .commit()
+        supportFragmentManager.beginTransaction().replace(android.R.id.content, fragment)
+            .addToBackStack(null).commit()
+    }
+
+    fun reloadComList() {
+        commandList.clear() // Clear the existing command list
+
+        val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        val userUID = sharedPreference.getString("userUID", "userUID")
+        val language = sharedPreference.getString("language", Locale.getDefault().language)
+
+        db.collection("commands").get().addOnSuccessListener { querySnapshot ->
+            if (!querySnapshot.isEmpty) {
+                for (documentSnapshot in querySnapshot.documents) {
+                    val command: Command? = documentSnapshot.toObject(Command::class.java)
+                    if ((command != null) && (command.idRestaurant == userUID)) {
+                        command.id = documentSnapshot.id // Set the document ID
+
+                        // Retrieve the dishesList property as a List<Map<String, Any>>
+                        val dishesList =
+                            documentSnapshot.get("dishesList") as? List<Map<String, Any>>
+
+                        // Convert each dish map to a Dish object
+                        val dishList = dishesList?.map { dishMap ->
+                            Dish(
+                                id = dishMap["id"] as? String,
+                                idRestaurant = dishMap["idRestaurant"] as? String,
+                                image = dishMap["image"] as? String,
+                                name = dishMap["name"] as? String,
+                                price = dishMap["price"] as? Double ?: 0.0
+                            )
+                        }
+
+                        // Set the dishList in the command object
+                        command.dishesList = dishList
+
+                        // Check if the title is null or empty or contains only whitespace and set it
+                        // based on the language
+                        when (language) {
+                            "es" -> {
+                                if (command.title.isNullOrBlank()) {
+                                    command.title = "Comanda sin Título"
+                                }
+                            }
+
+                            else -> {
+                                if (command.title.isNullOrBlank()) {
+                                    command.title = "Untitled Command"
+                                }
+                            }
+                        }
+
+                        // Check if the description is null or empty or contains only whitespace and
+                        // set it based on the language
+                        when (language) {
+                            "es" -> {
+                                if (command.description.isNullOrBlank()) {
+                                    command.description = "Sin descripción"
+                                }
+                            }
+
+                            else -> {
+                                if (command.description.isNullOrBlank()) {
+                                    command.description = "No description provided"
+                                }
+                            }
+                        }
+
+                        commandList.add(command)
+                    }
+                }
+
+                commandRecyclerView.adapter?.notifyDataSetChanged() // Notify the adapter of the data change
+            }
+        }.addOnFailureListener { exception ->
+            Toast.makeText(this, exception.toString(), Toast.LENGTH_SHORT).show()
+        }
     }
 
 }
