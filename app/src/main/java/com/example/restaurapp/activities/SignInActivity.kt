@@ -136,13 +136,26 @@ class SignInActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+
         // IF ALREADY LOGGED IN, SEND USER TO MAIN ACTIVITY
         if (firebaseAuth.currentUser != null) {
+            // SET THE LANGUAGE SAVED IN SHARED PREFERENCES
+            val language = sharedPreference.getString("language", null)
+
+            if (language != null) {
+                val locale = when (language) {
+                    "Spanish" -> Locale("es")
+                    else -> Locale.ENGLISH
+                }
+                setLocale(locale, false)
+            }
+
+            // NAVIGATE TO MAIN ACTIVITY
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } else {
             // IF NOT ALREADY LOGGED IN, DELETE THE SHARED PREFERENCES VARIABLE
-            val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
             sharedPreference.edit().clear()
         }
     }
@@ -156,13 +169,13 @@ class SignInActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_english -> {
-                setLocale(Locale.ENGLISH)
+                setLocale(Locale.ENGLISH, true)
                 saveLanguage("en") // Save the language in shared preferences
                 true
             }
 
             R.id.action_spanish -> {
-                setLocale(Locale("es"))
+                setLocale(Locale("es"), true)
                 saveLanguage("es") // Save the language in shared preferences
                 true
             }
@@ -172,14 +185,15 @@ class SignInActivity : AppCompatActivity() {
     }
 
     // Set the app's locale
-    private fun setLocale(locale: Locale) {
+    private fun setLocale(locale: Locale, onRecreate: Boolean) {
         val resources = resources
         val configuration = resources.configuration
         configuration.setLocale(locale)
         resources.updateConfiguration(configuration, resources.displayMetrics)
-
-        // Restart the activity for the locale change to take effect
-        recreate()
+        if (onRecreate) {
+            // Restart the activity for the locale change to take effect
+            recreate()
+        }
     }
 
     // Save the selected language in shared preferences

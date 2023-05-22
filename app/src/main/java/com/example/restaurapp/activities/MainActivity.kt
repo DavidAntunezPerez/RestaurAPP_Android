@@ -10,6 +10,7 @@ import com.example.restaurapp.fragments.MainFragment
 import com.example.restaurapp.fragments.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import java.util.Locale
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +19,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // SET THE LANGUAGE SAVED IN SHARED PREFERENCES
+        val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        val language = sharedPreference.getString("language", null)
+
+        if (language != null) {
+            val locale = when (language) {
+                "Spanish" -> Locale("es")
+                else -> Locale.ENGLISH
+            }
+            setLocale(locale, false)
+        }
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -28,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         val userUID = firebaseAuth.currentUser?.uid
 
         // STORE USER UID IN SHARED PREFERENCES
-        val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
         // PUTTING IT INTO A STRING
         editor.putString("userUID", userUID)
@@ -63,5 +75,17 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.fragment_main, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    // Set the app's locale
+    private fun setLocale(locale: Locale, onRecreate: Boolean) {
+        val resources = resources
+        val configuration = resources.configuration
+        configuration.setLocale(locale)
+        resources.updateConfiguration(configuration, resources.displayMetrics)
+        if (onRecreate) {
+            // Restart the activity for the locale change to take effect
+            recreate()
+        }
     }
 }
