@@ -1,14 +1,19 @@
 package com.example.restaurapp.activities
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import com.example.restaurapp.R
 import com.example.restaurapp.databinding.ActivityMainBinding
+import com.example.restaurapp.fragments.MainFragment
+import com.example.restaurapp.fragments.SettingsFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -29,24 +34,41 @@ class MainActivity : AppCompatActivity() {
         editor.putString("userUID", userUID)
         editor.apply()
 
-        // SIGN OUT BUTTON FUNCTION
-        binding.btnSignOut.setOnClickListener {
-            firebaseAuth.signOut()
-            startActivity(Intent(this, SignInActivity::class.java))
-            finish()
+//        // SIGN OUT BUTTON FUNCTION
+//        binding.btnSignOut.setOnClickListener {
+//            firebaseAuth.signOut()
+//            startActivity(Intent(this, SignInActivity::class.java))
+//            finish()
+//        }
+
+        // SET THE BOTTOM NAVIGATION
+        bottomNavigationView = binding.bottomNav
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.menu_item1 -> {
+                    loadFragment(MainFragment())
+                    true
+                }
+
+                R.id.menu_item2 -> {
+                    loadFragment(SettingsFragment())
+                    true
+                }
+
+                else -> false
+            }
         }
 
-        // SELECT TABLE OPTION
-        binding.btnSelectTable.setOnClickListener {
-            val intent = Intent(this, SelectTableActivity::class.java)
-            startActivity(intent)
-        }
+        // Set the initial fragment
+        loadFragment(MainFragment())
 
-        // COMMAND LIST OPTION
-        binding.btnComList.setOnClickListener {
-            val intent = Intent(this, ComListActivity::class.java)
-            startActivity(intent)
-        }
+    }
 
+    // FUNCTION TO LOAD A FRAGMENT FOR NAVIGATION
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_main, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

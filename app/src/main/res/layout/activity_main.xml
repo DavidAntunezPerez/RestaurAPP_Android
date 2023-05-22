@@ -1,61 +1,28 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".activities.MainActivity"
+    android:background="@color/app_other_beige">
 
-    <!--SIGN OUT BUTTON-->
-    <Button
-        android:id="@+id/btnSignOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="14dp"
-        android:text="Sign Out"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Other views in your layout -->
 
-
-    <!--TABLE SELECTION BUTTON-->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSelectTable"
-        android:layout_width="0dp"
+    <FrameLayout
+        android:id="@+id/fragment_main"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:backgroundTint="@color/blue"
-        android:text="Table Selection"
-        app:layout_constraintBottom_toTopOf="@id/btnComList"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignOut" />
+        android:layout_weight="1" />
 
-    <!--COMMAND SELECTION BUTTON-->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnComList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:backgroundTint="#E45151"
-        android:text="Command List"
+    <!-- Other views in your layout -->
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSelectTable" />
+        app:menu="@menu/bottom_navigation_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    <!--WELCOME TEXT-->
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="255dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:gravity="center"
-        android:text="Welcome to RestaurAPP"
-        android:textColor="@color/purple_500"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btnSignOut"
-        app:layout_constraintTop_toTopOf="parent" />
+</LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
