@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="15dp"
     android:orientation="vertical"
-    tools:context=".activities.MainActivity"
-    android:layout_margin="15dp">
+    tools:context=".activities.MainActivity">
 
     <Button
         android:id="@+id/btnLogout"
@@ -17,15 +17,30 @@
         android:id="@+id/profileImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:scaleType="centerCrop"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:contentDescription="Profile_image" />
+        android:contentDescription="Profile_image"
+        android:scaleType="centerCrop"
+        tools:src="@color/cardview_dark_background" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Language:"
+        android:layout_marginTop="15dp" />
+
+    <Spinner
+        android:id="@+id/languageSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:entries="@array/languages"
+        android:layout_marginVertical="20dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:hint="Name">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -39,6 +54,7 @@
         android:id="@+id/descriptionInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:hint="Description">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -52,6 +68,7 @@
         android:id="@+id/locationInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:hint="Location">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -63,6 +80,7 @@
 
 
     <Button
+        android:layout_marginTop="20dp"
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
