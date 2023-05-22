@@ -34,13 +34,6 @@ class MainActivity : AppCompatActivity() {
         editor.putString("userUID", userUID)
         editor.apply()
 
-//        // SIGN OUT BUTTON FUNCTION
-//        binding.btnSignOut.setOnClickListener {
-//            firebaseAuth.signOut()
-//            startActivity(Intent(this, SignInActivity::class.java))
-//            finish()
-//        }
-
         // SET THE BOTTOM NAVIGATION
         bottomNavigationView = binding.bottomNav
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->

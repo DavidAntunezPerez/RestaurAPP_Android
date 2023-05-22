@@ -4,7 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activities.MainActivity"
-    android:layout_marginHorizontal="15dp">
+    android:layout_margin="15dp">
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="LOG OUT" />
 
     <ImageView
         android:id="@+id/profileImageView"
