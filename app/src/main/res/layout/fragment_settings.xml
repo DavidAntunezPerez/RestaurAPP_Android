@@ -48,14 +48,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:text="Language:" />
 
     <Spinner
         android:id="@+id/languageSpinner"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginVertical="20dp"
+        android:layout_marginVertical="5dp"
         android:entries="@array/languages" />
 
     <com.google.android.material.textfield.TextInputLayout

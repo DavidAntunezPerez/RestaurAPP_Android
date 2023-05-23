@@ -266,7 +266,9 @@ class SettingsFragment : Fragment() {
     }
 
     private fun showImageSelectionDialog() {
-        val options = arrayOf("Choose image from gallery", "Take picture with camera")
+        val options = arrayOf(
+            "\uD83D\uDCC1 Choose image from gallery", "\uD83D\uDCF7 Take picture with camera"
+        )
 
         MaterialAlertDialogBuilder(requireContext()).setTitle("Edit your Restaurant image")
             .setItems(options) { dialog, which ->
