@@ -149,11 +149,19 @@ class SettingsFragment : Fragment() {
             // Show success message using Snackbar
             Snackbar.make(binding.root, "Settings saved successfully", Snackbar.LENGTH_SHORT).show()
 
+            // UPDATE THE FRAGMENT VARIABLE SETTINGS
+            userName = name
+            userDescription = description
+            userLocation = location
+
+            // UPDATE THE UI WITH THE FIREBASE DATA
+            updateUIWithUserData()
 
             // Perform any additional actions or UI updates
         }.addOnFailureListener { exception ->
             // Show error message using Snackbar
-            Snackbar.make(binding.root, "Error saving settings", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.root, "Error saving settings, $exception", Snackbar.LENGTH_SHORT)
+                .show()
         }
     }
 
