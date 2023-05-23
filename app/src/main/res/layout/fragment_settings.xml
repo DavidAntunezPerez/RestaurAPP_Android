@@ -16,7 +16,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
 
         <ImageView
             android:id="@+id/profileImageView"
@@ -25,7 +26,6 @@
             android:layout_gravity="center_horizontal"
             android:contentDescription="Profile_image"
             android:scaleType="centerCrop"
-            android:src="@drawable/restaurant_default_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

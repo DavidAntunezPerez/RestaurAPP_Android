@@ -1,5 +1,6 @@
 package com.example.restaurapp.fragments
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -12,12 +13,16 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.restaurapp.R
 import com.example.restaurapp.activities.SignInActivity
 import com.example.restaurapp.databinding.FragmentSettingsBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import java.util.Locale
 
 class SettingsFragment : Fragment() {
@@ -117,6 +122,9 @@ class SettingsFragment : Fragment() {
 
                     // Update UI with the retrieved values
                     updateUIWithUserData()
+
+                    // LOAD IMAGE
+                    loadImage()
                 }
             } else {
                 // Document does not exist
@@ -185,9 +193,6 @@ class SettingsFragment : Fragment() {
         // Save the selected language to shared preferences
         sharedPreferences.edit().putString("language", selectedLanguage).apply()
 
-        Log.i("LANGUAGE GET DEFAULT", getDefaultLanguage())
-
-        Log.i("LANGUAGE GET DEFAULT", Locale.getDefault().language)
     }
 
     private fun getLanguageIndex(language: String): Int {
@@ -208,9 +213,46 @@ class SettingsFragment : Fragment() {
         binding.nameEditText.setText(userName)
         binding.descriptionEditText.setText(userDescription)
         binding.locationEditText.setText(userLocation)
+    }
 
+    private fun loadImage() {
         // Load user image using the userImage variable
-        // Implement your logic here
+
+        // Apply fade-in animation to the ImageView
+        val fadeInAnimator = ObjectAnimator.ofFloat(binding.profileImageView, "alpha", 0f, 1f)
+        fadeInAnimator.duration = 500 // Animation duration in milliseconds
+
+        // LOAD IMAGES
+
+        if (userImage.isNotEmpty()) {
+            // IF A PATH IS SET IN FIRE STORE, LOAD IMAGE FROM STORAGE
+
+            // REFERENCING FIREBASE STORAGE
+            val storageRef = Firebase.storage.reference
+
+            // REFERENCING THE RESULTING PATH INTO A CHILD
+            val pathReference = storageRef.child(userImage)
+
+            // SET THE MAX SIZE OF THE IMAGE (5MB IN THIS CASE)
+            val fileMaxSize: Long = 5 * 1000000
+
+            pathReference.getBytes(fileMaxSize).addOnSuccessListener { path ->
+
+                // LOADING THE IMAGE WITH GLIDE USING THE PATH GIVEN
+                Glide.with(this).load(path).diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .override(250, 250).centerCrop().into(binding.profileImageView)
+
+                fadeInAnimator.start() // Start the fade-in animation
+
+            }
+        } else {
+            // LOADING THE IMAGE WITH GLIDE USING THE DEFAULT IMAGE
+            Glide.with(this).load(R.drawable.restaurant_default_image)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).override(250, 250).centerCrop()
+                .into(binding.profileImageView)
+
+            fadeInAnimator.start() // Start the fade-in animation
+        }
     }
 
     override fun onDestroyView() {
