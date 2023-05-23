@@ -18,6 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.restaurapp.R
 import com.example.restaurapp.activities.SignInActivity
 import com.example.restaurapp.databinding.FragmentSettingsBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -130,6 +131,11 @@ class SettingsFragment : Fragment() {
                 // Document does not exist
                 Log.d("SettingsFragment", "User document does not exist")
             }
+        }
+
+        // Handle edit image button
+        binding.btnEditImgSettings.setOnClickListener {
+            showImageSelectionDialog()
         }
 
         // Handle save button click
@@ -254,6 +260,36 @@ class SettingsFragment : Fragment() {
             fadeInAnimator.start() // Start the fade-in animation
         }
     }
+
+    private fun showImageSelectionDialog() {
+        val options = arrayOf("Choose image from gallery", "Take picture with camera")
+
+        MaterialAlertDialogBuilder(requireContext()).setTitle("Edit your Restaurant image")
+            .setItems(options) { dialog, which ->
+                when (which) {
+                    0 -> {
+                        // Choose image from gallery option selected
+                        chooseImageFromGallery()
+                    }
+
+                    1 -> {
+                        // Take picture with camera option selected
+                        takePictureWithCamera()
+                    }
+                }
+                dialog.dismiss()
+            }.setIcon(R.drawable.ic_image_edit).show()
+    }
+
+
+    private fun chooseImageFromGallery() {
+        // TODO: Implement the logic for choosing an image from the gallery
+    }
+
+    private fun takePictureWithCamera() {
+        // TODO: Implement the logic for taking a picture with the camera
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

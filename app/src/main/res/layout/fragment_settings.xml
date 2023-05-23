@@ -35,7 +35,7 @@
             android:id="@+id/btnEditImgSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:src="@drawable/ic_edit"
