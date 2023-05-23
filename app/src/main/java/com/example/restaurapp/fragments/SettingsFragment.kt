@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,23 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        // Retrieve the selected language from shared preferences
+        val currentLanguage = sharedPreferences.getString("language", null)
+
+        Log.i("LANGUAGE GET DEFAULT RESUME", Locale.getDefault().language)
+        Log.i("LANGUAGE GET DEFAULT RESUME", currentLanguage.toString())
+
+        // Set the selected item in the language spinner to match the current language
+        val languageIndex = currentLanguage?.let { getLanguageIndex(it) } ?: 0
+
+        languageSpinner.setSelection(languageIndex)
+
+        Log.i("LANGUAGE GET DEFAULT RESUME SPINNER", "$languageIndex")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -63,7 +81,7 @@ class SettingsFragment : Fragment() {
         languageSpinner.adapter = adapter
 
         // Get the current language from shared preferences or use the default language
-        val currentLanguage = sharedPreferences.getString("language", getDefaultLanguage())
+        val currentLanguage = sharedPreferences.getString("language", null)
 
         // Set the selected item in the language spinner to match the current language
         val languageIndex = currentLanguage?.let { getLanguageIndex(it) } ?: 0
@@ -90,8 +108,6 @@ class SettingsFragment : Fragment() {
         val defaultLanguage = getDefaultLanguage()
 
         val selectedLanguage = languageSpinner.selectedItem?.toString() ?: defaultLanguage
-        val languageIndex = getLanguageIndex(selectedLanguage)
-        languageSpinner.setSelection(languageIndex)
 
         // Set the app's language based on the selected language
         val locale = when (selectedLanguage) {
@@ -107,6 +123,10 @@ class SettingsFragment : Fragment() {
 
         // Save the selected language to shared preferences
         sharedPreferences.edit().putString("language", selectedLanguage).apply()
+
+        Log.i("LANGUAGE GET DEFAULT", getDefaultLanguage())
+
+        Log.i("LANGUAGE GET DEFAULT", Locale.getDefault().language)
     }
 
     private fun getLanguageIndex(language: String): Int {
@@ -115,9 +135,9 @@ class SettingsFragment : Fragment() {
     }
 
     private fun getDefaultLanguage(): String {
-        return when (Locale.getDefault()) {
-            Locale.ENGLISH -> getString(R.string.english_language)
-            Locale("es") -> getString(R.string.spanish_language)
+        return when (Locale.getDefault().language) {
+            Locale.ENGLISH.language -> getString(R.string.english_language)
+            Locale("es").language -> getString(R.string.spanish_language)
             else -> getString(R.string.english_language) // Set English as the default language
         }
     }

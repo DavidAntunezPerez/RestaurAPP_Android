@@ -39,11 +39,12 @@
 
     <!--STRINGS LANGUAGE-->
     <string-array name="languages">
-        <item>English</item>
-        <item>Spanish</item>
+        <item>🇬🇧</item>
+        <item>🇪🇸</item>
     </string-array>
 
-    <string name="english_language">English</string>
-    <string name="spanish_language">Spanish</string>
+
+    <string name="english_language">🇬🇧</string>
+    <string name="spanish_language">🇪🇸</string>
 
 </resources>
