@@ -36,7 +36,7 @@
     <string name="failed_to_delete_command">Problema al eliminar la comanda: %1$s</string>
     <string name="txt_delete_command_menu">Eliminar</string>
 
-    <string name="english_language">Inglés</string>
-    <string name="spanish_language">Español</string>
+    <string name="english_language">🇬🇧</string>
+    <string name="spanish_language">🇪🇸</string>
 
 </resources>

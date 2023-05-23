@@ -3,13 +3,13 @@ package com.example.restaurapp.activities
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.example.restaurapp.R
 import com.example.restaurapp.databinding.ActivitySignInBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
 
 
@@ -34,6 +35,7 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var gsc: GoogleSignInClient
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +48,10 @@ class SignInActivity : AppCompatActivity() {
 
         gsc = GoogleSignIn.getClient(this, gso)
 
-        // INITIALIZING FIREBASE AUTH
+        // INITIALIZING FIREBASE AUTH AND FIRE STORE
         firebaseAuth = FirebaseAuth.getInstance()
+
+        firestore = FirebaseFirestore.getInstance()
 
 
         // SET ACTION TOOLBAR
@@ -74,6 +78,7 @@ class SignInActivity : AppCompatActivity() {
             if (email.isNotEmpty() && pass.isNotEmpty()) {
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
+                        checkAndCreateUserDocument()
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -151,12 +156,46 @@ class SignInActivity : AppCompatActivity() {
                 setLocale(locale, false)
             }
 
+            // CHECK IF THERE IS AN USER DOCUMENT ALREADY CREATED
+            checkAndCreateUserDocument()
+
             // NAVIGATE TO MAIN ACTIVITY
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } else {
             // IF NOT ALREADY LOGGED IN, DELETE THE SHARED PREFERENCES VARIABLE
             sharedPreference.edit().clear()
+        }
+    }
+
+    // CREATION OF USER DOCUMENT IN CASE IT DOES NOT EXISTS
+    private fun checkAndCreateUserDocument() {
+        val currentUser = firebaseAuth.currentUser
+        val uid = currentUser?.uid
+
+        if (uid != null) {
+            val userRef = firestore.collection("users").document(uid)
+            userRef.get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val document = task.result
+                    if (document != null && document.exists()) {
+
+                        // User document already exists
+
+                    } else {
+
+                        // User document does not exist, create a new one with default values
+                        val defaultValues = hashMapOf(
+                            "name" to "Anonymous",
+                            "description" to "",
+                            "location" to "",
+                            "image" to ""
+                        )
+
+                        userRef.set(defaultValues)
+                    }
+                }
+            }
         }
     }
 
@@ -235,6 +274,7 @@ class SignInActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
+                checkAndCreateUserDocument()
                 val intent: Intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("email", account.email)
                 intent.putExtra("name", account.displayName)
