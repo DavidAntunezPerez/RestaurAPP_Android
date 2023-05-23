@@ -1,11 +1,15 @@
 package com.example.restaurapp.fragments
 
 import android.animation.ObjectAnimator
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -270,11 +274,13 @@ class SettingsFragment : Fragment() {
                     0 -> {
                         // Choose image from gallery option selected
                         chooseImageFromGallery()
+                        loadImage()
                     }
 
                     1 -> {
                         // Take picture with camera option selected
                         takePictureWithCamera()
+                        loadImage()
                     }
                 }
                 dialog.dismiss()
@@ -282,8 +288,98 @@ class SettingsFragment : Fragment() {
     }
 
 
+    private companion object {
+        private const val REQUEST_GALLERY_PERMISSION = 1001
+        private const val REQUEST_PICK_IMAGE = 1002
+    }
+
     private fun chooseImageFromGallery() {
-        // TODO: Implement the logic for choosing an image from the gallery
+        val galleryIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        galleryIntent.type = "image/*"
+        startActivityForResult(galleryIntent, REQUEST_PICK_IMAGE)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        when (requestCode) {
+            REQUEST_GALLERY_PERMISSION -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openGallery()
+                } else {
+                    // Permission denied by the user, handle it as needed
+                    // For example, show a message or disable the gallery option
+                    Snackbar.make(
+                        binding.root,
+                        "Permission denied. Unable to access storage without permissions.",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+    }
+
+    private fun openGallery() {
+        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(galleryIntent, REQUEST_PICK_IMAGE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_PICK_IMAGE && resultCode == RESULT_OK) {
+            val selectedImageUri = data?.data
+            if (selectedImageUri != null) {
+                uploadImageToFirebase(selectedImageUri)
+            }
+        }
+    }
+
+    private fun uploadImageToFirebase(imageUri: Uri) {
+        // Upload the image to Firebase Storage
+
+        // REFERENCING FIREBASE STORAGE
+        val storageRef = Firebase.storage.reference
+
+        // CREATING THE PATH TO THE IMAGE WITH THE UID + IMAGE NAME
+        val userUID = sharedPreferences.getString("userUID", "userUID")
+        val fileName = "$userUID.jpg"
+
+        // Specify the folder in which the image will be uploaded (e.g., "images/")
+        val folderName = "images/"
+        val pathReference = storageRef.child("$folderName$fileName")
+
+        // UPLOADING THE IMAGE TO FIREBASE STORAGE
+        pathReference.putFile(imageUri).addOnSuccessListener { taskSnapshot ->
+            // Get the relative path of the uploaded image
+            val imagePath = "$folderName$fileName"
+
+            // Update the user document in Firestore with the image path
+            val userDocumentRef = firestore.collection("users").document(userUID!!)
+            userDocumentRef.update("image", imagePath).addOnSuccessListener {
+                // Show success message using Snackbar
+                Snackbar.make(
+                    binding.root, "Image uploaded successfully", Snackbar.LENGTH_SHORT
+                ).show()
+
+                // Update the userImage variable with the new image path
+                userImage = imagePath
+
+                // Load the new image
+                loadImage()
+            }.addOnFailureListener { exception ->
+                // Show error message using Snackbar
+                Snackbar.make(
+                    binding.root, "Error uploading image, $exception", Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }.addOnFailureListener { exception ->
+            // Show error message using Snackbar
+            Snackbar.make(
+                binding.root, "Error uploading image, $exception", Snackbar.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun takePictureWithCamera() {
