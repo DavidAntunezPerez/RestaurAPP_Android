@@ -6,8 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.Manifest
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.net.Uri
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.lifecycle.ProcessCameraProvider
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -16,6 +21,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.camera.core.ImageCaptureException
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -28,6 +35,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.util.Locale
 
 class SettingsFragment : Fragment() {
@@ -278,13 +287,11 @@ class SettingsFragment : Fragment() {
                     0 -> {
                         // Choose image from gallery option selected
                         chooseImageFromGallery()
-                        loadImage()
                     }
 
                     1 -> {
                         // Take picture with camera option selected
                         takePictureWithCamera()
-                        loadImage()
                     }
 
                     2 -> {
@@ -317,10 +324,10 @@ class SettingsFragment : Fragment() {
         }
     }
 
-
     private companion object {
-        private const val REQUEST_GALLERY_PERMISSION = 1001
         private const val REQUEST_PICK_IMAGE = 1002
+        private const val REQUEST_CAPTURE_IMAGE = 1004
+        private const val REQUEST_CAMERA_PERMISSION = 1003
     }
 
     private fun chooseImageFromGallery() {
@@ -329,40 +336,49 @@ class SettingsFragment : Fragment() {
         startActivityForResult(galleryIntent, REQUEST_PICK_IMAGE)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-    ) {
-        when (requestCode) {
-            REQUEST_GALLERY_PERMISSION -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    openGallery()
-                } else {
-                    // Permission denied by the user, handle it as needed
-                    // For example, show a message or disable the gallery option
-                    Snackbar.make(
-                        binding.root,
-                        "Permission denied. Unable to access storage without permissions.",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
-            else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        }
-    }
-
-    private fun openGallery() {
-        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent, REQUEST_PICK_IMAGE)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_PICK_IMAGE && resultCode == RESULT_OK) {
-            val selectedImageUri = data?.data
-            if (selectedImageUri != null) {
-                uploadImageToFirebase(selectedImageUri)
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                REQUEST_PICK_IMAGE -> {
+                    val selectedImageUri = data?.data
+                    if (selectedImageUri != null) {
+                        uploadImageToFirebase(selectedImageUri)
+                    } else {
+                        // Handle null selected image URI
+                        Snackbar.make(
+                            binding.root, "Error selecting image", Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                REQUEST_CAPTURE_IMAGE -> {
+                    val capturedImage = data?.extras?.get("data") as? Bitmap
+                    if (capturedImage != null) {
+                        // Convert the captured image to a Uri
+                        val imageUri = getImageUri(requireContext(), capturedImage)
+                        if (imageUri != null) {
+                            uploadImageToFirebase(imageUri)
+                        } else {
+                            // Handle null image URI
+                            Snackbar.make(
+                                binding.root, "Error capturing image", Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else {
+                        // Handle null captured image
+                        Snackbar.make(
+                            binding.root, "Error capturing image", Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                else -> {
+                    // Handle other request codes if needed
+                }
             }
+        } else {
+            // Handle unsuccessful result codes if needed
         }
     }
 
@@ -413,7 +429,41 @@ class SettingsFragment : Fragment() {
     }
 
     private fun takePictureWithCamera() {
-        // TODO: Implement the logic for taking a picture with the camera
+        // Check if the CAMERA permission is already granted
+        if (ContextCompat.checkSelfPermission(
+                requireContext(), Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            // Permission is already granted, start the camera
+            launchCameraApp()
+        } else {
+            // Permission is not granted, request the permission
+            requestCameraPermission()
+        }
+    }
+
+    private fun launchCameraApp() {
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent, REQUEST_CAPTURE_IMAGE)
+    }
+
+    private fun requestCameraPermission() {
+        // Request the CAMERA permission
+        requestPermissions(arrayOf(Manifest.permission.CAMERA), REQUEST_CAMERA_PERMISSION)
+    }
+
+    private fun getImageUri(context: Context, image: Bitmap): Uri? {
+        val bytes = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(
+            context.contentResolver, image, "Image", null
+        )
+        if (path != null) {
+            return Uri.parse(path)
+        } else {
+            // Handle the case when the path is null
+            return null
+        }
     }
 
 

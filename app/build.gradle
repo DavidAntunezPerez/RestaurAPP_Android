@@ -32,7 +32,7 @@ android {
         jvmTarget = '1.8'
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
 }
@@ -56,4 +56,13 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
     // GLIDE TO SHOW IMAGES
     implementation 'com.github.bumptech.glide:glide:4.15.1'
+
+    // CameraX core library
+    implementation "androidx.camera:camera-core:1.2.2"
+
+    // CameraX camera2 implementation
+    implementation "androidx.camera:camera-camera2:1.2.2"
+
+    // CameraX lifecycle library
+    implementation "androidx.camera:camera-lifecycle:1.2.2"
 }
