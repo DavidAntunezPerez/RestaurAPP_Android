@@ -7,22 +7,29 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.Manifest
+import android.app.Activity
+import android.content.DialogInterface
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.lifecycle.ProcessCameraProvider
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.appcompat.app.AlertDialog
 import androidx.camera.core.ImageCaptureException
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -449,7 +456,9 @@ class SettingsFragment : Fragment() {
 
     private fun requestCameraPermission() {
         // Request the CAMERA permission
-        requestPermissions(arrayOf(Manifest.permission.CAMERA), REQUEST_CAMERA_PERMISSION)
+        requestPermissions(
+            arrayOf(Manifest.permission.CAMERA), REQUEST_CAMERA_PERMISSION
+        )
     }
 
     private fun getImageUri(context: Context, image: Bitmap): Uri? {
@@ -458,14 +467,41 @@ class SettingsFragment : Fragment() {
         val path = MediaStore.Images.Media.insertImage(
             context.contentResolver, image, "Image", null
         )
-        if (path != null) {
-            return Uri.parse(path)
-        } else {
-            // Handle the case when the path is null
-            return null
+        return Uri.parse(path)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted, start the camera
+                launchCameraApp()
+            } else {
+                // Permission is denied
+                showPermissionDeniedDialog()
+            }
         }
     }
 
+    private fun showPermissionDeniedDialog() {
+        MaterialAlertDialogBuilder(requireActivity()).setTitle("Camera Permission Required")
+            .setMessage("To use the camera, you need to grant camera permission.")
+            .setPositiveButton("Go to Settings") { dialog, _ ->
+                dialog.dismiss()
+                openAppSettings()
+            }.setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }.setIcon(android.R.drawable.ic_dialog_alert).show()
+    }
+
+    private fun openAppSettings() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri = Uri.fromParts("package", requireActivity().packageName, null)
+        intent.data = uri
+        startActivity(intent)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
