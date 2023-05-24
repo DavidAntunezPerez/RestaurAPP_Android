@@ -267,7 +267,9 @@ class SettingsFragment : Fragment() {
 
     private fun showImageSelectionDialog() {
         val options = arrayOf(
-            "\uD83D\uDCC1 Choose image from gallery", "\uD83D\uDCF7 Take picture with camera"
+            "\uD83D\uDCC1 Choose image from gallery",
+            "\uD83D\uDCF7 Take picture with camera",
+            "❌ Delete your profile picture"
         )
 
         MaterialAlertDialogBuilder(requireContext()).setTitle("Edit your Restaurant image")
@@ -284,9 +286,35 @@ class SettingsFragment : Fragment() {
                         takePictureWithCamera()
                         loadImage()
                     }
+
+                    2 -> {
+                        // Remove picture option
+                        removeImage()
+                    }
                 }
                 dialog.dismiss()
             }.setIcon(R.drawable.ic_image_edit).show()
+    }
+
+    private fun removeImage() {
+        // Update the user document in Firestore with an empty image path
+        val userUID = sharedPreferences.getString("userUID", "userUID")
+        val userDocumentRef = firestore.collection("users").document(userUID!!)
+
+        userDocumentRef.update("image", "").addOnSuccessListener {
+            // Show success message using Snackbar
+            Snackbar.make(binding.root, "Image removed successfully", Snackbar.LENGTH_SHORT).show()
+
+            // Update the userImage variable
+            userImage = ""
+
+            // Load the default image
+            loadImage()
+        }.addOnFailureListener { exception ->
+            // Show error message using Snackbar
+            Snackbar.make(binding.root, "Error removing image, $exception", Snackbar.LENGTH_SHORT)
+                .show()
+        }
     }
 
 
