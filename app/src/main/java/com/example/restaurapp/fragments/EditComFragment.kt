@@ -5,7 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.restaurapp.activities.ComListActivity
+import androidx.fragment.app.FragmentManager
+import com.example.restaurapp.R
 import com.example.restaurapp.databinding.FragmentEditComBinding
 import com.example.restaurapp.entities.Command
 import com.google.android.material.snackbar.Snackbar
@@ -84,14 +85,12 @@ class EditComFragment : Fragment() {
                 commandRef.update(newData).addOnSuccessListener {
                     // Document updated successfully
 
-                    // Reload the command list in the activity
-                    (requireActivity() as? ComListActivity)?.reloadComList()
-
-                    // Remove the fragments
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .remove(this@EditComFragment).commit()
-
                     Snackbar.make(view, "Command edited successfully", Snackbar.LENGTH_LONG).show()
+
+                    val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragment_main, ComListFragment())
+                    transaction.addToBackStack(null)
+                    transaction.commit()
 
                 }.addOnFailureListener { exception ->
                     // Error occurred while updating document

@@ -1,12 +1,12 @@
 package com.example.restaurapp.activities
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.restaurapp.R
 import com.example.restaurapp.databinding.ActivityMainBinding
+import com.example.restaurapp.fragments.ComListFragment
 import com.example.restaurapp.fragments.SelectTableFragment
 import com.example.restaurapp.fragments.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -57,13 +57,12 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_item2 -> {
-                    loadFragment(SettingsFragment())
+                    loadFragment(ComListFragment())
                     true
                 }
 
                 R.id.menu_item3 -> {
-                    val intent = Intent(this, ComListActivity::class.java)
-                    startActivity(intent)
+                    loadFragment(SettingsFragment())
                     true
                 }
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.restaurapp.R
 import com.example.restaurapp.adapters.ComListDishAdapter
 import com.example.restaurapp.databinding.FragmentComShowBinding
 import com.example.restaurapp.entities.Command
@@ -103,7 +104,7 @@ class ComShowFragment : Fragment() {
             // Create the new fragment instance and pass the command item
             val editFragment = EditComFragment.newInstance(command, tableNumberInt)
             // Perform the fragment transaction to replace the current fragment
-            parentFragmentManager.beginTransaction().replace(android.R.id.content, editFragment)
+            parentFragmentManager.beginTransaction().replace(R.id.ComListDisplay, editFragment)
                 .addToBackStack(null).commit()
         }
 
