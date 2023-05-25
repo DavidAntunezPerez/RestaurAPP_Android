@@ -8,22 +8,21 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.restaurapp.R
 import com.example.restaurapp.adapters.ComListDishAdapter
-import com.example.restaurapp.databinding.FragmentComListBinding
+import com.example.restaurapp.databinding.FragmentComShowBinding
 import com.example.restaurapp.entities.Command
 import com.example.restaurapp.entities.Dish
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
 
-class ComListFragment : Fragment() {
-    private var _binding: FragmentComListBinding? = null
+class ComShowFragment : Fragment() {
+    private var _binding: FragmentComShowBinding? = null
     private val binding get() = _binding!!
 
     companion object {
         private const val ARG_COMMAND = "command"
 
-        fun newInstance(command: Command) = ComListFragment().apply {
+        fun newInstance(command: Command) = ComShowFragment().apply {
             arguments = Bundle().apply {
                 putParcelable(ARG_COMMAND, command)
             }
@@ -35,7 +34,7 @@ class ComListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentComListBinding.inflate(inflater, container, false)
+        _binding = FragmentComShowBinding.inflate(inflater, container, false)
         rootView = binding.root
 
         // Apply touch interceptor to the root view

@@ -15,7 +15,7 @@ import com.example.restaurapp.adapters.CommandAdapter
 import com.example.restaurapp.databinding.ActivityComListBinding
 import com.example.restaurapp.entities.Command
 import com.example.restaurapp.entities.Dish
-import com.example.restaurapp.fragments.ComListFragment
+import com.example.restaurapp.fragments.ComShowFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
@@ -208,7 +208,7 @@ class ComListActivity : AppCompatActivity(), CommandAdapter.OnCommandLongClickLi
 
     override fun onItemClick(command: Command) {
         // Display the full-screen fragment
-        val fragment = ComListFragment.newInstance(command)
+        val fragment = ComShowFragment.newInstance(command)
         supportFragmentManager.beginTransaction().replace(android.R.id.content, fragment)
             .addToBackStack(null).commit()
     }

@@ -1,6 +1,7 @@
 package com.example.restaurapp.activities
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -61,7 +62,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_item3 -> {
-                    loadFragment(SettingsFragment())
+                    val intent = Intent(this, ComListActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 
