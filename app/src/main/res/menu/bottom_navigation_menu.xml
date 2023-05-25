@@ -1,8 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_item1"
-        android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:icon="@drawable/ic_com"
+        android:title="Create" />
+
+    <item
+        android:id="@+id/menu_item3"
+        android:icon="@drawable/ic_list"
+        android:title="List" />
+
     <item
         android:id="@+id/menu_item2"
         android:icon="@drawable/ic_settings"

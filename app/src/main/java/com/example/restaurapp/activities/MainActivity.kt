@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.restaurapp.R
 import com.example.restaurapp.databinding.ActivityMainBinding
-import com.example.restaurapp.fragments.MainFragment
+import com.example.restaurapp.fragments.SelectTableFragment
 import com.example.restaurapp.fragments.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -51,11 +51,16 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_item1 -> {
-                    loadFragment(MainFragment())
+                    loadFragment(SelectTableFragment())
                     true
                 }
 
                 R.id.menu_item2 -> {
+                    loadFragment(SettingsFragment())
+                    true
+                }
+
+                R.id.menu_item3 -> {
                     loadFragment(SettingsFragment())
                     true
                 }
@@ -65,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Set the initial fragment
-        loadFragment(MainFragment())
+        loadFragment(SelectTableFragment())
 
     }
 
