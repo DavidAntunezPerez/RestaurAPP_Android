@@ -23,7 +23,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.camera.core.ImageCaptureException
@@ -112,6 +114,16 @@ class SettingsFragment : Fragment() {
         // GET THE USER UID
         val userUID = sharedPreferences.getString("userUID", "userUID")
 
+        // LOADING ANIMATIONS
+        // LOAD RV
+        val loadingImageView: ImageView = binding.loadingAnimation
+        // LOADING SPINNER
+        binding.loadingAnimation.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireContext(), R.anim.loading_anim
+            )
+        )
+
         // SET UP THE LANGUAGE SPINNER
         languageSpinner = binding.languageSpinner
 
@@ -146,10 +158,16 @@ class SettingsFragment : Fragment() {
 
                     // LOAD IMAGE
                     loadImage()
+
+                    // HIDE LOADING ANIMATION
+                    stopAnimation(loadingImageView)
                 }
             } else {
                 // Document does not exist
                 Log.d("SettingsFragment", "User document does not exist")
+
+                // HIDE LOADING ANIMATION
+                stopAnimation(loadingImageView)
             }
         }
 
@@ -162,6 +180,11 @@ class SettingsFragment : Fragment() {
         binding.saveButton.setOnClickListener {
             saveSettings()
         }
+    }
+
+    private fun stopAnimation(imageView: ImageView) {
+        imageView.clearAnimation() // Clear the animation
+        imageView.visibility = View.GONE // Hide the ImageView
     }
 
     private fun saveSettings() {
@@ -392,6 +415,16 @@ class SettingsFragment : Fragment() {
     private fun uploadImageToFirebase(imageUri: Uri) {
         // Upload the image to Firebase Storage
 
+        // LOADING ANIMATIONS
+        // LOAD RV
+        val loadingImageView: ImageView = binding.loadingAnimation
+        // LOADING SPINNER
+        binding.loadingAnimation.startAnimation(
+            AnimationUtils.loadAnimation(
+                requireContext(), R.anim.loading_anim
+            )
+        )
+
         // REFERENCING FIREBASE STORAGE
         val storageRef = Firebase.storage.reference
 
@@ -416,6 +449,9 @@ class SettingsFragment : Fragment() {
                     binding.root, "Image uploaded successfully", Snackbar.LENGTH_SHORT
                 ).show()
 
+                // STOP THE LOADING ANIMATION
+                stopAnimation(loadingImageView)
+
                 // Update the userImage variable with the new image path
                 userImage = imagePath
 
@@ -426,12 +462,18 @@ class SettingsFragment : Fragment() {
                 Snackbar.make(
                     binding.root, "Error uploading image, $exception", Snackbar.LENGTH_SHORT
                 ).show()
+
+                // STOP THE LOADING ANIMATION
+                stopAnimation(loadingImageView)
             }
         }.addOnFailureListener { exception ->
             // Show error message using Snackbar
             Snackbar.make(
                 binding.root, "Error uploading image, $exception", Snackbar.LENGTH_SHORT
             ).show()
+
+            // STOP THE LOADING ANIMATION
+            stopAnimation(loadingImageView)
         }
     }
 
