@@ -6,6 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -54,9 +56,10 @@ class SignInActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
 
 
-        // SET ACTION TOOLBAR
-        val toolbar: Toolbar = binding.signInToolbar
-        setSupportActionBar(toolbar)
+        // SET LANG CHANGE BUTTON
+        binding.btnChangeLang.setOnClickListener {
+            showLanguagePopupMenu(it)
+        }
 
         // SETTING BUTTON FUNCTIONALITIES
 
@@ -199,29 +202,33 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    // LANGUAGE MENU INFLATION
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_language, menu)
-        return true
-    }
+    // SET UP THE MENU
+    // Show a popup menu with language options
+    private fun showLanguagePopupMenu(view: View) {
+        val popupMenu = PopupMenu(this, view)
+        popupMenu.menuInflater.inflate(R.menu.menu_language, popupMenu.menu)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_english -> {
-                setLocale(Locale.ENGLISH, true)
-                saveLanguage("en") // Save the language in shared preferences
-                true
-            }
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_english -> {
+                    setLocale(Locale.ENGLISH, true)
+                    saveLanguage("en") // Save the language in shared preferences
+                    true
+                }
 
-            R.id.action_spanish -> {
-                setLocale(Locale("es"), true)
-                saveLanguage("es") // Save the language in shared preferences
-                true
+                R.id.action_spanish -> {
+                    setLocale(Locale("es"), true)
+                    saveLanguage("es") // Save the language in shared preferences
+                    true
+                }
+
+                else -> false
             }
-            // Handle other language items here
-            else -> super.onOptionsItemSelected(item)
         }
+
+        popupMenu.show()
     }
+
 
     // Set the app's locale
     private fun setLocale(locale: Locale, onRecreate: Boolean) {
