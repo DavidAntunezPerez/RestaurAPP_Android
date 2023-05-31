@@ -146,29 +146,33 @@ class SettingsFragment : Fragment() {
         val userDocumentRef = firestore.collection("users").document(userUID!!)
         userDocumentRef.get().addOnSuccessListener { documentSnapshot ->
             if (documentSnapshot.exists()) {
-                val userData = documentSnapshot.data
-                if (userData != null) {
-                    userImage = userData["image"] as? String ?: ""
-                    userDescription = userData["description"] as? String ?: ""
-                    userName = userData["name"] as? String ?: ""
-                    userLocation = userData["location"] as? String ?: ""
+                if (documentSnapshot.exists()) {
+                    val userData = documentSnapshot.data
+                    if (userData != null) {
+                        userImage = userData["image"] as? String ?: ""
+                        userDescription = userData["description"] as? String ?: ""
+                        userName = userData["name"] as? String ?: ""
+                        userLocation = userData["location"] as? String ?: ""
 
-                    // Update UI with the retrieved values
-                    updateUIWithUserData()
+                        // Update UI with the retrieved values
+                        updateUIWithUserData()
 
-                    // LOAD IMAGE
-                    loadImage()
+                        // LOAD IMAGE
+                        loadImage()
+
+                        // HIDE LOADING ANIMATION
+                        stopAnimation(loadingImageView)
+                    }
+                } else {
+                    // Document does not exist
+                    Log.d("SettingsFragment", "User document does not exist")
 
                     // HIDE LOADING ANIMATION
                     stopAnimation(loadingImageView)
                 }
-            } else {
-                // Document does not exist
-                Log.d("SettingsFragment", "User document does not exist")
 
-                // HIDE LOADING ANIMATION
-                stopAnimation(loadingImageView)
             }
+
         }
 
         // Handle edit image button
@@ -180,6 +184,7 @@ class SettingsFragment : Fragment() {
         binding.saveButton.setOnClickListener {
             saveSettings()
         }
+
     }
 
     private fun stopAnimation(imageView: ImageView) {
@@ -258,49 +263,55 @@ class SettingsFragment : Fragment() {
     }
 
     private fun updateUIWithUserData() {
-        // Update UI elements with the retrieved user data
-        binding.nameEditText.setText(userName)
-        binding.descriptionEditText.setText(userDescription)
-        binding.locationEditText.setText(userLocation)
+        if (_binding != null) {
+            // Update UI elements with the retrieved user data
+            binding.nameEditText.setText(userName)
+            binding.descriptionEditText.setText(userDescription)
+            binding.locationEditText.setText(userLocation)
+        }
     }
 
+
     private fun loadImage() {
-        // Load user image using the userImage variable
 
-        // Apply fade-in animation to the ImageView
-        val fadeInAnimator = ObjectAnimator.ofFloat(binding.profileImageView, "alpha", 0f, 1f)
-        fadeInAnimator.duration = 500 // Animation duration in milliseconds
+        if (_binding != null) {
+            // Load user image using the userImage variable
 
-        // LOAD IMAGES
+            // Apply fade-in animation to the ImageView
+            val fadeInAnimator = ObjectAnimator.ofFloat(binding.profileImageView, "alpha", 0f, 1f)
+            fadeInAnimator.duration = 500 // Animation duration in milliseconds
 
-        if (userImage.isNotEmpty()) {
-            // IF A PATH IS SET IN FIRE STORE, LOAD IMAGE FROM STORAGE
+            // LOAD IMAGES
 
-            // REFERENCING FIREBASE STORAGE
-            val storageRef = Firebase.storage.reference
+            if (userImage.isNotEmpty()) {
+                // IF A PATH IS SET IN FIRE STORE, LOAD IMAGE FROM STORAGE
 
-            // REFERENCING THE RESULTING PATH INTO A CHILD
-            val pathReference = storageRef.child(userImage)
+                // REFERENCING FIREBASE STORAGE
+                val storageRef = Firebase.storage.reference
 
-            // SET THE MAX SIZE OF THE IMAGE (5MB IN THIS CASE)
-            val fileMaxSize: Long = 5 * 1000000
+                // REFERENCING THE RESULTING PATH INTO A CHILD
+                val pathReference = storageRef.child(userImage)
 
-            pathReference.getBytes(fileMaxSize).addOnSuccessListener { path ->
+                // SET THE MAX SIZE OF THE IMAGE (5MB IN THIS CASE)
+                val fileMaxSize: Long = 5 * 1000000
 
-                // LOADING THE IMAGE WITH GLIDE USING THE PATH GIVEN
-                Glide.with(this).load(path).diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .override(250, 250).centerCrop().into(binding.profileImageView)
+                pathReference.getBytes(fileMaxSize).addOnSuccessListener { path ->
+
+                    // LOADING THE IMAGE WITH GLIDE USING THE PATH GIVEN
+                    Glide.with(this).load(path).diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .override(250, 250).centerCrop().into(binding.profileImageView)
+
+                    fadeInAnimator.start() // Start the fade-in animation
+
+                }
+            } else {
+                // LOADING THE IMAGE WITH GLIDE USING THE DEFAULT IMAGE
+                Glide.with(this).load(R.drawable.restaurant_default_image)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL).override(250, 250).centerCrop()
+                    .into(binding.profileImageView)
 
                 fadeInAnimator.start() // Start the fade-in animation
-
             }
-        } else {
-            // LOADING THE IMAGE WITH GLIDE USING THE DEFAULT IMAGE
-            Glide.with(this).load(R.drawable.restaurant_default_image)
-                .diskCacheStrategy(DiskCacheStrategy.ALL).override(250, 250).centerCrop()
-                .into(binding.profileImageView)
-
-            fadeInAnimator.start() // Start the fade-in animation
         }
     }
 
