@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.example.restaurapp.R
@@ -35,9 +37,10 @@ class SignUpActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        // SET ACTION TOOLBAR
-        val toolbar: Toolbar = binding.signUpToolbar
-        setSupportActionBar(toolbar)
+        // SET LANG CHANGE BUTTON
+        binding.btnChangeLang.setOnClickListener {
+            showLanguagePopupMenu(it)
+        }
 
         binding.textView.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
@@ -65,9 +68,7 @@ class SignUpActivity : AppCompatActivity() {
                                 val errorMessage = "Error. Password is too weak. $reason"
 
                                 Snackbar.make(
-                                    binding.root,
-                                    errorMessage,
-                                    Snackbar.LENGTH_SHORT
+                                    binding.root, errorMessage, Snackbar.LENGTH_SHORT
                                 ).show()
                             } else if (it.exception is FirebaseAuthInvalidCredentialsException) {
                                 // IF EMAIL IS MALFORMED OR INVALID
@@ -101,11 +102,8 @@ class SignUpActivity : AppCompatActivity() {
                             } else if (it.exception is FirebaseAuthException) {
                                 // IF IS ANOTHER EXCEPTION
                                 Snackbar.make(
-                                    binding.root,
-                                    it.exception.toString(),
-                                    Snackbar.LENGTH_SHORT
-                                )
-                                    .show()
+                                    binding.root, it.exception.toString(), Snackbar.LENGTH_SHORT
+                                ).show()
                             }
                         }
                     }
@@ -143,26 +141,38 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     // LANGUAGE MENU INFLATION
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_language, menu)
-        return true
-    }
+    private fun showLanguagePopupMenu(view: View) {
+        val popupMenu = PopupMenu(this, view)
+        popupMenu.menuInflater.inflate(R.menu.menu_language, popupMenu.menu)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_english -> {
-                setLocale(Locale.ENGLISH)
-                true
-            }
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_english -> {
+                    setLocale(Locale.ENGLISH)
+                    saveLanguage("en") // Save the language in shared preferences
+                    true
+                }
 
-            R.id.action_spanish -> {
-                setLocale(Locale("es"))
-                true
+                R.id.action_spanish -> {
+                    setLocale(Locale("es"))
+                    saveLanguage("es") // Save the language in shared preferences
+                    true
+                }
+
+                else -> false
             }
-            // Handle other language items here
-            else -> super.onOptionsItemSelected(item)
         }
+
+        popupMenu.show()
     }
+
+    private fun saveLanguage(language: String) {
+        val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        val editor = sharedPreference.edit()
+        editor.putString("language", language)
+        editor.apply()
+    }
+
 
     // Set the app's locale
     private fun setLocale(locale: Locale) {

@@ -65,30 +65,23 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSignInGoogle"
-        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="368dp"
         android:layout_height="60dp"
         android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/white"
         android:text="@string/txt_type_google"
         android:textColor="@color/black"
         android:translationZ="1dp"
+        app:icon="@drawable/googlelogo"
+        app:iconGravity="textStart"
+        app:iconPadding="15dp"
+        app:iconSize="40dp"
+        app:iconTintMode="multiply"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/imgLogoGoogle"
-        android:layout_width="47dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/google_logo_description"
-        android:src="@drawable/googlelogo"
-        app:layout_constraintBottom_toBottomOf="@+id/btnSignInGoogle"
-        app:layout_constraintStart_toStartOf="@+id/btnSignInGoogle"
-        app:layout_constraintTop_toTopOf="@+id/btnSignInGoogle"
-        app:layout_constraintVertical_bias="0.55" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
