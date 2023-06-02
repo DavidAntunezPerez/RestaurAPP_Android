@@ -2,11 +2,18 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'com.chaquo.python'
 }
 
 android {
     namespace 'com.example.restaurapp'
     compileSdk 33
+
+    sourceSets {
+        main {
+            python.srcDir "some/other/dir"
+        }
+    }
 
     defaultConfig {
         applicationId "com.example.restaurapp"
@@ -16,6 +23,19 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+
+        python {
+            version "3.11"
+        }
+
+        python {
+            buildPython "C:/path/to/python.exe"
+            buildPython "C:/path/to/py.exe", "-3.11"
+        }
     }
 
     buildTypes {
@@ -65,4 +85,6 @@ dependencies {
 
     // CameraX lifecycle library
     implementation "androidx.camera:camera-lifecycle:1.2.2"
+
+    implementation 'com.google.code.gson:gson:2.10.1'
 }

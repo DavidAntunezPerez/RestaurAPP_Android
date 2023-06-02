@@ -1,5 +1,6 @@
 package com.example.restaurapp.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,10 @@ import com.example.restaurapp.entities.Command
 import com.example.restaurapp.entities.Dish
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 
 class ComShowFragment : Fragment() {
     private var _binding: FragmentComShowBinding? = null
@@ -29,6 +34,14 @@ class ComShowFragment : Fragment() {
             }
         }
     }
+
+    data class CommandData(
+        var title: String?,
+        var description: String?,
+        var totalPrice: Double?,
+        val dishesList: List<Dish>?,
+        var tableNumber: Int? = 0
+    )
 
     private lateinit var rootView: View
 
@@ -63,6 +76,11 @@ class ComShowFragment : Fragment() {
         val dishesList: List<Dish> = command?.dishesList ?: emptyList()
         var tableNumberInt: Long? = 0
 
+        // GENERATE COMMAND DATA CLASS
+        val commandData = CommandData(
+            command?.title, command?.description, command?.totalPrice, command?.dishesList, 0
+        )
+
         val adapter = ComListDishAdapter(dishesList)
         binding.rvDishes.adapter = adapter
         binding.rvDishes.layoutManager = LinearLayoutManager(requireContext())
@@ -79,6 +97,10 @@ class ComShowFragment : Fragment() {
             if (documentSnapshot?.exists() == true) {
                 val tableNumber = documentSnapshot.getLong("number")
                 tableNumberInt = tableNumber
+
+                // SAVE THE TABLE NUMBER RETRIEVED IN THE DATA CLASS COMMAND
+                commandData.tableNumber = tableNumber?.toInt()
+
                 val tableText = when (Locale.getDefault().language) {
                     "es" -> "MESA: ${tableNumber ?: "N/A"}"
                     else -> "TABLE: ${tableNumber ?: "N/A"}"
@@ -106,6 +128,42 @@ class ComShowFragment : Fragment() {
             // Perform the fragment transaction to replace the current fragment
             parentFragmentManager.beginTransaction().replace(R.id.ComListDisplay, editFragment)
                 .addToBackStack(null).commit()
+        }
+
+        binding.btnExportCSV.setOnClickListener {
+
+            // Serialize data to JSON
+            val gson: Gson = GsonBuilder().create()
+            val json: String = gson.toJson(commandData)
+
+            // Write JSON to a file
+            val fileName = "command.json"
+            val fileContents = json.toByteArray()
+            val fileOutputStream = requireContext().openFileOutput(fileName, Context.MODE_PRIVATE)
+            fileOutputStream.write(fileContents)
+            fileOutputStream.close()
+
+            // Get the JSON file path
+            val filePath = requireContext().getFileStreamPath(fileName).absolutePath
+
+            // Initialize Chaquopy
+            if (!Python.isStarted()) {
+                Python.start(AndroidPlatform(requireContext()))
+            }
+
+            // Execute the Python script
+            val python = Python.getInstance()
+            val script = python.getModule("export_command_csv")
+            val result = script.callAttr("main", filePath)?.toString()
+
+            // Log the result
+            Log.d("PythonScript", "Result: $result")
+
+            // Process the result (CSV file path)
+            // ...
+
+            // Delete the temporary JSON file
+            requireContext().deleteFile(fileName)
         }
 
 
