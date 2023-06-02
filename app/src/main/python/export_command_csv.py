@@ -3,7 +3,6 @@ import json
 import csv
 import os
 
-
 def main(file_path):
     # Read the JSON file
     with open(file_path, 'r') as json_file:
@@ -16,6 +15,7 @@ def main(file_path):
     total_price = json_data.get('totalPrice', '')
 
     dishes_list = json_data.get('dishesList', [])
+
     # Extract dish information and write to CSV
     app_dir = os.path.dirname(os.path.abspath(__file__))
     output_path = os.path.join(app_dir, 'output.csv')
@@ -36,12 +36,13 @@ def main(file_path):
     print('Description:', description)
     print('Table Number:', table_number)
     print('Total Price:', total_price)
-    print('CSV file generated successfully.')
 
+    # Return the path of the generated CSV file
+    return output_path
 
 if __name__ == '__main__':
-    # Retrieve the JSON file path from command-line argument
+    # Retrieve the JSON file path from the command-line argument
     json_file_path = sys.argv[1]
 
-    # Call the main function with the JSON file path
-    main(json_file_path)
+    # Call the main function with the JSON file path and print the result
+    print(main(json_file_path))

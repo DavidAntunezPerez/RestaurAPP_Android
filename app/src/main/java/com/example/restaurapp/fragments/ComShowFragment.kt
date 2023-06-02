@@ -2,11 +2,13 @@ package com.example.restaurapp.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.restaurapp.R
@@ -20,6 +22,8 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
+import com.google.android.material.snackbar.Snackbar
+import java.io.File
 
 class ComShowFragment : Fragment() {
     private var _binding: FragmentComShowBinding? = null
@@ -160,12 +164,31 @@ class ComShowFragment : Fragment() {
             Log.d("PythonScript", "Result: $result")
 
             // Process the result (CSV file path)
-            // ...
+            if (!result.isNullOrEmpty()) {
+                // Get the CSV file path
+                val csvFilePath = result
+
+                // Copy the CSV file to external storage
+                val csvFileName = "output.csv"
+                val csvFile = File(csvFilePath)
+                val csvDestination = File(
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                    csvFileName
+                )
+                csvFile.copyTo(csvDestination, overwrite = true)
+
+                // Show a Snackbar message to indicate the file has been downloaded
+                val snackbar = Snackbar.make(
+                    requireView(),
+                    "CSV file downloaded: ${csvDestination.absolutePath}",
+                    Snackbar.LENGTH_LONG
+                )
+                snackbar.show()
+            }
 
             // Delete the temporary JSON file
             requireContext().deleteFile(fileName)
         }
-
 
     }
 
