@@ -168,20 +168,19 @@ class ComShowFragment : Fragment() {
                 // Get the CSV file path
                 val csvFilePath = result
 
+                // Determine the unique CSV file name
+                val baseFileName = "command.csv"
+                val csvDestination = generateUniqueFileName(baseFileName)
+
                 // Copy the CSV file to external storage
-                val csvFileName = "output.csv"
                 val csvFile = File(csvFilePath)
-                val csvDestination = File(
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    csvFileName
-                )
                 csvFile.copyTo(csvDestination, overwrite = true)
 
                 // Show a Snackbar message to indicate the file has been downloaded
                 val snackbar = Snackbar.make(
                     requireView(),
                     "CSV file downloaded: ${csvDestination.absolutePath}",
-                    Snackbar.LENGTH_LONG
+                    Snackbar.LENGTH_SHORT
                 )
                 snackbar.show()
             }
@@ -190,6 +189,34 @@ class ComShowFragment : Fragment() {
             requireContext().deleteFile(fileName)
         }
 
+    }
+
+    // Function to generate a unique file name
+    private fun generateUniqueFileName(baseFileName: String): File {
+        var fileNumber = 1
+        var uniqueFileName: String
+        var csvDestination: File
+        val downloadsDirectory =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+
+        do {
+            uniqueFileName = if (fileNumber == 1) {
+                baseFileName
+            } else {
+                val fileNumberString = fileNumber.toString()
+                val fileExtension = baseFileName.substringAfterLast('.')
+                val fileNameWithoutExtension = baseFileName.substringBeforeLast('.')
+                val incrementedFileName =
+                    "${fileNameWithoutExtension}_$fileNumberString.$fileExtension"
+                incrementedFileName
+            }
+
+            csvDestination = File(downloadsDirectory, uniqueFileName)
+
+            fileNumber++
+        } while (csvDestination.exists())
+
+        return csvDestination
     }
 
     override fun onDestroyView() {
