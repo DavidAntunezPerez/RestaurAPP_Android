@@ -3,6 +3,12 @@ import json
 import csv
 import os
 
+
+def format_price(price):
+    # Format price as money with the dollar sign at the end
+    return f"${price}"
+
+
 def main(file_path):
     # Read the JSON file
     with open(file_path, 'r') as json_file:
@@ -21,15 +27,27 @@ def main(file_path):
     output_path = os.path.join(app_dir, 'output.csv')
     with open(output_path, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
-        writer.writerow(['ID', 'IDRestaurant', 'Image', 'Name', 'Price'])
-        for dish in dishes_list:
-            dish_id = dish.get('id', '')
-            restaurant_id = dish.get('idRestaurant', '')
-            image = dish.get('image', '')
-            name = dish.get('name', '')
-            price = dish.get('price', '')
 
-            writer.writerow([dish_id, restaurant_id, image, name, price])
+        # Write the title row
+        writer.writerow(['TITLE', title])
+
+        # Write the description row
+        writer.writerow(['DESCRIPTION', description])
+
+        # Write the dish headers
+        writer.writerow(['DISH', 'PRICE'])
+
+        # Write the dish details
+        for dish in dishes_list:
+            name = dish.get('name', '')
+            price = format_price(dish.get('price', ''))
+            writer.writerow([name, price])
+
+        # Write the total price row
+        writer.writerow(['TOTAL', format_price(total_price)])
+
+        # Thank the customer :)
+        writer.writerow(['Thank you for your visit :)!'])
 
     # Print the extracted information
     print('Title:', title)
@@ -39,6 +57,7 @@ def main(file_path):
 
     # Return the path of the generated CSV file
     return output_path
+
 
 if __name__ == '__main__':
     # Retrieve the JSON file path from the command-line argument
