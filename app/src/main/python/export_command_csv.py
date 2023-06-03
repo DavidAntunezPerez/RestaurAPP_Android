@@ -37,11 +37,30 @@ def main(file_path):
         # Write the dish headers
         writer.writerow(['DISH', 'PRICE'])
 
+        # Create a dictionary to keep track of dish counts and rows
+        dish_counts = {}
+        dish_rows = {}
+
         # Write the dish details
         for dish in dishes_list:
             name = dish.get('name', '')
-            price = format_price(dish.get('price', ''))
-            writer.writerow([name, price])
+            price = dish.get('price', '')
+
+            # Update the dish count and price
+            dish_key = f"{name}_{price}"
+            if dish_key in dish_counts:
+                dish_counts[dish_key] += 1
+            else:
+                dish_counts[dish_key] = 1
+
+            # Update the dish rows with the latest occurrence
+            dish_rows[dish_key] = [
+                f"{name}{' x' + str(dish_counts[dish_key]) if dish_counts[dish_key] > 1 else ''}",
+                format_price(price * dish_counts[dish_key])]
+
+        # Write only the last occurrence of each dish
+        for row in dish_rows.values():
+            writer.writerow(row)
 
         # Write the total price row
         writer.writerow(['TOTAL', format_price(total_price)])
