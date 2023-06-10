@@ -39,4 +39,50 @@
     <string name="english_language">🇬🇧</string>
     <string name="spanish_language">🇪🇸</string>
 
+    <!-- MENU LNG -->
+    <string name="txt_create_command_menu">Crear</string>
+    <string name="txt_list_command_menu">Lista</string>
+    <string name="txt_settings_command_menu">Ajustes</string>
+    <string name="txt_language_menu_es">Español</string>
+    <string name="txt_language_menu_en">Inglés</string>
+
+
+    <!-- COM SHOW FRAGMENT -->
+    <string name="com_show_title_txt">Título:</string>
+    <string name="command_title_com_show_txt">Título de Comanda</string>
+    <string name="description_com_show_txt">Descripción:</string>
+    <string name="command_description_com_show_txt">Descripción de Comanda</string>
+    <string name="total_price_com_show_txt">Precio Total:</string>
+    <string name="tv_com_show_value_txt" translatable="false">$20.00</string>
+    <string name="image_button_close_com_show_txt">Cerrar</string>
+    <string name="edit_image_button_com_show_txt">Editar</string>
+
+    <!-- CREATE COM -->
+    <string name="total_command_list">TOTAL:</string>
+    <string name="table_command_list">MESA:</string>
+    <string name="total_createcom">TOTAL: $</string>
+    <string name="add_a_title_txt_create_com">Añade un Título</string>
+    <string name="type_the_command_title_create_com">Escribe el Título de Comanda</string>
+    <string name="add_a_description_txt_create_com">Añade una descripción</string>
+    <string name="type_the_command_description_create_com">Escribe la descripción de Comanda</string>
+
+    <!-- EDIT COM -->
+    <string name="command_table_edit_com_txt">Mesa de Comanda</string>
+    <string name="edit_command_title_edit_com">Edita el Título de Commanda</string>
+    <string name="type_the_command_title_Edit_com">Escribe el Título de Comanda</string>
+    <string name="edit_command_description_edit_com">Edita la Descripción de Comanda</string>
+    <string name="type_the_command_description_edit_com">Escribe la Descripción de Comanda</string>
+    <string name="command_total_price_edit_com">Precio Total de la Comanda</string>
+    <string name="save_edit_com_txt">GUARDAR</string>
+    <string name="close_content_description_edit_com">Cerrar</string>
+
+
+    <!-- SETTINGS -->
+    <string name="log_out_fragment_settings">CERRAR SESIÓN</string>
+    <string name="settings_language">Idioma:</string>
+    <string name="settings_name">Nombre</string>
+    <string name="settings_description">Descripción</string>
+    <string name="settings_location">Ubicación</string>
+    <string name="settings_save">GUARDAR</string>
+
 </resources>

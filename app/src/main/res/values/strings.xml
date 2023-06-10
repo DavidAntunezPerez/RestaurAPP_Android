@@ -15,7 +15,6 @@
 
     <!--FOR TABLE LIST-->
     <string name="txt_table_page_information">Select a Table to take the Commands:</string>
-    <string name="txt_descr_example" translatable="false">This should be a small short information about a table to test te RecyclerView list.</string>
 
     <!--FOR COMMAND CREATION-->
     <string name="txt_commandcreate_tableinfo">TABLE #</string>
@@ -46,5 +45,64 @@
 
     <string name="english_language">🇬🇧</string>
     <string name="spanish_language">🇪🇸</string>
+
+    <!-- MENU LNG -->
+    <string name="txt_create_command_menu">Create</string>
+    <string name="txt_list_command_menu">List</string>
+    <string name="txt_settings_command_menu">Settings</string>
+    <string name="txt_language_menu_es">Spanish</string>
+    <string name="txt_language_menu_en">English</string>
+
+
+    <!-- COM SHOW FRAGMENT -->
+    <string name="com_show_title_txt">Title:</string>
+    <string name="command_title_com_show_txt">Command Title</string>
+    <string name="description_com_show_txt">Description:</string>
+    <string name="command_description_com_show_txt">Command Description</string>
+    <string name="total_price_com_show_txt">Total Price:</string>
+
+    <string name="image_button_close_com_show_txt">Close</string>
+    <string name="edit_image_button_com_show_txt">Edit</string>
+
+
+    <!-- CREATE COM -->
+    <string name="total_createcom">TOTAL: $</string>
+    <string name="total_command_list">TOTAL:</string>
+    <string name="table_command_list">TABLE:</string>
+    <string name="add_a_title_txt_create_com">Add a Title</string>
+    <string name="type_the_command_title_create_com">Type the Command Title</string>
+    <string name="add_a_description_txt_create_com">Add a description</string>
+    <string name="type_the_command_description_create_com">Type the Command Description</string>
+
+    <!-- EDIT COM -->
+    <string name="command_table_edit_com_txt">Command Table</string>
+    <string name="edit_command_title_edit_com">Edit Command Title</string>
+    <string name="type_the_command_title_Edit_com">Type the Command Title</string>
+    <string name="edit_command_description_edit_com">Edit Command Description</string>
+    <string name="type_the_command_description_edit_com">Type the Command Description</string>
+    <string name="command_total_price_edit_com">Command Total Price</string>
+    <string name="save_edit_com_txt">SAVE</string>
+    <string name="close_content_description_edit_com">Close</string>
+
+    <!-- NON-TRANSLATABLE -->
+    <string name="hashtag_table_list" translatable="false">#</string>
+    <string name="txt_descr_example" translatable="false">This should be a small short information about a table to test te RecyclerView list.</string>
+    <string name="example_text_number_table_list" translatable="false">1</string>
+    <string name="image_table_content_description" translatable="false">Image Table</string>
+    <string name="loading_animation_logo" translatable="false">Loading Animation Logo</string>
+    <string name="export_to_csv_content_description" translatable="false">Export to CSV</string>
+    <string name="tv_com_show_value_txt" translatable="false">$20.00</string>
+    <string name="commandicon_image_descr" translatable="false">CommandIcon</string>
+    <string name="dish_icon" translatable="false">Dish Icon</string>
+    <string name="profile_image_settings" translatable="false">Profile_image</string>
+    <string name="floating_action_edit_image" translatable="false">Floating Action Edit Image</string>
+
+    <!-- SETTINGS -->
+    <string name="log_out_fragment_settings">LOG OUT</string>
+    <string name="settings_language">Language:</string>
+    <string name="settings_name">Name</string>
+    <string name="settings_description">Description</string>
+    <string name="settings_location">Location</string>
+    <string name="settings_save">SAVE</string>
 
 </resources>

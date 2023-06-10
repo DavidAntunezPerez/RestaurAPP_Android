@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_english"
-        android:title="English" />
+        android:title="@string/txt_language_menu_en" />
     <item
         android:id="@+id/action_spanish"
-        android:title="Español" />
+        android:title="@string/txt_language_menu_es" />
 </menu>

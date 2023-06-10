@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="TOTAL: $"
+                android:text="@string/total_createcom"
                 android:textColor="@color/yellow"
                 android:textSize="24sp"
                 android:textStyle="bold"

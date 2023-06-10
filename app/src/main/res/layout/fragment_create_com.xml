@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="25dp"
-        android:text="Add a Title"
+        android:text="@string/add_a_title_txt_create_com"
         android:textColor="@color/blue"
         android:textStyle="bold" />
 
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="25dp"
-        android:hint="Type the Command Title">
+        android:hint="@string/type_the_command_title_create_com">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtInputTitle"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="25dp"
         android:layout_marginTop="10dp"
-        android:text="Add a description"
+        android:text="@string/add_a_description_txt_create_com"
         android:textColor="@color/blue"
         android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="25dp"
-        android:hint="Type the Command Description">
+        android:hint="@string/type_the_command_description_create_com">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtInputDescr"

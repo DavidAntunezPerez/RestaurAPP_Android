@@ -31,7 +31,7 @@
             android:id="@+id/tvTitleLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title:"
+            android:text="@string/com_show_title_txt"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Command Title"
+            android:text="@string/command_title_com_show_txt"
             android:textSize="17sp" />
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Description:"
+            android:text="@string/description_com_show_txt"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -55,7 +55,7 @@
             android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Command Description"
+            android:text="@string/command_description_com_show_txt"
             android:textSize="17sp" />
 
         <TextView
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Total Price:"
+            android:text="@string/total_price_com_show_txt"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -71,7 +71,7 @@
             android:id="@+id/tvTotalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$20.00"
+            android:text="@string/tv_com_show_value_txt"
             android:textSize="17sp" />
 
 
@@ -97,7 +97,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:background="@android:color/transparent"
-        android:contentDescription="Close"
+        android:contentDescription="@string/image_button_close_com_show_txt"
         android:padding="6dp"
         android:src="@drawable/ic_cross"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +110,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:background="@android:color/transparent"
-        android:contentDescription="Edit"
+        android:contentDescription="@string/edit_image_button_com_show_txt"
         android:padding="6dp"
         android:src="@drawable/ic_edit"
         app:layout_constraintEnd_toStartOf="@+id/btnClose"
@@ -123,7 +123,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:background="@android:color/transparent"
-        android:contentDescription="Export to CSV"
+        android:contentDescription="@string/export_to_csv_content_description"
         android:padding="6dp"
         android:src="@drawable/ic_export_csv"
         app:layout_constraintEnd_toStartOf="@+id/btnEdit"

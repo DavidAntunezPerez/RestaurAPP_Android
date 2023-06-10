@@ -47,11 +47,11 @@
             android:id="@+id/textCommandTotalPrice"
             android:layout_width="199dp"
             android:layout_height="30dp"
-            android:gravity="right"
+            android:gravity="end"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingBottom="15dp"
-            android:text="TOTAL: "
+            android:text="@string/total_command_list"
             android:textColor="@color/app_other_beige"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
             android:layout_height="30dp"
             android:paddingStart="22dp"
             android:paddingEnd="22dp"
-            android:text="TABLE: "
+            android:text="@string/table_command_list"
             android:textColor="@color/app_other_beige"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,7 +80,8 @@
             android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/commandicon" />
+            app:srcCompat="@drawable/commandicon"
+            android:contentDescription="@string/commandicon_image_descr" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

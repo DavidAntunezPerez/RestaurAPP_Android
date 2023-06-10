@@ -2,15 +2,15 @@
     <item
         android:id="@+id/menu_item1"
         android:icon="@drawable/ic_com"
-        android:title="Create" />
+        android:title="@string/txt_create_command_menu" />
 
     <item
         android:id="@+id/menu_item2"
         android:icon="@drawable/ic_list"
-        android:title="List" />
+        android:title="@string/txt_list_command_menu" />
 
     <item
         android:id="@+id/menu_item3"
         android:icon="@drawable/ic_settings"
-        android:title="Settings" />
+        android:title="@string/txt_settings_command_menu" />
 </menu>

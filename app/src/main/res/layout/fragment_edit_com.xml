@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="25dp"
-            android:text="Command Table"
+            android:text="@string/command_table_edit_com_txt"
             android:textColor="@color/app_primary"
             android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:paddingHorizontal="25dp"
-            android:text="Edit Command Title"
+            android:text="@string/edit_command_title_edit_com"
             android:textColor="@color/app_primary"
             android:textStyle="bold" />
 
@@ -47,7 +47,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type the Command Title"
+            android:hint="@string/type_the_command_title_Edit_com"
             android:paddingHorizontal="25dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:paddingHorizontal="25dp"
-            android:text="Edit Command Description"
+            android:text="@string/edit_command_description_edit_com"
             android:textColor="@color/app_primary"
             android:textStyle="bold" />
 
@@ -69,7 +69,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type the Command Description"
+            android:hint="@string/type_the_command_description_edit_com"
             android:paddingHorizontal="25dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:paddingHorizontal="25dp"
-            android:text="Command Total Price"
+            android:text="@string/command_total_price_edit_com"
             android:textColor="@color/app_primary"
             android:textStyle="bold" />
 
@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="SAVE" />
+            android:text="@string/save_edit_com_txt" />
 
     </LinearLayout>
 
@@ -118,7 +118,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:background="@android:color/transparent"
-        android:contentDescription="Close"
+        android:contentDescription="@string/close_content_description_edit_com"
         android:padding="6dp"
         android:src="@drawable/ic_return"
         app:layout_constraintEnd_toEndOf="parent"

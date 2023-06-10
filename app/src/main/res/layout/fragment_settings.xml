@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:text="LOG OUT" />
+        android:text="@string/log_out_fragment_settings" />
 
 
     <FrameLayout
@@ -32,7 +32,7 @@
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_gravity="center_horizontal"
-                android:contentDescription="Profile_image"
+                android:contentDescription="@string/profile_image_settings"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/loading_animation_logo" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btnEditImgSettings"
@@ -61,7 +62,8 @@
                 android:layout_marginBottom="5dp"
                 android:src="@drawable/ic_edit"
                 app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
-                app:layout_constraintEnd_toEndOf="@+id/profileImageView" />
+                app:layout_constraintEnd_toEndOf="@+id/profileImageView"
+                android:contentDescription="@string/floating_action_edit_image" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -73,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Language:" />
+        android:text="@string/settings_language" />
 
     <Spinner
         android:id="@+id/languageSpinner"
@@ -87,7 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:hint="Name">
+        android:hint="@string/settings_name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameEditText"
@@ -101,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:hint="Description">
+        android:hint="@string/settings_description">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/descriptionEditText"
@@ -115,7 +117,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:hint="Location">
+        android:hint="@string/settings_location">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/locationEditText"
@@ -131,6 +133,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="SAVE" />
+        android:text="@string/settings_save" />
 
 </LinearLayout>
