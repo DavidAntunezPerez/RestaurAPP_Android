@@ -28,7 +28,9 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
 
-
+/**
+ * Activity responsible for user sign-in functionality.
+ */
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignInBinding
@@ -41,36 +43,35 @@ class SignInActivity : AppCompatActivity() {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // INITIALIZING GOOGLE SIGN IN
+        // Initializing Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
 
         gsc = GoogleSignIn.getClient(this, gso)
 
-        // INITIALIZING FIREBASE AUTH AND FIRE STORE
+        // Initializing Firebase Auth and Firestore
         firebaseAuth = FirebaseAuth.getInstance()
-
         firestore = FirebaseFirestore.getInstance()
 
-
-        // SET LANG CHANGE BUTTON
+        // Set language change button functionality
         binding.btnChangeLang.setOnClickListener {
             showLanguagePopupMenu(it)
         }
 
-        // SETTING BUTTON FUNCTIONALITIES
+        // Setting button functionalities
 
-        // NOT REGISTERED OPTION
+        // Not registered option
         binding.textView.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
-        // SIGN IN WITH GOOGLE OPTION
+
+        // Sign in with Google option
         binding.btnSignInGoogle.setOnClickListener {
             signInGoogle()
         }
 
-        // NORMAL SIGN IN OPTION
+        // Normal sign in option
         binding.button.setOnClickListener {
             val email = binding.emailEt.text.toString()
             val pass = binding.passET.text.toString()
@@ -82,38 +83,37 @@ class SignInActivity : AppCompatActivity() {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {
-
-                        // MANAGE USER LOGIN EXCEPTIONS
+                        // Manage user login exceptions
                         if (it.exception is FirebaseAuthInvalidCredentialsException) {
-                            // if the provided credential is invalid or expired
+                            // If the provided credential is invalid or expired
                             Snackbar.make(
                                 binding.root,
                                 getString(R.string.invalid_credentials),
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         } else if (it.exception is FirebaseAuthInvalidUserException) {
-                            // IF THE USER DOES NOT EXIST OR IS DISABLED
+                            // If the user does not exist or is disabled
                             Snackbar.make(
                                 binding.root,
                                 getString(R.string.user_not_exist),
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         } else if (it.exception is FirebaseAuthRecentLoginRequiredException) {
-                            // if the user's credential requires additional verification or reauthentication
+                            // If the user's credential requires additional verification or reauthentication
                             Snackbar.make(
                                 binding.root,
                                 getString(R.string.additional_verification_user),
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         } else if (it.exception is FirebaseAuthUserCollisionException) {
-                            // if the credential used for sign-in is already associated with another user account
+                            // If the credential used for sign-in is already associated with another user account
                             Snackbar.make(
                                 binding.root,
                                 getString(R.string.credential_associated_account),
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         } else if (it.exception is FirebaseNetworkException) {
-                            // if the app cannot connect to Firebase servers
+                            // If the app cannot connect to Firebase servers
                             Snackbar.make(
                                 binding.root,
                                 getString(R.string.network_error),
@@ -124,74 +124,90 @@ class SignInActivity : AppCompatActivity() {
                                 binding.root, it.exception.toString(), Snackbar.LENGTH_SHORT
                             ).show()
                         }
-
                     }
                 }
             } else if (email.isEmpty()) {
-                Snackbar.make(it, getString(R.string.email_cannot_empty), Snackbar.LENGTH_SHORT).show()
-            } else if (pass.isEmpty()) {
-                Snackbar.make(it, getString(R.string.password_cannot_empty), Snackbar.LENGTH_SHORT).show()
-            } else {
-                Snackbar.make(it, getString(R.string.invalid_credentials_try_again), Snackbar.LENGTH_SHORT)
+                Snackbar.make(it, getString(R.string.email_cannot_empty), Snackbar.LENGTH_SHORT)
                     .show()
+            } else if (pass.isEmpty()) {
+                Snackbar.make(it, getString(R.string.password_cannot_empty), Snackbar.LENGTH_SHORT)
+                    .show()
+            } else {
+                Snackbar.make(
+                    it, getString(R.string.invalid_credentials_try_again), Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
     }
 
+    /** On start of the activity */
     override fun onStart() {
         super.onStart()
 
         val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
 
-        // IF ALREADY LOGGED IN, SEND USER TO MAIN ACTIVITY
+        // Check if the user is already logged in
         if (firebaseAuth.currentUser != null) {
-            // SET THE LANGUAGE SAVED IN SHARED PREFERENCES
+            // The user is already logged in
+
+            // Retrieve the language saved in shared preferences
             val language = sharedPreference.getString("language", null)
 
             if (language != null) {
+                // A language is saved in shared preferences
+
+                // Determine the locale based on the saved language
                 val locale = when (language) {
                     "Spanish" -> Locale("es")
                     else -> Locale.ENGLISH
                 }
+
+                // Set the locale without recreating the activity
                 setLocale(locale, false)
             }
 
-            // CHECK IF THERE IS AN USER DOCUMENT ALREADY CREATED
+            // Check if there is an existing user document
             checkAndCreateUserDocument()
 
-            // NAVIGATE TO MAIN ACTIVITY
+            // Navigate to the main activity
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } else {
-            // IF NOT ALREADY LOGGED IN, DELETE THE SHARED PREFERENCES VARIABLE
-            sharedPreference.edit().clear()
+            // The user is not already logged in
+
+            // Delete the shared preferences variable
+            sharedPreference.edit().clear().apply()
         }
     }
 
-    // CREATION OF USER DOCUMENT IN CASE IT DOES NOT EXISTS
+    /**
+     * Check and create a user document in case it does not exist.
+     */
     private fun checkAndCreateUserDocument() {
+        // Get the current user and their UID
         val currentUser = firebaseAuth.currentUser
         val uid = currentUser?.uid
 
         if (uid != null) {
+            // Create a reference to the user document in the "users" collection
             val userRef = firestore.collection("users").document(uid)
+
+            // Check if the user document exists
             userRef.get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val document = task.result
                     if (document != null && document.exists()) {
-
                         // User document already exists
-
+                        // Perform any necessary actions or logic here
                     } else {
-
                         // User document does not exist, create a new one with default values
+
+                        // Define the default values for the user document
                         val defaultValues = hashMapOf(
-                            "name" to "Anonymous",
-                            "description" to "",
-                            "location" to "",
-                            "image" to ""
+                            "name" to "", "description" to "", "location" to "", "image" to ""
                         )
 
+                        // Set the default values in the user document
                         userRef.set(defaultValues)
                     }
                 }
@@ -199,23 +215,39 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    // SET UP THE MENU
-    // Show a popup menu with language options
+    /**
+     * Set up the menu.
+     * Show a popup menu with language options.
+     *
+     * @param view The view associated with the menu.
+     */
     private fun showLanguagePopupMenu(view: View) {
+        // Create a new instance of PopupMenu
         val popupMenu = PopupMenu(this, view)
+
+        // Inflate the menu resource file into the PopupMenu's menu
         popupMenu.menuInflater.inflate(R.menu.menu_language, popupMenu.menu)
 
+        // Set the click listener for menu items
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.action_english -> {
+                    // Set the locale to English and recreate the activity
                     setLocale(Locale.ENGLISH, true)
-                    saveLanguage("en") // Save the language in shared preferences
+
+                    // Save the selected language in shared preferences
+                    saveLanguage("en")
+
                     true
                 }
 
                 R.id.action_spanish -> {
+                    // Set the locale to Spanish and recreate the activity
                     setLocale(Locale("es"), true)
-                    saveLanguage("es") // Save the language in shared preferences
+
+                    // Save the selected language in shared preferences
+                    saveLanguage("es")
+
                     true
                 }
 
@@ -223,70 +255,122 @@ class SignInActivity : AppCompatActivity() {
             }
         }
 
+        // Show the PopupMenu
         popupMenu.show()
     }
 
-
-    // Set the app's locale
+    /**
+     * Set the app's locale.
+     *
+     * @param locale The desired locale.
+     * @param onRecreate Whether to recreate the activity after changing the locale.
+     */
     private fun setLocale(locale: Locale, onRecreate: Boolean) {
+        // Get the resources object for the current context
         val resources = resources
+
+        // Get the configuration object from the resources
         val configuration = resources.configuration
+
+        // Set the locale of the configuration to the specified locale
         configuration.setLocale(locale)
+
+        // Update the configuration and display metrics of the resources
         resources.updateConfiguration(configuration, resources.displayMetrics)
+
+        // If onRecreate flag is true, restart the activity to apply the locale change
         if (onRecreate) {
-            // Restart the activity for the locale change to take effect
             recreate()
         }
     }
 
-    // Save the selected language in shared preferences
+    /**
+     * Save the selected language in shared preferences.
+     *
+     * @param language The selected language.
+     */
     private fun saveLanguage(language: String) {
+        // Retrieve the shared preferences with the specified name and mode
         val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+
+        // Retrieve the editor for modifying the shared preferences
         val editor = sharedPreference.edit()
+
+        // Store the selected language in the shared preferences
         editor.putString("language", language)
+
+        // Apply the changes to the shared preferences
         editor.apply()
     }
 
-
-    // SIGN IN WITH GOOGLE FUNCTIONS
+    /**
+     * Sign in with Google.
+     * Retrieve the sign-in intent from the GoogleSignInClient and launch the sign-in intent.
+     */
     private fun signInGoogle() {
+        // Retrieve the sign-in intent from the GoogleSignInClient
         val signInIntent = gsc.signInIntent
+
+        // Launch the sign-in intent using the launcher
         launcher.launch(signInIntent)
     }
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            // Check if the sign-in activity was successful
             if (result.resultCode == Activity.RESULT_OK) {
-
+                // Retrieve the task containing the signed-in account from the result data
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+
+                // Handle the sign-in task results
                 handleResults(task)
             }
         }
 
+    /**
+     * Handles the task results of signing in with Google.
+     *
+     * @param task The Task containing the result of the sign-in process.
+     */
     private fun handleResults(task: Task<GoogleSignInAccount>) {
+        // Check if the task was successful
         if (task.isSuccessful) {
+            // Retrieve the GoogleSignInAccount from the task result
             val account: GoogleSignInAccount? = task.result
             if (account != null) {
+                // If the account is not null, update the UI with the account information
                 updateUI(account)
             }
         } else {
+            // If the task was not successful, display an error toast with the exception message
             Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
+    /**
+     * Updates the UI based on the GoogleSignInAccount information.
+     *
+     * @param account The GoogleSignInAccount containing the user's account information.
+     */
     private fun updateUI(account: GoogleSignInAccount) {
-        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
-            if (it.isSuccessful) {
-                checkAndCreateUserDocument()
+        // Get the ID token from the GoogleSignInAccount
+        val idToken = account.idToken
+
+        // Create a GoogleAuthProvider credential using the ID token
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+
+        // Sign in with the credential using Firebase Auth
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Sign-in success
                 val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("email", account.email)
-                intent.putExtra("name", account.displayName)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                // Sign-in failed
+                Toast.makeText(
+                    this, task.exception.toString(), Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
-
 }

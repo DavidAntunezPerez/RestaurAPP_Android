@@ -20,6 +20,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+/**
+ *  Activity made for managing the creation of Commands
+ **/
 class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
     DishCCMoreAdapter.DishRemovedListener {
     private lateinit var binding: ActivityCreateComBinding
@@ -33,8 +36,10 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
     private var title: String? = null
     private var description: String? = null
 
+    /**
+     * Initializes the activity and sets up the views.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         binding = ActivityCreateComBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -95,8 +100,7 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
                 (dishRecyclerView.adapter as DishAdapter).replaceDishCreateList(moreFragment.hideFragment())
                 // Hide the fragment
                 transaction.hide(moreFragment)
-                findViewById<View>(R.id.fragmentMoreCreateComInterface)
-                    .setOnTouchListener { _, _ -> false }
+                findViewById<View>(R.id.fragmentMoreCreateComInterface).setOnTouchListener { _, _ -> false }
 
                 // ADD ANIMATION WHEN LOADING ALL THE RV
                 dishRecyclerView.startLayoutAnimation()
@@ -105,8 +109,7 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
             transaction.commit()
         }
 
-
-        // SET UP THE RECYCLER VIEW--
+        // SET UP THE RECYCLER VIEW
         dishRecyclerView = binding.recyclerview
         dishRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -137,15 +140,28 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
         binding.btnCreateCom.setOnClickListener {
             saveComFirestore(userUID, tableDocId, title, description, it)
         }
-
     }
 
-    // RETRIEVE ON DATA PASS INTERFACE FROM FRAGMENT TO GET THE TITLE AND DESCRIPTION
+    /**
+     * Receives the data passed from the fragment and stores the title and description.
+     *
+     * @param title The title passed from the fragment.
+     * @param description The description passed from the fragment.
+     */
     override fun onDataPass(title: String, description: String) {
         this.title = title
         this.description = description
     }
 
+    /**
+     * Saves the command to Firestore.
+     *
+     * @param userUID The UID of the user.
+     * @param idTable The ID of the table.
+     * @param title The title of the command.
+     * @param description The description of the command.
+     * @param view The view used to display a Snackbar.
+     */
     private fun saveComFirestore(
         userUID: String?, idTable: String?, title: String?, description: String?, view: View
     ) {
@@ -164,11 +180,12 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
 
         Log.i("DISHCREATELIST TO STRING", selectedDishes.toString())
 
-
         if (selectedDishes.isNotEmpty()) {
             // Add a new document with a generated ID
             db.collection("commands").add(command).addOnSuccessListener { documentReference ->
-                Snackbar.make(view, getString(R.string.success_create_command), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    view, getString(R.string.success_create_command), Snackbar.LENGTH_LONG
+                ).show()
                 Log.d(
                     "Added command successfully",
                     "DocumentSnapshot added with ID: ${documentReference.id}"
@@ -180,7 +197,8 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
             }
         } else {
             // IF THE LIST OF DISHES IS EMPTY, YOU SHOULD NOT BE ABLE TO CREATE A COMMAND
-            Snackbar.make(view, getString(R.string.cannot_create_command), Snackbar.LENGTH_LONG).show()
+            Snackbar.make(view, getString(R.string.cannot_create_command), Snackbar.LENGTH_LONG)
+                .show()
         }
 
         // DELETE TOTAL PRICE WHEN PROCESS ENDED
@@ -191,12 +209,15 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
 
         // CLEAR FRAGMENT ADAPTER
         moreFragment.clearCCMoreAdapter()
-
     }
 
+    /**
+     * Updates the total price when a dish is removed.
+     *
+     * @param dishRemovedPrice The price of the removed dish.
+     */
     override fun onDishRemovedUpdatePrice(dishRemovedPrice: Double) {
         (dishRecyclerView.adapter as DishAdapter).removeDishPrice(dishRemovedPrice)
         Log.i("TPD ONDISHREMOVED ACTIVITY", "$dishRemovedPrice")
     }
-
 }

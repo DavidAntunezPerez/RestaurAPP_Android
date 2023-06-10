@@ -18,31 +18,38 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import java.util.Locale
 
+/**
+ *  Activity responsible for user sign-up functionality.
+ **/
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
 
-    // creating variable for FireBase Authentication
+    // Creating a variable for Firebase Authentication
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Initialize the binding object using the generated class from View Binding
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Initialize the Firebase Authentication instance
         firebaseAuth = FirebaseAuth.getInstance()
 
-        // SET LANG CHANGE BUTTON
+        // Set up the click listener for the language change button
         binding.btnChangeLang.setOnClickListener {
             showLanguagePopupMenu(it)
         }
 
+        // Set up the click listener for the "Sign in" text view
         binding.textView.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }
 
+        // Set up the click listener for the "Sign Up" button
         binding.signupbutton.setOnClickListener {
             val email = binding.emailEt.text.toString()
             val pass = binding.passET.text.toString()
@@ -50,14 +57,16 @@ class SignUpActivity : AppCompatActivity() {
 
             if (email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()) {
                 if (pass == confirmPass) {
+                    // Create a user with the provided email and password
                     firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
+                            // If the user creation is successful, navigate to the sign-in activity
                             val intent = Intent(this, SignInActivity::class.java)
                             startActivity(intent)
                         } else {
-                            // MANAGE CREATE USER EXCEPTIONS
+                            // Manage create user exceptions
                             if (it.exception is FirebaseAuthWeakPasswordException) {
-                                // IF THE PASSWORD IS WEAK
+                                // If the password is weak
                                 val weakPasswordException =
                                     it.exception as FirebaseAuthWeakPasswordException
                                 val reason = weakPasswordException.reason
@@ -67,76 +76,81 @@ class SignUpActivity : AppCompatActivity() {
                                     binding.root, errorMessage, Snackbar.LENGTH_SHORT
                                 ).show()
                             } else if (it.exception is FirebaseAuthInvalidCredentialsException) {
-                                // IF EMAIL IS MALFORMED OR INVALID
+                                // If the email is malformed or invalid
                                 Snackbar.make(
                                     binding.root,
                                     R.string.error_invalid_email,
                                     Snackbar.LENGTH_SHORT
                                 ).show()
                             } else if (it.exception is FirebaseAuthUserCollisionException) {
-                                // IF THERE IS ALREADY AN EXISTING USER WITH THAT MAIL
+                                // If there is already an existing user with that email
                                 Snackbar.make(
                                     binding.root,
                                     R.string.error_user_exists,
                                     Snackbar.LENGTH_SHORT
                                 ).show()
                             } else if (it.exception is FirebaseNetworkException) {
-                                // IF IS A NETWORK ERROR
+                                // If there is a network error
                                 Snackbar.make(
                                     binding.root,
                                     R.string.error_network,
                                     Snackbar.LENGTH_SHORT
                                 ).show()
-
                             } else if (it.exception is FirebaseTooManyRequestsException) {
-                                // IF THERE IS TOO MANY REQUESTS
+                                // If there are too many requests
                                 Snackbar.make(
                                     binding.root,
                                     R.string.error_too_many_requests,
                                     Snackbar.LENGTH_SHORT
                                 ).show()
                             } else if (it.exception is FirebaseAuthException) {
-                                // IF IS ANOTHER EXCEPTION
+                                // If there is another exception
                                 Snackbar.make(
                                     binding.root, it.exception.toString(), Snackbar.LENGTH_SHORT
                                 ).show()
                             }
                         }
                     }
-
                 } else {
+                    // Show a snackbar message if the passwords do not match
                     Snackbar.make(it, R.string.error_password_match, Snackbar.LENGTH_SHORT).show()
                 }
             } else if (email.isEmpty()) {
+                // Show a snackbar message if the email is empty
                 Snackbar.make(it, R.string.error_email_empty, Snackbar.LENGTH_SHORT).show()
             } else if (pass.isEmpty()) {
+                // Show a snackbar message if the password is empty
                 Snackbar.make(it, R.string.error_password_empty, Snackbar.LENGTH_SHORT).show()
             } else if (confirmPass.isEmpty()) {
+                // Show a snackbar message if the confirm password field is empty
                 Snackbar.make(it, R.string.error_confirm_password, Snackbar.LENGTH_SHORT).show()
             } else {
+                // Show a snackbar message if the credentials are invalid
                 Snackbar.make(it, R.string.error_invalid_credentials, Snackbar.LENGTH_SHORT)
                     .show()
             }
-
         }
-
     }
 
     override fun onStart() {
         super.onStart()
 
-        // IF ALREADY LOGGED IN, SEND USER TO MAIN ACTIVITY
+        // Check if the user is already logged in and navigate to the main activity
         if (firebaseAuth.currentUser != null) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } else {
-            // IF NOT ALREADY LOGGED IN, DELETE THE SHARED PREFERENCES VARIABLE
+            // If not already logged in, delete the shared preferences variable
             val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
             sharedPreference.edit().clear()
         }
     }
 
-    // LANGUAGE MENU INFLATION
+    /**
+     * Show the language selection popup menu.
+     *
+     * @param view The view that triggered the popup menu.
+     */
     private fun showLanguagePopupMenu(view: View) {
         val popupMenu = PopupMenu(this, view)
         popupMenu.menuInflater.inflate(R.menu.menu_language, popupMenu.menu)
@@ -162,6 +176,11 @@ class SignUpActivity : AppCompatActivity() {
         popupMenu.show()
     }
 
+    /**
+     * Save the selected language in shared preferences.
+     *
+     * @param language The selected language to be saved.
+     */
     private fun saveLanguage(language: String) {
         val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
@@ -169,8 +188,11 @@ class SignUpActivity : AppCompatActivity() {
         editor.apply()
     }
 
-
-    // Set the app's locale
+    /**
+     * Set the app's locale.
+     *
+     * @param locale The locale to be set.
+     */
     private fun setLocale(locale: Locale) {
         val resources = resources
         val configuration = resources.configuration
@@ -180,5 +202,4 @@ class SignUpActivity : AppCompatActivity() {
         // Restart the activity for the locale change to take effect
         recreate()
     }
-
 }

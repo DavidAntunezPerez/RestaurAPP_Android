@@ -13,14 +13,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import java.util.Locale
 
-
+/**
+ * Main activity of the project
+ */
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // SET THE LANGUAGE SAVED IN SHARED PREFERENCES
+        // Set the language saved in shared preferences
         val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         val language = sharedPreference.getString("language", null)
 
@@ -38,16 +40,15 @@ class MainActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        // GET USER UID
+        // Get user UID
         val userUID = firebaseAuth.currentUser?.uid
 
-        // STORE USER UID IN SHARED PREFERENCES
+        // Store user UID in shared preferences
         val editor = sharedPreference.edit()
-        // PUTTING IT INTO A STRING
         editor.putString("userUID", userUID)
         editor.apply()
 
-        // SET THE BOTTOM NAVIGATION
+        // Set up the bottom navigation
         bottomNavigationView = binding.bottomNav
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -72,10 +73,13 @@ class MainActivity : AppCompatActivity() {
 
         // Set the initial fragment
         loadFragment(SelectTableFragment())
-
     }
 
-    // FUNCTION TO LOAD A FRAGMENT FOR NAVIGATION
+    /**
+     * Function to load a fragment for navigation.
+     * Replaces the current fragment with the specified fragment and adds the transaction to the back stack.
+     * @param fragment The fragment to be loaded.
+     */
     private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_main, fragment)
@@ -83,7 +87,13 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    // Set the app's locale
+    /**
+     * Set the app's locale.
+     * Updates the app's configuration with the new locale and applies the updated configuration.
+     * If specified, restarts the activity for the locale change to take effect.
+     * @param locale The desired locale.
+     * @param onRecreate Whether the activity should be recreated after the locale change.
+     */
     private fun setLocale(locale: Locale, onRecreate: Boolean) {
         val resources = resources
         val configuration = resources.configuration
