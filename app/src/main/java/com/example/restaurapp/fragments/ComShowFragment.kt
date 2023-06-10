@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.restaurapp.R
@@ -32,6 +31,12 @@ class ComShowFragment : Fragment() {
     companion object {
         private const val ARG_COMMAND = "command"
 
+        /**
+         * Create a new instance of the [ComShowFragment] with the given command.
+         *
+         * @param command The command to display.
+         * @return The new instance of [ComShowFragment].
+         */
         fun newInstance(command: Command) = ComShowFragment().apply {
             arguments = Bundle().apply {
                 putParcelable(ARG_COMMAND, command)
@@ -135,7 +140,6 @@ class ComShowFragment : Fragment() {
         }
 
         binding.btnExportCSV.setOnClickListener {
-
             // Serialize data to JSON
             val gson: Gson = GsonBuilder().create()
             val json: String = gson.toJson(commandData)
@@ -192,7 +196,12 @@ class ComShowFragment : Fragment() {
 
     }
 
-    // Function to generate a unique file name
+    /**
+     * Generate a unique file name based on the base file name.
+     *
+     * @param baseFileName The base file name.
+     * @return The unique file with a unique name.
+     */
     private fun generateUniqueFileName(baseFileName: String): File {
         var fileNumber = 1
         var uniqueFileName: String

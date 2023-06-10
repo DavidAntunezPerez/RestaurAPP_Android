@@ -18,6 +18,9 @@ import com.example.restaurapp.entities.Table
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+/**
+ * A fragment for selecting a table.
+ */
 class SelectTableFragment : Fragment() {
     private var _binding: FragmentSelectTableBinding? = null
     private val binding get() = _binding!!
@@ -25,6 +28,13 @@ class SelectTableFragment : Fragment() {
     private lateinit var tableList: ArrayList<Table>
     private val db = Firebase.firestore
 
+    /**
+     * Inflates the layout for the fragment.
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
+     * @return Returns the root view of the fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +44,11 @@ class SelectTableFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Called immediately after the fragment's view is created.
+     * @param view The View created by onCreateView(LayoutInflater, ViewGroup, Bundle).
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -83,12 +98,18 @@ class SelectTableFragment : Fragment() {
         }
     }
 
+    /**
+     * Called when the view previously created by onCreateView(LayoutInflater, ViewGroup, Bundle) has been detached from the fragment.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    // FUNCTION TO STOP THE ANIMATION WHEN THE RV LOADS
+    /**
+     * Stops the animation when the RecyclerView finishes loading.
+     * @param imageView The ImageView containing the loading animation.
+     */
     private fun stopAnimation(imageView: ImageView) {
         imageView.clearAnimation() // Clear the animation
         imageView.visibility = View.GONE // Hide the ImageView

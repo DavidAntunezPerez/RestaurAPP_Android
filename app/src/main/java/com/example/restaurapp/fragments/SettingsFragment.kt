@@ -56,6 +56,13 @@ class SettingsFragment : Fragment() {
     private var userName: String = ""
     private var userLocation: String = ""
 
+    /**
+     * Inflates the layout of the fragment.
+     * @param inflater The layout inflater.
+     * @param container The parent view.
+     * @param savedInstanceState The saved instance state.
+     * @return The root view of the fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -63,6 +70,10 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Called when the fragment is resumed. Retrieves the selected language from shared preferences
+     * and updates the language spinner accordingly.
+     */
     override fun onResume() {
         super.onResume()
 
@@ -80,6 +91,13 @@ class SettingsFragment : Fragment() {
         Log.i("LANGUAGE GET DEFAULT RESUME SPINNER", "$languageIndex")
     }
 
+    /**
+     * Called when the view is created. Initializes Firebase Auth, Firebase Firestore, and shared preferences.
+     * Sets up click listeners for buttons and initializes the language spinner.
+     * Retrieves user data from Firestore and updates the UI with the data.
+     * @param view The created view.
+     * @param savedInstanceState The saved instance state.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -176,11 +194,19 @@ class SettingsFragment : Fragment() {
 
     }
 
+    /**
+     * Stops the animation and hides the given ImageView.
+     *
+     * @param imageView The ImageView to stop the animation and hide.
+     */
     private fun stopAnimation(imageView: ImageView) {
         imageView.clearAnimation() // Clear the animation
         imageView.visibility = View.GONE // Hide the ImageView
     }
 
+    /**
+     * Saves the entered settings and updates the user document in Firestore.
+     */
     private fun saveSettings() {
         val name = binding.nameEditText.text.toString()
         val description = binding.descriptionEditText.text.toString()
@@ -221,6 +247,9 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    /**
+     * Saves the selected language as the app's language and updates the configuration accordingly.
+     */
     private fun saveChangeLang() {
         val defaultLanguage = getDefaultLanguage()
 
@@ -243,10 +272,22 @@ class SettingsFragment : Fragment() {
 
     }
 
+    /**
+     * Returns the index of the given language in the list of supported languages.
+     *
+     * @param language The language to find the index of.
+     * @return The index of the language in the list of supported languages.
+     */
     private fun getLanguageIndex(language: String): Int {
         val languages = resources.getStringArray(R.array.languages)
         return languages.indexOf(language)
     }
+
+    /**
+     * Returns the default language based on the device's locale.
+     *
+     * @return The default language as a string.
+     */
 
     private fun getDefaultLanguage(): String {
         return when (Locale.getDefault().language) {
@@ -256,6 +297,9 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    /**
+     * Updates the UI elements with the retrieved user data.
+     */
     private fun updateUIWithUserData() {
         if (_binding != null) {
             // Update UI elements with the retrieved user data
@@ -265,7 +309,9 @@ class SettingsFragment : Fragment() {
         }
     }
 
-
+    /**
+     * Loads the user's image into the profile image view.
+     */
     private fun loadImage() {
 
         if (_binding != null) {
@@ -309,6 +355,10 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    /**
+     * Displays a dialog to allow the user to select an image option: choose from gallery, take picture with camera,
+     * or remove picture.
+     */
     private fun showImageSelectionDialog() {
         val options = arrayOf(
             getString(R.string.choose_image_gallery),
@@ -338,6 +388,9 @@ class SettingsFragment : Fragment() {
             }.setIcon(R.drawable.ic_image_edit).show()
     }
 
+    /**
+     * Removes the user's image by updating the user document in Firestore with an empty image path.
+     */
     private fun removeImage() {
         // Update the user document in Firestore with an empty image path
         val userUID = sharedPreferences.getString("userUID", "userUID")
@@ -370,12 +423,22 @@ class SettingsFragment : Fragment() {
         private const val REQUEST_CAMERA_PERMISSION = 1003
     }
 
+    /**
+     * Opens the gallery to choose an image.
+     */
     private fun chooseImageFromGallery() {
         val galleryIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         galleryIntent.type = "image/*"
         startActivityForResult(galleryIntent, REQUEST_PICK_IMAGE)
     }
 
+    /**
+     * Handles the result of an activity.
+     *
+     * @param requestCode The request code.
+     * @param resultCode The result code.
+     * @param data The intent data.
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
@@ -422,6 +485,12 @@ class SettingsFragment : Fragment() {
         }
     }
 
+
+    /**
+     * Uploads the image to Firebase Storage.
+     *
+     * @param imageUri The URI of the image to upload.
+     */
     private fun uploadImageToFirebase(imageUri: Uri) {
         // Upload the image to Firebase Storage
 
@@ -493,6 +562,9 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    /**
+     * Checks if the CAMERA permission is already granted. If granted, it starts the camera. Otherwise, it requests the permission.
+     */
     private fun takePictureWithCamera() {
         // Check if the CAMERA permission is already granted
         if (ContextCompat.checkSelfPermission(
@@ -507,11 +579,17 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    /**
+     * Launches the camera application to capture an image.
+     */
     private fun launchCameraApp() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, REQUEST_CAPTURE_IMAGE)
     }
 
+    /**
+     * Requests the CAMERA permission.
+     */
     private fun requestCameraPermission() {
         // Request the CAMERA permission
         requestPermissions(
@@ -519,6 +597,13 @@ class SettingsFragment : Fragment() {
         )
     }
 
+    /**
+     * Retrieves the URI of the captured image.
+     *
+     * @param context The application context.
+     * @param image The captured image bitmap.
+     * @return The URI of the captured image.
+     */
     private fun getImageUri(context: Context, image: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
         image.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
@@ -528,6 +613,13 @@ class SettingsFragment : Fragment() {
         return Uri.parse(path)
     }
 
+    /**
+     * Handles the result of the permission request.
+     *
+     * @param requestCode The request code.
+     * @param permissions The requested permissions.
+     * @param grantResults The grant results for the corresponding permissions.
+     */
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
@@ -543,6 +635,9 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    /**
+     * Shows a dialog indicating that camera permission is denied.
+     */
     private fun showPermissionDeniedDialog() {
         MaterialAlertDialogBuilder(requireActivity()).setTitle(getString(R.string.camera_permission_required))
             .setMessage(getString(R.string.camera_permission_message))
@@ -554,6 +649,9 @@ class SettingsFragment : Fragment() {
             }.setIcon(android.R.drawable.ic_dialog_alert).show()
     }
 
+    /**
+     * Opens the application settings screen.
+     */
     private fun openAppSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", requireActivity().packageName, null)

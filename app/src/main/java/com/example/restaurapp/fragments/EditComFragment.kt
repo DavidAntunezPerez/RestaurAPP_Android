@@ -12,6 +12,10 @@ import com.example.restaurapp.entities.Command
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 
+
+/**
+ * A fragment for editing a command.
+ */
 class EditComFragment : Fragment() {
 
     private var _binding: FragmentEditComBinding? = null
@@ -21,6 +25,12 @@ class EditComFragment : Fragment() {
         private const val ARG_COMMAND = "command"
         private const val ARG_TABLE_NUMBER = "table number"
 
+        /**
+         * Creates a new instance of [EditComFragment] with the given command and table number.
+         *
+         * @param command The command to edit.
+         * @param tableNumber The table number associated with the command.
+         */
         fun newInstance(command: Command?, tableNumber: Long?) = EditComFragment().apply {
             arguments = Bundle().apply {
                 putParcelable(ARG_COMMAND, command)

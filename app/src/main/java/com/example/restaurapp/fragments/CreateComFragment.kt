@@ -15,6 +15,9 @@ import com.example.restaurapp.R
 import com.example.restaurapp.entities.Dish
 import com.example.restaurapp.adapters.DishCCMoreAdapter
 
+/**
+ * Fragment for creating a new comment.
+ */
 class CreateComFragment : Fragment(), DishCCMoreAdapter.DishRemovedListener {
 
     private lateinit var dataPasser: OnDataPass
@@ -22,7 +25,6 @@ class CreateComFragment : Fragment(), DishCCMoreAdapter.DishRemovedListener {
     private lateinit var dishCCMoreAdapter: DishCCMoreAdapter
     private lateinit var dishList: ArrayList<Dish>
     var dishRemovedListener: DishCCMoreAdapter.DishRemovedListener? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,10 +34,10 @@ class CreateComFragment : Fragment(), DishCCMoreAdapter.DishRemovedListener {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_create_com, container, false)
 
-        // INITIALIZING DISH LIST
+        // Initializing dish list
         dishList = ArrayList()
 
-        // SET UP RECYCLER VIEW
+        // Set up RecyclerView
         fragmentRecyclerView = view.findViewById(R.id.recyclerViewFragmentCreateCom)
         fragmentRecyclerView.layoutManager = LinearLayoutManager(activity)
 
@@ -75,16 +77,21 @@ class CreateComFragment : Fragment(), DishCCMoreAdapter.DishRemovedListener {
         dishCCMoreAdapter = DishCCMoreAdapter(dishList)
         dishCCMoreAdapter.dishRemovedListener = this
         fragmentRecyclerView.adapter = dishCCMoreAdapter
-
-
     }
 
+    /**
+     * Adds animation when loading the RecyclerView.
+     */
     fun rvLoadAnimation() {
-        // ADD ANIMATION WHEN LOADING ALL THE RV
         fragmentRecyclerView.startLayoutAnimation()
     }
 
     interface OnDataPass {
+        /**
+         * Passes the title and description data to the activity.
+         * @param title The title of the comment.
+         * @param description The description of the comment.
+         */
         fun onDataPass(title: String, description: String)
     }
 
@@ -93,17 +100,27 @@ class CreateComFragment : Fragment(), DishCCMoreAdapter.DishRemovedListener {
         dataPasser = context as OnDataPass
     }
 
+    /**
+     * Sets the dish list in the adapter.
+     * @param dishes The list of dishes to be set.
+     */
     fun setDishList(dishes: List<Dish>) {
         dishList.clear()
         dishList.addAll(dishes)
-
         dishCCMoreAdapter.notifyDataSetChanged()
     }
 
+    /**
+     * Hides the fragment and returns the list of dishes in the adapter.
+     * @return The list of dishes in the adapter.
+     */
     fun hideFragment(): MutableList<Dish> {
         return dishCCMoreAdapter.getCCMoreList()
     }
 
+    /**
+     * Clears the dish list in the adapter.
+     */
     fun clearCCMoreAdapter() {
         dishCCMoreAdapter.clearCCMoreList()
         dishCCMoreAdapter.notifyDataSetChanged()

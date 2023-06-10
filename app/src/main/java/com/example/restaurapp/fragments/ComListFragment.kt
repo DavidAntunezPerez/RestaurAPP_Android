@@ -23,6 +23,9 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.Locale
 
+/**
+ * Fragment that displays a list of commands.
+ */
 class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
     CommandAdapter.OnItemClickListener {
 
@@ -33,6 +36,14 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
     private lateinit var commandList: ArrayList<Command>
     private val db = Firebase.firestore
 
+    /**
+     * Creates the view for the fragment.
+     *
+     * @param inflater The layout inflater object used to inflate the fragment's layout.
+     * @param container The parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState The saved instance state if the fragment is being re-created from a previous saved state.
+     * @return The inflated view for the fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -40,6 +51,12 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
         return binding.root
     }
 
+    /**
+     * Initializes the fragment's views and performs necessary operations.
+     *
+     * @param view The root view of the fragment.
+     * @param savedInstanceState The saved instance state if the fragment is being re-created from a previous saved state.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -142,17 +159,29 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
         }
     }
 
-    // FUNCTION TO STOP THE ANIMATION WHEN THE RV LOADS
+    /**
+     * Stops the animation for the loading image.
+     *
+     * @param imageView The ImageView used for the loading animation.
+     */
     private fun stopAnimation(imageView: ImageView) {
         imageView.clearAnimation() // Clear the animation
         imageView.visibility = View.GONE // Hide the ImageView
     }
 
+    /**
+     * Cleans up the resources and view references when the fragment is destroyed.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    /**
+     * Handles the long click event on a command item in the RecyclerView.
+     *
+     * @param command The Command object associated with the clicked item.
+     */
     override fun onCommandLongClick(command: Command) {
         val position = commandList.indexOf(command)
         if (position != -1) {
@@ -163,6 +192,12 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
         }
     }
 
+    /**
+     * Shows the context menu for a command item.
+     *
+     * @param view The view representing the command item.
+     * @param command The Command object associated with the clicked item.
+     */
     private fun showContextMenu(view: View, command: Command) {
         val popupMenu = PopupMenu(requireContext(), view)
         popupMenu.menuInflater.inflate(R.menu.menu_delete_command, popupMenu.menu)
@@ -179,6 +214,11 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
         popupMenu.show()
     }
 
+    /**
+     * Shows a confirmation dialog for deleting a command.
+     *
+     * @param command The Command object to be deleted.
+     */
     private fun showDeleteConfirmationDialog(command: Command) {
         MaterialAlertDialogBuilder(requireContext()).setTitle(getString(R.string.delete_confirmation_title))
             .setMessage(getString(R.string.delete_confirmation_message))
@@ -192,6 +232,11 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
             }.show()
     }
 
+    /**
+     * Deletes a command from the database and updates the UI accordingly.
+     *
+     * @param command The Command object to be deleted.
+     */
     private fun deleteCommand(command: Command) {
         // Perform the deletion
         db.collection("commands").document(command.id!!).delete().addOnSuccessListener {
@@ -214,6 +259,11 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
         }
     }
 
+    /**
+     * Handles the click event on a command item in the RecyclerView.
+     *
+     * @param command The Command object associated with the clicked item.
+     */
     override fun onItemClick(command: Command) {
         // Display the full-screen fragment
         val fragment = ComShowFragment.newInstance(command)
