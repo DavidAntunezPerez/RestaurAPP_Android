@@ -17,7 +17,6 @@ import com.example.restaurapp.entities.Dish
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import java.io.File
 
 class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Context) :
     RecyclerView.Adapter<DishAdapter.DishViewHolder>() {
@@ -106,7 +105,7 @@ class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Co
             txtTotalPrice.text = "$totalPrice"
 
             // CREATING A SNACK BAR TO INFORM ITEM WAS ADDED
-            Snackbar.make(it, "Dish added to the Command", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(it, R.string.dish_added_command, Snackbar.LENGTH_SHORT).show()
             Log.i("DISHCREATE LIST CHECK", dishCreateList.toString())
             Log.i("TPD TOTAL PRICE", "$totalPrice")
         }

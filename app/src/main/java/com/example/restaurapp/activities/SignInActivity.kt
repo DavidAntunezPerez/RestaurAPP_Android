@@ -4,14 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.example.restaurapp.R
 import com.example.restaurapp.databinding.ActivitySignInBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -91,35 +88,35 @@ class SignInActivity : AppCompatActivity() {
                             // if the provided credential is invalid or expired
                             Snackbar.make(
                                 binding.root,
-                                "Error. Credentials are not valid or are expired.",
+                                getString(R.string.invalid_credentials),
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         } else if (it.exception is FirebaseAuthInvalidUserException) {
                             // IF THE USER DOES NOT EXIST OR IS DISABLED
                             Snackbar.make(
                                 binding.root,
-                                "Error. User does not exist or is disabled",
+                                getString(R.string.user_not_exist),
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         } else if (it.exception is FirebaseAuthRecentLoginRequiredException) {
                             // if the user's credential requires additional verification or reauthentication
                             Snackbar.make(
                                 binding.root,
-                                "Error. User's credential requires additional verification or reauthentication",
+                                getString(R.string.additional_verification_user),
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         } else if (it.exception is FirebaseAuthUserCollisionException) {
                             // if the credential used for sign-in is already associated with another user account
                             Snackbar.make(
                                 binding.root,
-                                "Error. Credential used for sign-in is already associated with another user account.",
+                                getString(R.string.credential_associated_account),
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         } else if (it.exception is FirebaseNetworkException) {
                             // if the app cannot connect to Firebase servers
                             Snackbar.make(
                                 binding.root,
-                                "Network Error. Cannot connect to the server. Please check your Internet connection or try again later.",
+                                getString(R.string.network_error),
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         } else if (it.exception is FirebaseAuthException) {
@@ -131,11 +128,11 @@ class SignInActivity : AppCompatActivity() {
                     }
                 }
             } else if (email.isEmpty()) {
-                Snackbar.make(it, "Email cannot be empty", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(it, getString(R.string.email_cannot_empty), Snackbar.LENGTH_SHORT).show()
             } else if (pass.isEmpty()) {
-                Snackbar.make(it, "Password cannot be empty", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(it, getString(R.string.password_cannot_empty), Snackbar.LENGTH_SHORT).show()
             } else {
-                Snackbar.make(it, "Invalid credentials, please try again", Snackbar.LENGTH_SHORT)
+                Snackbar.make(it, getString(R.string.invalid_credentials_try_again), Snackbar.LENGTH_SHORT)
                     .show()
             }
         }
@@ -282,7 +279,7 @@ class SignInActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
                 checkAndCreateUserDocument()
-                val intent: Intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("email", account.email)
                 intent.putExtra("name", account.displayName)
                 startActivity(intent)

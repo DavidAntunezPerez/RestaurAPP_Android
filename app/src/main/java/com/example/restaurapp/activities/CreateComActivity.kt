@@ -168,19 +168,19 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
         if (selectedDishes.isNotEmpty()) {
             // Add a new document with a generated ID
             db.collection("commands").add(command).addOnSuccessListener { documentReference ->
-                Snackbar.make(view, "Command created successfully", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(view, getString(R.string.success_create_command), Snackbar.LENGTH_LONG).show()
                 Log.d(
                     "Added command successfully",
                     "DocumentSnapshot added with ID: ${documentReference.id}"
                 )
             }.addOnFailureListener { e ->
                 Log.w("Error adding command", e)
-                Snackbar.make(view, "ERROR, could not create the Command", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, getString(R.string.error_create_command), Snackbar.LENGTH_LONG)
                     .show()
             }
         } else {
             // IF THE LIST OF DISHES IS EMPTY, YOU SHOULD NOT BE ABLE TO CREATE A COMMAND
-            Snackbar.make(view, "You cannot create an empty Command!", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(view, getString(R.string.cannot_create_command), Snackbar.LENGTH_LONG).show()
         }
 
         // DELETE TOTAL PRICE WHEN PROCESS ENDED

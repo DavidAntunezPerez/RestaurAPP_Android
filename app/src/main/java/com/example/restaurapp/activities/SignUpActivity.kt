@@ -4,12 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
-import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import com.example.restaurapp.R
 import com.example.restaurapp.databinding.ActivitySignUpBinding
 import com.google.android.material.snackbar.Snackbar
@@ -65,7 +61,7 @@ class SignUpActivity : AppCompatActivity() {
                                 val weakPasswordException =
                                     it.exception as FirebaseAuthWeakPasswordException
                                 val reason = weakPasswordException.reason
-                                val errorMessage = "Error. Password is too weak. $reason"
+                                val errorMessage = getString(R.string.error_weak_password, reason)
 
                                 Snackbar.make(
                                     binding.root, errorMessage, Snackbar.LENGTH_SHORT
@@ -74,21 +70,21 @@ class SignUpActivity : AppCompatActivity() {
                                 // IF EMAIL IS MALFORMED OR INVALID
                                 Snackbar.make(
                                     binding.root,
-                                    "Error. Email is malformed or invalid.",
+                                    R.string.error_invalid_email,
                                     Snackbar.LENGTH_SHORT
                                 ).show()
                             } else if (it.exception is FirebaseAuthUserCollisionException) {
                                 // IF THERE IS ALREADY AN EXISTING USER WITH THAT MAIL
                                 Snackbar.make(
                                     binding.root,
-                                    "Error. User already exists with the given email.",
+                                    R.string.error_user_exists,
                                     Snackbar.LENGTH_SHORT
                                 ).show()
                             } else if (it.exception is FirebaseNetworkException) {
                                 // IF IS A NETWORK ERROR
                                 Snackbar.make(
                                     binding.root,
-                                    "Network Error. Cannot connect to the server. Please check your Internet connection or try again later.",
+                                    R.string.error_network,
                                     Snackbar.LENGTH_SHORT
                                 ).show()
 
@@ -96,7 +92,7 @@ class SignUpActivity : AppCompatActivity() {
                                 // IF THERE IS TOO MANY REQUESTS
                                 Snackbar.make(
                                     binding.root,
-                                    "Error. You have sent too many requests, please try again later.",
+                                    R.string.error_too_many_requests,
                                     Snackbar.LENGTH_SHORT
                                 ).show()
                             } else if (it.exception is FirebaseAuthException) {
@@ -109,16 +105,16 @@ class SignUpActivity : AppCompatActivity() {
                     }
 
                 } else {
-                    Snackbar.make(it, "Password does not match", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(it, R.string.error_password_match, Snackbar.LENGTH_SHORT).show()
                 }
             } else if (email.isEmpty()) {
-                Snackbar.make(it, "Email cannot be empty", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(it, R.string.error_email_empty, Snackbar.LENGTH_SHORT).show()
             } else if (pass.isEmpty()) {
-                Snackbar.make(it, "Password cannot be empty", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(it, R.string.error_password_empty, Snackbar.LENGTH_SHORT).show()
             } else if (confirmPass.isEmpty()) {
-                Snackbar.make(it, "Please confirm your password", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(it, R.string.error_confirm_password, Snackbar.LENGTH_SHORT).show()
             } else {
-                Snackbar.make(it, "Invalid credentials, please try again", Snackbar.LENGTH_SHORT)
+                Snackbar.make(it, R.string.error_invalid_credentials, Snackbar.LENGTH_SHORT)
                     .show()
             }
 

@@ -73,6 +73,11 @@
     <string name="type_the_command_title_create_com">Type the Command Title</string>
     <string name="add_a_description_txt_create_com">Add a description</string>
     <string name="type_the_command_description_create_com">Type the Command Description</string>
+    <string name="error_create_command">ERROR, could not create the Command</string>
+    <string name="success_create_command">Command Created successfully</string>
+    <string name="cannot_create_command">You cannot create an empty Command!</string>
+    <string name="dish_added_command">Dish added to the Command</string>
+
 
     <!-- EDIT COM -->
     <string name="command_table_edit_com_txt">Command Table</string>
@@ -104,5 +109,27 @@
     <string name="settings_description">Description</string>
     <string name="settings_location">Location</string>
     <string name="settings_save">SAVE</string>
+
+    <!-- SIGN IN SNACKBARS -->
+    <string name="invalid_credentials">Error. Credentials are not valid or are expired</string>
+    <string name="user_not_exist">Error. User does not exist or is disabled</string>
+    <string name="additional_verification_user">Error. User\'s credential requires additional verification or reauthentication</string>
+    <string name="credential_associated_account">Error. Credential used for sign-in is already associated with another user account</string>
+    <string name="network_error">"Network Error. Cannot connect to the server. Please check your Internet connection or try again later."</string>
+    <string name="email_cannot_empty">Email cannot be empty</string>
+    <string name="password_cannot_empty">Password cannot be empty</string>
+    <string name="invalid_credentials_try_again">Invalid credentials, please try again</string>
+
+    <!-- SIGN UP SNACKBARS -->
+    <string name="error_weak_password">Error. Password is too weak. %1$s</string>
+    <string name="error_invalid_email">Error. Email is malformed or invalid.</string>
+    <string name="error_user_exists">Error. User already exists with the given email.</string>
+    <string name="error_network">Network Error. Cannot connect to the server. Please check your Internet connection or try again later.</string>
+    <string name="error_too_many_requests">Error. You have sent too many requests, please try again later.</string>
+    <string name="error_password_match">Password does not match</string>
+    <string name="error_email_empty">Email cannot be empty</string>
+    <string name="error_password_empty">Password cannot be empty</string>
+    <string name="error_confirm_password">Please confirm your password</string>
+    <string name="error_invalid_credentials">Invalid credentials, please try again</string>
 
 </resources>

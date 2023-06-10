@@ -65,6 +65,10 @@
     <string name="type_the_command_title_create_com">Escribe el Título de Comanda</string>
     <string name="add_a_description_txt_create_com">Añade una descripción</string>
     <string name="type_the_command_description_create_com">Escribe la descripción de Comanda</string>
+    <string name="error_create_command">ERROR, no se pudo crear la Comanda</string>
+    <string name="success_create_command">Comanda creada con éxito</string>
+    <string name="cannot_create_command">¡No puedes crear una Comanda vacía!</string>
+    <string name="dish_added_command">Plato añadido a la Comanda</string>
 
     <!-- EDIT COM -->
     <string name="command_table_edit_com_txt">Mesa de Comanda</string>
@@ -84,5 +88,27 @@
     <string name="settings_description">Descripción</string>
     <string name="settings_location">Ubicación</string>
     <string name="settings_save">GUARDAR</string>
+
+    <!-- SIGN IN SNACKBARS -->
+    <string name="invalid_credentials">Error. Las credenciales no son válidas o han expirado</string>
+    <string name="user_not_exist">Error. El usuario no existe o está desactivado</string>
+    <string name="additional_verification_user">Error. Las credenciales del usuario requieren verificación adicional o volver a autenticarse</string>
+    <string name="credential_associated_account">Error. Las credenciales utilizadas para iniciar sesión ya están asociadas con otra cuenta de usuario</string>
+    <string name="network_error">Error de red. No se puede conectar al servidor. Por favor, verifica tu conexión a Internet o intenta nuevamente más tarde.</string>
+    <string name="email_cannot_empty">El correo electrónico no puede estar vacío</string>
+    <string name="password_cannot_empty">La contraseña no puede estar vacía</string>
+    <string name="invalid_credentials_try_again">Credenciales inválidas, por favor intenta nuevamente</string>
+
+    <!-- SIGN UP SNACKBARS -->
+    <string name="error_weak_password">Error. La contraseña es demasiado débil. %1$s</string>
+    <string name="error_invalid_email">Error. El correo electrónico tiene un formato inválido o es incorrecto.</string>
+    <string name="error_user_exists">Error. Ya existe un usuario con el correo electrónico proporcionado.</string>
+    <string name="error_network">Error de red. No se puede conectar al servidor. Por favor, verifica tu conexión a Internet o intenta nuevamente más tarde.</string>
+    <string name="error_too_many_requests">Error. Has enviado demasiadas solicitudes. Por favor, inténtalo nuevamente más tarde.</string>
+    <string name="error_password_match">Las contraseñas no coinciden</string>
+    <string name="error_email_empty">El correo electrónico no puede estar vacío</string>
+    <string name="error_password_empty">La contraseña no puede estar vacía</string>
+    <string name="error_confirm_password">Por favor, confirma tu contraseña</string>
+    <string name="error_invalid_credentials">Credenciales no válidas, por favor inténtalo de nuevo</string>
 
 </resources>
