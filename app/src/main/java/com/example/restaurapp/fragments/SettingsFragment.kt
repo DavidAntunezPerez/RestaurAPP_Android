@@ -37,6 +37,9 @@ import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
 import java.util.Locale
 
+/**
+ *  Fragment that manages the settings of the application
+ */
 class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
