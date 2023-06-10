@@ -85,7 +85,9 @@ class EditComFragment : Fragment() {
                 commandRef.update(newData).addOnSuccessListener {
                     // Document updated successfully
 
-                    Snackbar.make(view, "Command edited successfully", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(
+                        view, R.string.command_edited_successfully, Snackbar.LENGTH_LONG
+                    ).show()
 
                     val transaction = requireActivity().supportFragmentManager.beginTransaction()
                     transaction.replace(R.id.fragment_main, ComListFragment())
@@ -94,8 +96,9 @@ class EditComFragment : Fragment() {
 
                 }.addOnFailureListener { exception ->
                     // Error occurred while updating document
-                    // Handle the error or display a toast message
-                    Snackbar.make(view, "ERROR. $exception", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(
+                        view, getString(R.string.error_message_edit, exception), Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
         }

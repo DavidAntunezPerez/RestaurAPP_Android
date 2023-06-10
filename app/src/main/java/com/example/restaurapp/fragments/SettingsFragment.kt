@@ -7,15 +7,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.Manifest
-import android.app.Activity
-import android.content.DialogInterface
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.lifecycle.ProcessCameraProvider
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
@@ -27,11 +21,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
-import androidx.appcompat.app.AlertDialog
-import androidx.camera.core.ImageCaptureException
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -45,7 +35,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
-import java.io.File
 import java.util.Locale
 
 class SettingsFragment : Fragment() {
@@ -209,7 +198,9 @@ class SettingsFragment : Fragment() {
 
         userDocumentRef.update(userData).addOnSuccessListener {
             // Show success message using Snackbar
-            Snackbar.make(binding.root, "Settings saved successfully", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(
+                binding.root, getString(R.string.settings_saved_message), Snackbar.LENGTH_SHORT
+            ).show()
 
             // UPDATE THE FRAGMENT VARIABLE SETTINGS
             userName = name
@@ -222,8 +213,11 @@ class SettingsFragment : Fragment() {
             // Perform any additional actions or UI updates
         }.addOnFailureListener { exception ->
             // Show error message using Snackbar
-            Snackbar.make(binding.root, "Error saving settings, $exception", Snackbar.LENGTH_SHORT)
-                .show()
+            Snackbar.make(
+                binding.root,
+                getString(R.string.error_saving_settings, exception),
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -317,12 +311,12 @@ class SettingsFragment : Fragment() {
 
     private fun showImageSelectionDialog() {
         val options = arrayOf(
-            "\uD83D\uDCC1 Choose image from gallery",
-            "\uD83D\uDCF7 Take picture with camera",
-            "❌ Delete your profile picture"
+            getString(R.string.choose_image_gallery),
+            getString(R.string.take_picture_camera),
+            getString(R.string.delete_profile_picture)
         )
 
-        MaterialAlertDialogBuilder(requireContext()).setTitle("Edit your Restaurant image")
+        MaterialAlertDialogBuilder(requireContext()).setTitle(getString(R.string.edit_restaurant_image_title))
             .setItems(options) { dialog, which ->
                 when (which) {
                     0 -> {
@@ -351,7 +345,9 @@ class SettingsFragment : Fragment() {
 
         userDocumentRef.update("image", "").addOnSuccessListener {
             // Show success message using Snackbar
-            Snackbar.make(binding.root, "Image removed successfully", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(
+                binding.root, getString(R.string.image_removed_successfully), Snackbar.LENGTH_SHORT
+            ).show()
 
             // Update the userImage variable
             userImage = ""
@@ -360,8 +356,11 @@ class SettingsFragment : Fragment() {
             loadImage()
         }.addOnFailureListener { exception ->
             // Show error message using Snackbar
-            Snackbar.make(binding.root, "Error removing image, $exception", Snackbar.LENGTH_SHORT)
-                .show()
+            Snackbar.make(
+                binding.root,
+                getString(R.string.error_removing_image, exception),
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -388,7 +387,9 @@ class SettingsFragment : Fragment() {
                     } else {
                         // Handle null selected image URI
                         Snackbar.make(
-                            binding.root, "Error selecting image", Snackbar.LENGTH_SHORT
+                            binding.root,
+                            getString(R.string.error_selecting_image),
+                            Snackbar.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -403,23 +404,21 @@ class SettingsFragment : Fragment() {
                         } else {
                             // Handle null image URI
                             Snackbar.make(
-                                binding.root, "Error capturing image", Snackbar.LENGTH_SHORT
+                                binding.root,
+                                getString(R.string.error_capturing_image),
+                                Snackbar.LENGTH_SHORT
                             ).show()
                         }
                     } else {
                         // Handle null captured image
                         Snackbar.make(
-                            binding.root, "Error capturing image", Snackbar.LENGTH_SHORT
+                            binding.root,
+                            getString(R.string.error_capturing_image),
+                            Snackbar.LENGTH_SHORT
                         ).show()
                     }
                 }
-
-                else -> {
-                    // Handle other request codes if needed
-                }
             }
-        } else {
-            // Handle unsuccessful result codes if needed
         }
     }
 
@@ -457,7 +456,9 @@ class SettingsFragment : Fragment() {
             userDocumentRef.update("image", imagePath).addOnSuccessListener {
                 // Show success message using Snackbar
                 Snackbar.make(
-                    binding.root, "Image uploaded successfully", Snackbar.LENGTH_SHORT
+                    binding.root,
+                    getString(R.string.image_uploaded_successfully),
+                    Snackbar.LENGTH_SHORT
                 ).show()
 
                 // STOP THE LOADING ANIMATION
@@ -471,7 +472,9 @@ class SettingsFragment : Fragment() {
             }.addOnFailureListener { exception ->
                 // Show error message using Snackbar
                 Snackbar.make(
-                    binding.root, "Error uploading image, $exception", Snackbar.LENGTH_SHORT
+                    binding.root,
+                    getString(R.string.error_uploading_image, exception),
+                    Snackbar.LENGTH_SHORT
                 ).show()
 
                 // STOP THE LOADING ANIMATION
@@ -480,7 +483,9 @@ class SettingsFragment : Fragment() {
         }.addOnFailureListener { exception ->
             // Show error message using Snackbar
             Snackbar.make(
-                binding.root, "Error uploading image, $exception", Snackbar.LENGTH_SHORT
+                binding.root,
+                getString(R.string.error_uploading_image, exception),
+                Snackbar.LENGTH_SHORT
             ).show()
 
             // STOP THE LOADING ANIMATION
@@ -539,12 +544,12 @@ class SettingsFragment : Fragment() {
     }
 
     private fun showPermissionDeniedDialog() {
-        MaterialAlertDialogBuilder(requireActivity()).setTitle("Camera Permission Required")
-            .setMessage("To use the camera, you need to grant camera permission.")
-            .setPositiveButton("Go to Settings") { dialog, _ ->
+        MaterialAlertDialogBuilder(requireActivity()).setTitle(getString(R.string.camera_permission_required))
+            .setMessage(getString(R.string.camera_permission_message))
+            .setPositiveButton(getString(R.string.go_to_settings)) { dialog, _ ->
                 dialog.dismiss()
                 openAppSettings()
-            }.setNegativeButton("Cancel") { dialog, _ ->
+            }.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }.setIcon(android.R.drawable.ic_dialog_alert).show()
     }

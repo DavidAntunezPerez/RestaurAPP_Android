@@ -63,6 +63,7 @@
 
     <string name="image_button_close_com_show_txt">Close</string>
     <string name="edit_image_button_com_show_txt">Edit</string>
+    <string name="csv_file_downloaded">CSV file downloaded: %1$s</string>
 
 
     <!-- CREATE COM -->
@@ -88,6 +89,8 @@
     <string name="command_total_price_edit_com">Command Total Price</string>
     <string name="save_edit_com_txt">SAVE</string>
     <string name="close_content_description_edit_com">Close</string>
+    <string name="command_edited_successfully">Command edited successfully</string>
+    <string name="error_message_edit">ERROR. %1$s</string>
 
     <!-- NON-TRANSLATABLE -->
     <string name="hashtag_table_list" translatable="false">#</string>
@@ -109,6 +112,25 @@
     <string name="settings_description">Description</string>
     <string name="settings_location">Location</string>
     <string name="settings_save">SAVE</string>
+    <string name="settings_saved_message">Settings saved successfully</string>
+    <string name="error_saving_settings">Error saving settings, %s</string>
+    <string name="image_removed_successfully">Image removed successfully</string>
+    <string name="error_removing_image">Error removing image, %s</string>
+    <string name="error_selecting_image">Error selecting image</string>
+    <string name="error_capturing_image">Error capturing image</string>
+    <string name="error_uploading_image">Error uploading image: %s</string>
+    <string name="image_uploaded_successfully">Image uploaded successfully</string>
+
+    <string name="camera_permission_required">Camera Permission Required</string>
+    <string name="camera_permission_message">To use the camera, you need to grant camera permission.</string>
+    <string name="go_to_settings">Go to Settings</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="choose_image_gallery">\uD83D\uDCC1 Choose image from gallery</string>
+    <string name="take_picture_camera">\uD83D\uDCF7 Take picture with camera</string>
+    <string name="delete_profile_picture">❌ Delete your profile picture</string>
+    <string name="edit_restaurant_image_title">Edit your Restaurant image</string>
+
 
     <!-- SIGN IN SNACKBARS -->
     <string name="invalid_credentials">Error. Credentials are not valid or are expired</string>

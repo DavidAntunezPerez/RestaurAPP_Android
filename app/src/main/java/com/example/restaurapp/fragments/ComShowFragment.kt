@@ -177,9 +177,10 @@ class ComShowFragment : Fragment() {
                 csvFile.copyTo(csvDestination, overwrite = true)
 
                 // Show a Snackbar message to indicate the file has been downloaded
+                val message = getString(R.string.csv_file_downloaded, csvDestination.absolutePath)
                 val snackbar = Snackbar.make(
                     requireView(),
-                    "CSV file downloaded: ${csvDestination.absolutePath}",
+                    message,
                     Snackbar.LENGTH_SHORT
                 )
                 snackbar.show()

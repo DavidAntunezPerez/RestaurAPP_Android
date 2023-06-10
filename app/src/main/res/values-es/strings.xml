@@ -56,6 +56,7 @@
     <string name="tv_com_show_value_txt" translatable="false">$20.00</string>
     <string name="image_button_close_com_show_txt">Cerrar</string>
     <string name="edit_image_button_com_show_txt">Editar</string>
+    <string name="csv_file_downloaded">Archivo CSV descargado en: %1$s</string>
 
     <!-- CREATE COM -->
     <string name="total_command_list">TOTAL:</string>
@@ -79,7 +80,8 @@
     <string name="command_total_price_edit_com">Precio Total de la Comanda</string>
     <string name="save_edit_com_txt">GUARDAR</string>
     <string name="close_content_description_edit_com">Cerrar</string>
-
+    <string name="command_edited_successfully">Comanda editada con éxito</string>
+    <string name="error_message_edit">ERROR. %1$s</string>
 
     <!-- SETTINGS -->
     <string name="log_out_fragment_settings">CERRAR SESIÓN</string>
@@ -88,6 +90,25 @@
     <string name="settings_description">Descripción</string>
     <string name="settings_location">Ubicación</string>
     <string name="settings_save">GUARDAR</string>
+    <string name="settings_saved_message">Configuración guardada con éxito</string>
+    <string name="error_saving_settings">Error al guardar los ajustes, %s</string>
+    <string name="image_removed_successfully">Imagen eliminada exitosamente</string>
+    <string name="error_removing_image">Error al eliminar la imagen, %s</string>
+    <string name="error_selecting_image">Error al seleccionar la imagen</string>
+    <string name="error_capturing_image">Error al capturar la imagen</string>
+    <string name="error_uploading_image">Error de subida de imagen: %s</string>
+    <string name="image_uploaded_successfully">Imagen subida con éxito</string>
+
+    <string name="camera_permission_required">Se requiere permiso de cámara</string>
+    <string name="camera_permission_message">Para usar la cámara, necesitas conceder el permiso de cámara.</string>
+    <string name="go_to_settings">Ir a Configuración</string>
+    <string name="cancel">Cancelar</string>
+
+    <string name="choose_image_gallery">\uD83D\uDCC1 Seleccionar imagen de la galería</string>
+    <string name="take_picture_camera">\uD83D\uDCF7 Tomar foto con la cámara</string>
+    <string name="delete_profile_picture">❌ Eliminar la foto de perfil</string>
+    <string name="edit_restaurant_image_title">Editar imagen de tu restaurante</string>
+
 
     <!-- SIGN IN SNACKBARS -->
     <string name="invalid_credentials">Error. Las credenciales no son válidas o han expirado</string>
