@@ -11,20 +11,49 @@ import com.example.restaurapp.entities.Command
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
 
+
+/**
+ * Adapter class for the Command list RecyclerView.
+ *
+ * @param commandList The list of Command objects to display.
+ * @param longClickListener The listener for long click events.
+ * @param itemClickListener The listener for item click events.
+ */
 class CommandAdapter(
     private val commandList: List<Command>,
     private val longClickListener: OnCommandLongClickListener,
     private val itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<CommandAdapter.CommandViewHolder>() {
 
+    /**
+     * Interface for item click events.
+     */
     interface OnItemClickListener {
+        /**
+         * Called when an item is clicked.
+         *
+         * @param command The clicked command.
+         */
         fun onItemClick(command: Command)
     }
 
+    /**
+     * Interface for long click events.
+     */
     interface OnCommandLongClickListener {
+        /**
+         * Called when an item is long clicked.
+         *
+         * @param command The long clicked command.
+         */
         fun onCommandLongClick(command: Command)
     }
 
+    /**
+     * ViewHolder for the command items.
+     *
+     * @param itemView The view for the item.
+     */
     inner class CommandViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnLongClickListener {
         val tvTitle: TextView = itemView.findViewById(R.id.textCommandTitle)
@@ -36,6 +65,12 @@ class CommandAdapter(
             itemView.setOnLongClickListener(this) // Set the long click listener
         }
 
+        /**
+         * Called when the item is long clicked.
+         *
+         * @param view The view that was clicked.
+         * @return True if the long click is consumed, false otherwise.
+         */
         override fun onLongClick(view: View): Boolean {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
@@ -47,12 +82,25 @@ class CommandAdapter(
         }
     }
 
+    /**
+     * Creates a new ViewHolder for the command items.
+     *
+     * @param parent The parent ViewGroup.
+     * @param viewType The type of the view.
+     * @return The created CommandViewHolder.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommandViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.command_list, parent, false)
         return CommandViewHolder(itemView)
     }
 
+    /**
+     * Binds data to the ViewHolder.
+     *
+     * @param holder The CommandViewHolder to bind the data to.
+     * @param position The position of the item in the list.
+     */
     override fun onBindViewHolder(holder: CommandViewHolder, position: Int) {
         val command = commandList[position]
         holder.tvTitle.text = command.title
@@ -100,7 +148,11 @@ class CommandAdapter(
 
     }
 
-
+    /**
+     * Returns the number of items in the list.
+     *
+     * @return The number of items in the list.
+     */
     override fun getItemCount(): Int {
         return commandList.size
     }

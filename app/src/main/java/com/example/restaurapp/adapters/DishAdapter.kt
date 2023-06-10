@@ -18,6 +18,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
+/**
+ * Adapter class for displaying dishes in a RecyclerView.
+ *
+ * @param dishList The list of dishes to display.
+ * @param context The context of the application/activity.
+ */
 class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Context) :
     RecyclerView.Adapter<DishAdapter.DishViewHolder>() {
 
@@ -30,6 +36,11 @@ class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Co
     // Reference to the total price TextView
     private var totalPriceTextView: TextView? = null
 
+    /**
+     * ViewHolder class for holding views of individual dish items.
+     *
+     * @param itemView The item view for a dish item.
+     */
     class DishViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(R.id.textDishName)
         val tvPrice: TextView = itemView.findViewById(R.id.txtDishPrize)
@@ -116,20 +127,42 @@ class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Co
         return dishList.size
     }
 
-    // FUNCTION TO REMOVE THE FAKE LOCATION CREATED BY DEFAULT IN WEB APPLICATION
+    /**
+     * Function to remove the fake location created by default in a web application.
+     *
+     * @param text The text to clean.
+     * @param remove The substring to remove from the text.
+     * @return The cleaned text.
+     */
     private fun pathClean(text: String, remove: String): String {
         return (text.replace(remove, ""))
     }
 
     // DISH CREATE LIST FUNCTIONS
+
+    /**
+     * Adds a dish to the dishCreateList.
+     *
+     * @param dish The dish to add.
+     */
     fun addDishCreateList(dish: Dish) {
         dishCreateList.add(dish)
     }
 
+    /**
+     * Deletes a dish from the dishCreateList.
+     *
+     * @param dish The dish to delete.
+     */
     fun deleteDishCreateList(dish: Dish) {
         dishCreateList.remove(dish)
     }
 
+    /**
+     * Replaces the dishCreateList with a new list.
+     *
+     * @param list The new list of dishes.
+     */
     fun replaceDishCreateList(list: MutableList<Dish>) {
         dishCreateList = list
         Log.i("TDL DISH REPLACED", "$dishCreateList")
@@ -137,6 +170,11 @@ class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Co
         notifyDataSetChanged()
     }
 
+    /**
+     * Removes the price of a dish from the total price.
+     *
+     * @param dishRemovedPrice The price of the dish to be removed.
+     */
     fun removeDishPrice(dishRemovedPrice: Double) {
         Log.i("TPD TOTALPRICE onRemoveDish", "$totalPrice, $dishRemovedPrice")
         // WE SUBTRACT THE PRICE OF THE DISH ELIMINATED IN THE TOTAL PRICE
@@ -147,22 +185,38 @@ class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Co
         notifyDataSetChanged()
     }
 
+    /**
+     * Deletes all dishes from the dishCreateList.
+     */
     fun deleteAllDishCreateList() {
         dishCreateList.clear()
     }
 
+    /**
+     * Returns the dishCreateList.
+     *
+     * @return The dishCreateList.
+     */
     fun getDishCreateList(): List<Dish> {
         return dishCreateList.toList()
     }
 
     // TOTAL PRICE FUNCTIONS
+
+    /**
+     * Returns the total price.
+     *
+     * @return The total price.
+     */
     fun getTotalPrice(): Double {
         return totalPrice
     }
 
+    /**
+     * Clears the total price.
+     */
     fun clearTotalPrice() {
         totalPrice = 0.0
         totalPriceTextView?.text = "0" // Set the value to 0
     }
-
 }
