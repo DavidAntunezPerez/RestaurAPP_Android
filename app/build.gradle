@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.restaurapp"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -59,15 +59,16 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
-    implementation 'com.google.firebase:firebase-firestore:24.6.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.0'
+    implementation 'com.google.firebase:firebase-firestore:24.6.1'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
     implementation 'com.google.firebase:firebase-storage-ktx:20.2.0'
     implementation 'androidx.preference:preference:1.2.0'
+    implementation 'com.google.firebase:firebase-auth:22.0.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -78,13 +79,13 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.15.1'
 
     // CameraX core library
-    implementation "androidx.camera:camera-core:1.2.2"
+    implementation "androidx.camera:camera-core:1.2.3"
 
     // CameraX camera2 implementation
-    implementation "androidx.camera:camera-camera2:1.2.2"
+    implementation "androidx.camera:camera-camera2:1.2.3"
 
     // CameraX lifecycle library
-    implementation "androidx.camera:camera-lifecycle:1.2.2"
+    implementation "androidx.camera:camera-lifecycle:1.2.3"
 
     implementation 'com.google.code.gson:gson:2.10.1'
 }

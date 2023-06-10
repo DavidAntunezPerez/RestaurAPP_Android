@@ -2,17 +2,19 @@
     <!-- Base application theme. -->
     <style name="Theme.RestaurAPP" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/app_secondary_pink</item>
+        <item name="colorPrimaryVariant">@color/app_primary</item>
+        <item name="colorOnPrimary">@color/app_other_beige</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/app_tertiary_brown</item>
+        <item name="colorSecondaryVariant">@color/app_other_dark_pink</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/yellow</item>
         <!-- Customize your theme here. -->
+
     </style>
+
     <style name="LoginTextInputOuterFieldStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
