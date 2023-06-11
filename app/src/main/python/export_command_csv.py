@@ -6,7 +6,7 @@ import csv
 
 def format_price(price):
     # Format price as money with the dollar sign at the end
-    return f"${price}"
+    return f"${price:.2f}"
 
 
 def main(file_path):
@@ -20,23 +20,43 @@ def main(file_path):
     table_number = json_data.get('tableNumber', '')
     total_price = json_data.get('totalPrice', '')
 
-    # Create a list of dictionaries for dish details
-    dish_data = []
+    # Create a dictionary to store dish name counts and prices
+    dish_data = {}
+
+    # Iterate over dishes in the JSON data
     dishes_list = json_data.get('dishesList', [])
     for dish in dishes_list:
         name = dish.get('name', '')
         price = dish.get('price', '')
-        dish_data.append({
-            'DISH': name,
-            'PRICE': format_price(price)
-        })
+
+        # Check if the dish name already exists in the dictionary
+        if name in dish_data:
+            # Increment the dish count
+            dish_data[name]['count'] += 1
+            # Update the dish price
+            dish_data[name]['price'] = format_price(
+                float(dish_data[name]['price'][1:]) + float(price)
+            )
+        else:
+            # Initialize the dish count and price
+            dish_data[name] = {'count': 1, 'price': format_price(price)}
 
     # Create a DataFrame from the dish data
     df = pd.DataFrame([
         {'DISH': 'TITLE', 'PRICE': title},
         {'DISH': 'DESCRIPTION', 'PRICE': description},
         {'DISH': 'DISH', 'PRICE': 'PRICE'}
-    ] + dish_data + [
+    ])
+
+    # Append the modified dish names and prices to the DataFrame
+    for name, data in dish_data.items():
+        count = data['count']
+        price = data['price']
+        if count > 1:
+            name = f"{name} x{count}"
+        df = df.append({'DISH': name, 'PRICE': price}, ignore_index=True)
+
+    df = df.append([
         {'DISH': 'TOTAL', 'PRICE': format_price(total_price)},
         {'DISH': 'Thank you for your visit :)', 'PRICE': ''}
     ])
@@ -50,17 +70,6 @@ def main(file_path):
 
     # Save the temporary DataFrame to CSV without header
     df_temp.to_csv(output_path, index=False, header=False)
-
-    # Read the temporary CSV file
-    with open(output_path, 'r') as temp_file:
-        csv_data = temp_file.read()
-
-    # Add the modified header to the CSV data
-    csv_data_with_header = f"TITLE,\"{title}\"\n" + csv_data
-
-    # Write the CSV data with modified header to the output file
-    with open(output_path, 'w') as final_file:
-        final_file.write(csv_data_with_header)
 
     # Print the extracted information
     print('Title:', title)
