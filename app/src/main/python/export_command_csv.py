@@ -4,7 +4,6 @@ import pandas as pd
 import os
 import csv
 
-
 def format_price(price):
     # Format price as money with the dollar sign at the end
     return f"${price}"
@@ -21,58 +20,53 @@ def main(file_path):
     table_number = json_data.get('tableNumber', '')
     total_price = json_data.get('totalPrice', '')
 
+    # Create a list of dictionaries for dish details
+    dish_data = []
     dishes_list = json_data.get('dishesList', [])
-
-    # Create a DataFrame to store the data
-    data = {
-        'DISH': [],
-        'PRICE': []
-    }
-
-    # Extract dish information
-    dish_counts = {}
     for dish in dishes_list:
         name = dish.get('name', '')
         price = dish.get('price', '')
+        dish_data.append({
+            'DISH': name,
+            'PRICE': format_price(price)
+        })
 
-        # Update the dish count and price
-        dish_key = f"{name}_{price}"
-        if dish_key in dish_counts:
-            dish_counts[dish_key] += 1
-        else:
-            dish_counts[dish_key] = 1
+    # Create a DataFrame from the dish data
+    df = pd.DataFrame([
+        {'DISH': 'TITLE', 'PRICE': title},
+        {'DISH': 'DESCRIPTION', 'PRICE': description},
+        {'DISH': 'DISH', 'PRICE': 'PRICE'}
+    ] + dish_data + [
+        {'DISH': 'TOTAL', 'PRICE': format_price(total_price)},
+        {'DISH': 'Thank you for your visit :)', 'PRICE': ''}
+    ])
 
-        # Append the dish details to the DataFrame
-        data['DISH'].append(f"{name}{' x' + str(dish_counts[dish_key]) if dish_counts[dish_key] > 1 else ''}")
-        data['PRICE'].append(price * dish_counts[dish_key])
-
-    # Append the total price row
-    data['DISH'].append('TOTAL')
-    data['PRICE'].append(total_price)
-
-    # Create a DataFrame from the data
-    df = pd.DataFrame(data)
-
-    # Create a CSV file path
+    # Write the DataFrame to a CSV file
     app_dir = os.path.dirname(os.path.abspath(__file__))
     output_path = os.path.join(app_dir, 'output.csv')
 
-    # Write the DataFrame to a CSV file
-    df.to_csv(output_path, index=False, quoting=csv.QUOTE_NONNUMERIC)
+    # Create a temporary DataFrame without header
+    df_temp = df[1:]
+
+    # Save the temporary DataFrame to CSV without header
+    df_temp.to_csv(output_path, index=False, header=False)
+
+    # Read the temporary CSV file
+    with open(output_path, 'r') as temp_file:
+        csv_data = temp_file.read()
+
+    # Add the modified header to the CSV data
+    csv_data_with_header = f"TITLE,\"{title}\"\n" + csv_data
+
+    # Write the CSV data with modified header to the output file
+    with open(output_path, 'w') as final_file:
+        final_file.write(csv_data_with_header)
 
     # Print the extracted information
     print('Title:', title)
     print('Description:', description)
     print('Table Number:', table_number)
-    print('Total Price:', total_price)
+    print('Total Price:', format_price(total_price))
 
     # Return the path of the generated CSV file
     return output_path
-
-
-if __name__ == '__main__':
-    # Retrieve the JSON file path from the command-line argument
-    json_file_path = sys.argv[1]
-
-    # Call the main function with the JSON file path and print the result
-    print(main(json_file_path))
