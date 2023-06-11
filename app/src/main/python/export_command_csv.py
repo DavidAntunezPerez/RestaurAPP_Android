@@ -1,7 +1,8 @@
 import sys
 import json
-import csv
+import pandas as pd
 import os
+import csv
 
 
 def format_price(price):
@@ -22,51 +23,42 @@ def main(file_path):
 
     dishes_list = json_data.get('dishesList', [])
 
-    # Extract dish information and write to CSV
+    # Create a DataFrame to store the data
+    data = {
+        'DISH': [],
+        'PRICE': []
+    }
+
+    # Extract dish information
+    dish_counts = {}
+    for dish in dishes_list:
+        name = dish.get('name', '')
+        price = dish.get('price', '')
+
+        # Update the dish count and price
+        dish_key = f"{name}_{price}"
+        if dish_key in dish_counts:
+            dish_counts[dish_key] += 1
+        else:
+            dish_counts[dish_key] = 1
+
+        # Append the dish details to the DataFrame
+        data['DISH'].append(f"{name}{' x' + str(dish_counts[dish_key]) if dish_counts[dish_key] > 1 else ''}")
+        data['PRICE'].append(price * dish_counts[dish_key])
+
+    # Append the total price row
+    data['DISH'].append('TOTAL')
+    data['PRICE'].append(total_price)
+
+    # Create a DataFrame from the data
+    df = pd.DataFrame(data)
+
+    # Create a CSV file path
     app_dir = os.path.dirname(os.path.abspath(__file__))
     output_path = os.path.join(app_dir, 'output.csv')
-    with open(output_path, 'w', newline='') as csv_file:
-        writer = csv.writer(csv_file)
 
-        # Write the title row
-        writer.writerow(['TITLE', title])
-
-        # Write the description row
-        writer.writerow(['DESCRIPTION', description])
-
-        # Write the dish headers
-        writer.writerow(['DISH', 'PRICE'])
-
-        # Create a dictionary to keep track of dish counts and rows
-        dish_counts = {}
-        dish_rows = {}
-
-        # Write the dish details
-        for dish in dishes_list:
-            name = dish.get('name', '')
-            price = dish.get('price', '')
-
-            # Update the dish count and price
-            dish_key = f"{name}_{price}"
-            if dish_key in dish_counts:
-                dish_counts[dish_key] += 1
-            else:
-                dish_counts[dish_key] = 1
-
-            # Update the dish rows with the latest occurrence
-            dish_rows[dish_key] = [
-                f"{name}{' x' + str(dish_counts[dish_key]) if dish_counts[dish_key] > 1 else ''}",
-                format_price(price * dish_counts[dish_key])]
-
-        # Write only the last occurrence of each dish
-        for row in dish_rows.values():
-            writer.writerow(row)
-
-        # Write the total price row
-        writer.writerow(['TOTAL', format_price(total_price)])
-
-        # Thank the customer :)
-        writer.writerow(['Thank you for your visit :)!'])
+    # Write the DataFrame to a CSV file
+    df.to_csv(output_path, index=False, quoting=csv.QUOTE_NONNUMERIC)
 
     # Print the extracted information
     print('Title:', title)

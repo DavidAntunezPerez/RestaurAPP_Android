@@ -29,12 +29,14 @@ android {
         }
 
         python {
-            version "3.11"
-        }
 
-        python {
-            buildPython "C:/path/to/python.exe"
-            buildPython "C:/path/to/py.exe", "-3.11"
+
+            buildPython "py -3"
+
+            pip {
+                install "numpy"
+                install "pandas"
+            }
         }
     }
 
