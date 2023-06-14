@@ -93,6 +93,9 @@ class SettingsFragment : Fragment() {
         languageSpinner.setSelection(languageIndex)
 
         Log.i("LANGUAGE GET DEFAULT RESUME SPINNER", "$languageIndex")
+
+        changeLangStrings()
+
     }
 
     /**
@@ -152,6 +155,9 @@ class SettingsFragment : Fragment() {
         val languageIndex = currentLanguage?.let { getLanguageIndex(it) } ?: 0
         languageSpinner.setSelection(languageIndex)
 
+        // SET SPINNER DEFAULT VALUE
+        onStartSetLocale()
+
         // RETRIEVE THE USER DATA FROM FIREBASE
         // Retrieve user document from Firestore
         val userDocumentRef = firestore.collection("users").document(userUID!!)
@@ -195,6 +201,8 @@ class SettingsFragment : Fragment() {
         binding.saveButton.setOnClickListener {
             saveSettings()
         }
+
+        changeLangStrings()
 
     }
 
@@ -300,6 +308,32 @@ class SettingsFragment : Fragment() {
         binding.locationInputLayout.hint = getString(R.string.settings_location)
         binding.descriptionInputLayout.hint = getString(R.string.settings_description)
 
+    }
+
+    /**
+     * Function to set the locale of the default spinner value
+     */
+    private fun onStartSetLocale() {
+
+        if (languageSpinner.selectedItem.toString() == "\uD83C\uDDEA\uD83C\uDDF8") {
+
+            val spanishLocale = Locale("es", "ES")
+            Locale.setDefault(spanishLocale)
+            val config = resources.configuration
+            config.setLocale(spanishLocale)
+            resources.updateConfiguration(config, resources.displayMetrics)
+
+
+        } else if (languageSpinner.selectedItem.toString() == "\uD83C\uDDEC\uD83C\uDDE7") {
+
+            val englishLocale = Locale("en", "US")
+            Locale.setDefault(englishLocale)
+            val config = resources.configuration
+            config.setLocale(englishLocale)
+            resources.updateConfiguration(config, resources.displayMetrics)
+        }
+
+        changeLangStrings()
     }
 
     /**
