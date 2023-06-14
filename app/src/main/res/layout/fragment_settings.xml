@@ -25,7 +25,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
 
             <ImageView
                 android:id="@+id/profileImageView"
@@ -43,6 +44,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/loading_animation_logo"
                 android:pivotX="50%"
                 android:pivotY="50%"
                 android:rotation="0"
@@ -50,8 +52,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/loading_animation_logo" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btnEditImgSettings"
@@ -60,10 +61,10 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
+                android:contentDescription="@string/floating_action_edit_image"
                 android:src="@drawable/ic_edit"
                 app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
-                app:layout_constraintEnd_toEndOf="@+id/profileImageView"
-                android:contentDescription="@string/floating_action_edit_image" />
+                app:layout_constraintEnd_toEndOf="@+id/profileImageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -80,10 +81,11 @@
 
     <Spinner
         android:id="@+id/languageSpinner"
+        android:background="@drawable/spinner_border"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginVertical="5dp"
-        android:entries="@array/languages" />
+        android:layout_height="60dp"
+        android:layout_marginVertical="10dp"
+        android:entries="@array/languages"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameInputLayout"
@@ -133,7 +135,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:text="@string/settings_save" />
 
 </LinearLayout>
