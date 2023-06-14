@@ -1,13 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_other_beige"
     android:orientation="vertical"
-    tools:context=".activities.MainActivity"
-    android:background="@color/app_other_beige">
-
-    <!-- Other views in your layout -->
+    tools:context=".activities.MainActivity">
 
     <FrameLayout
         android:id="@+id/fragment_main"
@@ -15,14 +13,12 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <!-- Other views in your layout -->
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_navigation_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 
 </LinearLayout>
 
