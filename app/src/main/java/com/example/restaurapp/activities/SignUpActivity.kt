@@ -85,16 +85,12 @@ class SignUpActivity : AppCompatActivity() {
                             } else if (it.exception is FirebaseAuthUserCollisionException) {
                                 // If there is already an existing user with that email
                                 Snackbar.make(
-                                    binding.root,
-                                    R.string.error_user_exists,
-                                    Snackbar.LENGTH_SHORT
+                                    binding.root, R.string.error_user_exists, Snackbar.LENGTH_SHORT
                                 ).show()
                             } else if (it.exception is FirebaseNetworkException) {
                                 // If there is a network error
                                 Snackbar.make(
-                                    binding.root,
-                                    R.string.error_network,
-                                    Snackbar.LENGTH_SHORT
+                                    binding.root, R.string.error_network, Snackbar.LENGTH_SHORT
                                 ).show()
                             } else if (it.exception is FirebaseTooManyRequestsException) {
                                 // If there are too many requests
@@ -126,8 +122,7 @@ class SignUpActivity : AppCompatActivity() {
                 Snackbar.make(it, R.string.error_confirm_password, Snackbar.LENGTH_SHORT).show()
             } else {
                 // Show a snackbar message if the credentials are invalid
-                Snackbar.make(it, R.string.error_invalid_credentials, Snackbar.LENGTH_SHORT)
-                    .show()
+                Snackbar.make(it, R.string.error_invalid_credentials, Snackbar.LENGTH_SHORT).show()
             }
         }
     }
@@ -199,7 +194,28 @@ class SignUpActivity : AppCompatActivity() {
         configuration.setLocale(locale)
         resources.updateConfiguration(configuration, resources.displayMetrics)
 
-        // Restart the activity for the locale change to take effect
-        recreate()
+        // UPDATE ALL THE NECESSARY STRINGS
+        updateStrings()
+    }
+
+    /**
+     * Update all the necessary strings of the view
+     */
+    fun updateStrings() {
+
+        // TEXT VIEW SIGN UP
+        binding.logInTv.text = getString(R.string.txt_type_signup)
+
+        // SIGN UP BUTTON
+        binding.signupbutton.text = getString(R.string.txt_type_signup)
+
+        // ALREADY REGISTERED BUTTON
+        binding.textView.text = getString(R.string.txt_sign_in_now)
+
+        // INPUT LAYOUT HINTS
+        binding.emailLayout.hint = getString(R.string.txt_type_email)
+        binding.passwordLayout.hint = getString(R.string.txt_type_pass)
+        binding.confirmPasswordLayout.hint = getString(R.string.txt_type_repass)
+
     }
 }

@@ -163,7 +163,7 @@ class SignInActivity : AppCompatActivity() {
                 }
 
                 // Set the locale without recreating the activity
-                setLocale(locale, false)
+                setLocale(locale)
             }
 
             // Check if there is an existing user document
@@ -233,7 +233,7 @@ class SignInActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.action_english -> {
                     // Set the locale to English and recreate the activity
-                    setLocale(Locale.ENGLISH, true)
+                    setLocale(Locale.ENGLISH)
 
                     // Save the selected language in shared preferences
                     saveLanguage("en")
@@ -243,7 +243,7 @@ class SignInActivity : AppCompatActivity() {
 
                 R.id.action_spanish -> {
                     // Set the locale to Spanish and recreate the activity
-                    setLocale(Locale("es"), true)
+                    setLocale(Locale("es"))
 
                     // Save the selected language in shared preferences
                     saveLanguage("es")
@@ -263,9 +263,9 @@ class SignInActivity : AppCompatActivity() {
      * Set the app's locale.
      *
      * @param locale The desired locale.
-     * @param onRecreate Whether to recreate the activity after changing the locale.
-     */
-    private fun setLocale(locale: Locale, onRecreate: Boolean) {
+     *
+     * */
+    private fun setLocale(locale: Locale) {
         // Get the resources object for the current context
         val resources = resources
 
@@ -278,10 +278,31 @@ class SignInActivity : AppCompatActivity() {
         // Update the configuration and display metrics of the resources
         resources.updateConfiguration(configuration, resources.displayMetrics)
 
-        // If onRecreate flag is true, restart the activity to apply the locale change
-        if (onRecreate) {
-            recreate()
-        }
+        // UPDATE ALL THE NECESSARY STRINGS
+        updateStrings()
+    }
+
+    /**
+     * Update all the necessary strings of the view
+     */
+    fun updateStrings() {
+
+        // LOG IN TEXT
+        binding.logInTv.text = getString(R.string.txt_type_signin)
+
+        // SIGN IN BUTTON
+        binding.button.text = getString(R.string.txt_type_signin)
+
+        // NOT REGISTERED BUTTON
+        binding.textView.text = getString(R.string.txt_sign_up_now)
+
+        // GOOGLE SIGN IN BUTTON
+        binding.btnSignInGoogle.text = getString(R.string.txt_type_google)
+
+        // INPUT LAYOUT HINTS
+        binding.passwordLayout.hint = getString(R.string.txt_type_pass)
+        binding.emailLayout.hint = getString(R.string.txt_type_email)
+
     }
 
     /**

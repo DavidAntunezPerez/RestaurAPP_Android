@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurapp.R
@@ -43,6 +44,9 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
         super.onCreate(savedInstanceState)
         binding = ActivityCreateComBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // CHANGE THE STATUS BAR COLOR
+        window.statusBarColor = ContextCompat.getColor(this, R.color.app_secondary_pink)
 
         // INITIALIZING DISH LIST
         dishList = ArrayList()

@@ -3,6 +3,7 @@ package com.example.restaurapp.activities
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.restaurapp.R
 import com.example.restaurapp.databinding.ActivityMainBinding
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // CHANGE THE STATUS BAR COLOR
+        window.statusBarColor = ContextCompat.getColor(this, R.color.app_secondary_pink)
+
         // Set the language saved in shared preferences
         val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         val language = sharedPreference.getString("language", null)
