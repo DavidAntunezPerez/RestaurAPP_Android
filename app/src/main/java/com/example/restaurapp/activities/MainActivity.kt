@@ -104,4 +104,12 @@ class MainActivity : AppCompatActivity() {
             recreate()
         }
     }
+
+    fun updateBottomNavigationBarTitles() {
+        val navView: BottomNavigationView = binding.bottomNav
+        navView.menu.findItem(R.id.menu_item1).title = getString(R.string.txt_create_command_menu)
+        navView.menu.findItem(R.id.menu_item2).title = getString(R.string.txt_list_command_menu)
+        navView.menu.findItem(R.id.menu_item3).title = getString(R.string.txt_settings_command_menu)
+    }
+
 }

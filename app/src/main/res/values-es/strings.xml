@@ -7,7 +7,7 @@
     <string name="txt_type_email">Escribe tu Email</string>
     <string name="txt_type_pass">Escribe tu Contraseña</string>
     <string name="txt_type_repass">Vuelve a escribir tu Contraseña</string>
-    <string name="txt_type_google">Iniciar Sesión con Google</string>
+    <string name="txt_type_google">Entrar con Google</string>
     <string name="txt_type_signin">Iniciar Sesión</string>
     <string name="txt_type_signup">Registrarme</string>
     <string name="txt_sign_up_now">¿Aun no estás registrado? Registrate ahora</string>

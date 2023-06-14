@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.restaurapp.R
+import com.example.restaurapp.activities.MainActivity
 import com.example.restaurapp.activities.SignInActivity
 import com.example.restaurapp.databinding.FragmentSettingsBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -272,6 +273,32 @@ class SettingsFragment : Fragment() {
 
         // Save the selected language to shared preferences
         sharedPreferences.edit().putString("language", selectedLanguage).apply()
+
+        val mainActivity = activity as? MainActivity
+        mainActivity?.updateBottomNavigationBarTitles()
+
+        // CHANGE THE STINGS OF THE VIEW
+        changeLangStrings()
+    }
+
+    /**
+     *  Updates the necessary strings of the fragment when the language is changed
+     */
+    private fun changeLangStrings() {
+
+        // LOGOUT BUTTON
+        binding.btnLogout.text = getString(R.string.log_out_fragment_settings)
+
+        // LANGUAGE CHOOSE TEXT
+        binding.languageChooseText.text = getString(R.string.settings_language)
+
+        // SAVE BUTTON
+        binding.saveButton.text = getString(R.string.settings_save)
+
+        // INPUT LAYOUTS HINTS
+        binding.nameInputLayout.hint = getString(R.string.settings_name)
+        binding.locationInputLayout.hint = getString(R.string.settings_location)
+        binding.descriptionInputLayout.hint = getString(R.string.settings_description)
 
     }
 
