@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:backgroundTint="@color/teal_700"
+    android:backgroundTint="@color/app_primary"
     app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
             android:paddingTop="15dp"
             android:paddingEnd="5dp"
             android:text="@string/txt_testdishname"
-            android:textColor="@color/yellow"
+            android:textColor="@color/app_other_beige"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
             android:layout_marginStart="22dp"
             android:paddingBottom="18dp"
             android:text="@string/txt_dollarsymbol"
-            android:textColor="@color/yellow"
+            android:textColor="@color/app_other_beige"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="18dp"
             android:text="@string/txt_testNumber"
-            android:textColor="@color/yellow"
+            android:textColor="@color/app_other_beige"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/txtPrizeDollar"

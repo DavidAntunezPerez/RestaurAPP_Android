@@ -33,7 +33,7 @@
             android:id="@+id/textCommandDescr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingBottom="15dp"
@@ -48,8 +48,8 @@
             android:layout_width="199dp"
             android:layout_height="30dp"
             android:gravity="end"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="35dp"
             android:paddingBottom="15dp"
             android:text="@string/total_command_list"
             android:textColor="@color/app_other_beige"
@@ -63,7 +63,7 @@
             android:id="@+id/textTableAssigned"
             android:layout_width="199dp"
             android:layout_height="30dp"
-            android:paddingStart="22dp"
+            android:paddingStart="35dp"
             android:paddingEnd="22dp"
             android:text="@string/table_command_list"
             android:textColor="@color/app_other_beige"
@@ -78,10 +78,10 @@
             android:layout_width="79dp"
             android:layout_height="65dp"
             android:layout_marginTop="4dp"
+            android:contentDescription="@string/commandicon_image_descr"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/commandicon"
-            android:contentDescription="@string/commandicon_image_descr" />
+            app:srcCompat="@drawable/commandicon" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -91,4 +91,5 @@
             app:layout_constraintGuide_percent="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

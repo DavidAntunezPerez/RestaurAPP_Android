@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="7dp"
-    android:backgroundTint="@color/teal_700"
+    android:backgroundTint="@color/app_other_dark_pink"
     app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
             android:gravity="center"
             android:paddingBottom="18dp"
             android:text="@string/txt_testdishname"
-            android:textColor="@color/yellow"
+            android:textColor="@color/app_other_beige"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
             android:layout_marginEnd="16dp"
             android:paddingBottom="18dp"
             android:text="@string/txt_testNumber"
-            android:textColor="@color/yellow"
+            android:textColor="@color/app_other_beige"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

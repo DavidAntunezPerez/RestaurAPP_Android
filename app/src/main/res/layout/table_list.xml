@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:backgroundTint="@color/blue"
+    android:backgroundTint="@color/app_secondary_pink"
     app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             android:paddingTop="15dp"
             android:paddingEnd="5dp"
             android:text="@string/hashtag_table_list"
-            android:textColor="@color/yellow"
+            android:textColor="@color/app_primary"
             android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
             android:paddingTop="15dp"
             android:paddingEnd="5dp"
             android:text="@string/example_text_number_table_list"
-            android:textColor="@color/yellow"
+            android:textColor="@color/app_primary"
             android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +53,7 @@
             android:paddingEnd="20dp"
             android:paddingBottom="20dp"
             android:text="@string/txt_descr_example"
-            android:textColor="@color/yellow"
+            android:textColor="@color/app_primary"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textNumber" />
@@ -62,8 +62,8 @@
             android:id="@+id/imgTable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="296dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginStart="290dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="@+id/textTableName"
             app:layout_constraintTop_toTopOf="@+id/textTableName"
             app:srcCompat="@drawable/tableicon"

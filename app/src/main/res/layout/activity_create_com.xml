@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_other_beige"
     tools:context=".activities.CreateComActivity">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageView
         android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="34dp"
+        android:layout_height="39dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:contentDescription="@string/back_btn_desc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,24 +25,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="132dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:text="@string/txt_commandcreate_tableinfo"
-        android:textColor="@color/blue"
+        android:textColor="@color/app_primary"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/txtNumberTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:text="@string/txt_testNumber"
-        android:textColor="@color/blue"
+        android:textColor="@color/app_primary"
         android:textSize="34sp"
         app:layout_constraintStart_toEndOf="@+id/txtCreateComFor"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -125,7 +126,7 @@
 
             <ImageView
                 android:id="@+id/btnMore"
-                android:layout_width="54dp"
+                android:layout_width="35dp"
                 android:layout_height="43dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="28dp"

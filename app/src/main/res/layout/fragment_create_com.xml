@@ -6,6 +6,7 @@
     android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical"
+    android:backgroundTint="@color/app_other_beige"
     tools:context=".fragments.CreateComFragment">
 
     <TextView
