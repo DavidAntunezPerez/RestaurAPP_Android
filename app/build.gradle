@@ -17,8 +17,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.restaurapp"
-        minSdk 26
-        targetSdk 33
+        minSdk 30
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -90,4 +90,7 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:1.2.3"
 
     implementation 'com.google.code.gson:gson:2.10.1'
+
+    // DOKKA DOCUMENTATION PLUGIN
+    implementation 'org.jetbrains.dokka:android-documentation-plugin:1.8.20'
 }
