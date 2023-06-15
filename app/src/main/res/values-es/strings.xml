@@ -27,7 +27,7 @@
     <string name="txt_testCommandTitle">Título de comanda</string>
     <string name="txt_command_page_information">Selecciona una comanda para editar su información</string>
     <string name="txtsearchcom">Buscar Comanda…</string>
-    <string name="notfoundcomfilter">Commanda no encontrada</string>
+    <string name="notfoundcomfilter">Comanda no encontrada</string>
 
     <!--COMMAND DELETION STRINGS-->
     <string name="delete_confirmation_title">Eliminar Comanda</string>

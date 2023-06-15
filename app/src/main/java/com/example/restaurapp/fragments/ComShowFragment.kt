@@ -110,20 +110,20 @@ class ComShowFragment : Fragment() {
                 // SAVE THE TABLE NUMBER RETRIEVED IN THE DATA CLASS COMMAND
                 commandData.tableNumber = tableNumber?.toInt()
 
-                val tableText = when (Locale.getDefault().language) {
+                val tableText = when (requireContext().resources.configuration.locale.language) {
                     "es" -> "MESA: ${tableNumber ?: "N/A"}"
                     else -> "TABLE: ${tableNumber ?: "N/A"}"
                 }
                 binding.tvTableLabel.text = tableText
             } else {
-                val tableText = when (Locale.getDefault().language) {
+                val tableText = when (requireContext().resources.configuration.locale.language) {
                     "es" -> "MESA: N/A"
                     else -> "TABLE: N/A"
                 }
                 binding.tvTableLabel.text = tableText
             }
         }?.addOnFailureListener { exception ->
-            val tableText = when (Locale.getDefault().language) {
+            val tableText = when (requireContext().resources.configuration.locale.language) {
                 "es" -> "MESA: N/A"
                 else -> "TABLE: N/A"
             }
@@ -183,9 +183,7 @@ class ComShowFragment : Fragment() {
                 // Show a Snackbar message to indicate the file has been downloaded
                 val message = getString(R.string.csv_file_downloaded, csvDestination.absolutePath)
                 val snackbar = Snackbar.make(
-                    requireView(),
-                    message,
-                    Snackbar.LENGTH_SHORT
+                    requireView(), message, Snackbar.LENGTH_SHORT
                 )
                 snackbar.show()
             }
