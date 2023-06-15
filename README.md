@@ -6,6 +6,8 @@ Versión para dispositivos móviles Android de la aplicación RestaurAPP
    <img src="restaurapp_android.png">
 </p>
 
+Para acceder al repositorio de RestaurAPP conjunto haga click [aqui](https://github.com/DavidAntunezPerez/RestaurAPP)
+
 ### Histórico de cambios
 
 Para acceder al histórico de cambios de la aplicación haga
