@@ -12,10 +12,12 @@ Para acceder al repositorio principal de IESCampanillas de proyectos haga click 
 
 ## Índice: 
 1. [Descripción y funcionalidades](#descripción-y-funcionalidades)
-2. [Gestión del proyecto](#gestión-del-proyecto)
-3. [Histórico de cambios](#histórico-de-cambios)
-4. [Descarga de la APP](#descarga-de-la-app)
-5. [Bibliografía](#bibliografía)
+2. [Diagrama de la base de datos](#diagrama-de-la-base-de-datos)
+3. [Gestión del proyecto](#gestión-del-proyecto)
+4. [Histórico de cambios](#histórico-de-cambios)
+5. [Descarga de la APP](#descarga-de-la-app)
+6. [Manual de instalación y dependencias](#manual-de-instalación-y-dependencias)
+7. [Bibliografía](#bibliografía)
 
 ### Descripción y funcionalidades
 
@@ -35,6 +37,14 @@ También cuenta con la opción de cambio de idioma entre Inglés y Español, que
 Además de las propias opciones de Inicio de Sesión y Registro, que podrán realizarse tanto con correo electrónico y contraseña como con una cuenta de Google.
 
 Otra funcionalidad a mencionar es la de Exportar a CSV, que, mediante el uso de la librería [Chaquopy](https://chaquo.com/chaquopy/) permite ejecutar un script de Python que descargará un archivo .CSV en nuestro dispositivo móvil con la cuenta de una comanda, incluyendo título, descripción, listado de platos pedidos con su precio, precio total a pagar... Los camareros pueden usar esta funcionalidad para mostrar al cliente la cuenta final del pedido y así ahorrar papel y material de impresión. Además de tener guardado la información de cada comanda en el dispositivo móvil de forma sencilla.
+
+### Diagrama de la base de datos
+
+Este es el esquema de la base de datos planteado con [ERDPLus](https://erdplus.com/). Además, de esta imagen, podeis encontrar un archivo para importar el esquema [aqui](https://github.com/DavidAntunezPerez/RestaurAPP_Android/blob/master/erd_diagram/restaurapp_android.erdplus).
+
+<p align="center">
+   <img src="./erd_diagram/ERD_Diagram.png">
+</p>
 
 ### Gestión del proyecto
 
@@ -81,15 +91,16 @@ Para el desarrollo de esta aplicación, se han utilizado diferentes herramientas
 - [Canva](https://www.canva.com/): Como herramienta de diseño de imágenes y el propio logo.
 - [Iconos8](https://iconos8.es/): Como herramienta para la descarga y utilización de los iconos del proyecto en diferentes formatos.
 - [Figma](https://www.figma.com/): Utilizado para desarrollar el [Anteproyecto](https://github.com/DavidAntunezPerez/restaurapp#anteproyecto).
-- [Jira Software](): Utilizado para gestionar el proyecto durante su desarrollo, más información en el [apartado de gestión del proyecto](https://github.com/DavidAntunezPerez/RestaurAPP_Android#gesti%C3%B3n-del-proyecto)
+- [Jira Software](): Utilizado para gestionar el proyecto durante su desarrollo, más información en el [apartado de gestión del proyecto](https://github.com/DavidAntunezPerez/RestaurAPP_Android#gesti%C3%B3n-del-proyecto).
 - [Google Firebase](https://firebase.google.com/): Utilizado como servicio externo para consumir datos y como base de datos con Firestore, para almacenar imágenes con Storage, y como herramienta de autenticación de usuarios con Authentication.
-- [PowerBI](https://powerbi.microsoft.com/es-es/): Para cumplir con los [requisitos del módulo desarrollo de interfaces](https://github.com/IESCampanillas/proyectos-dam-2023/wiki/Desarrollo-de-Interfaces) y con los [requisitos del módulo de sistemas de gestión empresarial](https://github.com/IESCampanillas/proyectos-dam-2023/wiki/Sistemas-de-Gesti%C3%B3n-Empresarial)
+- [PowerBI](https://powerbi.microsoft.com/es-es/): Para cumplir con los [requisitos del módulo desarrollo de interfaces](https://github.com/IESCampanillas/proyectos-dam-2023/wiki/Desarrollo-de-Interfaces) y con los [requisitos del módulo de sistemas de gestión empresarial](https://github.com/IESCampanillas/proyectos-dam-2023/wiki/Sistemas-de-Gesti%C3%B3n-Empresarial).
 - [Material Design](https://m2.material.io/): Como guía completa para el diseño visual, y como herramienta para el diseño de los layouts.
 - [Kotlin](https://kotlinlang.org/): Como lenguaje principal de programación para realizar la aplicación.
 - [Python](https://www.python.org/) y [Chaquopy](https://chaquo.com/chaquopy/): Utilizados para la creación y ejecución del script encargado de la generación de archivos CSV. Se han utilizado las librerías de [Numpy](https://numpy.org/) y [Pandas](https://pandas.pydata.org/) para el desarrollo del script.
 - [Android Studio](https://developer.android.com/studio):Como entorno de desarrollo integrado para el desarrollo de la aplicación.
 - [DaFont](https://www.dafont.com/): Para la descarga de fuentes de texto usadas en la aplicación.
-- [Dokka](https://github.com/Kotlin/dokka): Para la generar la [documentación del proyecto](https://github.com/DavidAntunezPerez/RestaurAPP_Android/tree/master/documentation/dokka/htmlMultiModule)
+- [Dokka](https://github.com/Kotlin/dokka): Para la generar la [documentación del proyecto](https://github.com/DavidAntunezPerez/RestaurAPP_Android/tree/master/documentation/dokka/htmlMultiModule).
 - [GitHub](https://github.com/): Para gestionar el proyecto, controlar versiones de código y almacenar el código del proyecto en la nube.
 - [Git](https://git-scm.com/): Usado como  sistema de control de versiones en el proyecto.
 - [Glide](https://github.com/bumptech/glide): Para la gestión de los archivos multimedia de la aplicación.
+- [ERDPlus](https://erdplus.com/): Para la creación del diagrama ERD de la base de datos.
