@@ -1,6 +1,7 @@
 package com.example.restaurapp.fragments
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -290,12 +291,22 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
      *
      * @param command The Command object to be deleted.
      */
+
     private fun deleteCommand(command: Command) {
+
+        // GENERATE THE DELETE SOUND
+        val mediaPlayer = MediaPlayer.create(
+            context, R.raw.sound_delete
+        )
+
         // Perform the deletion
         db.collection("commands").document(command.id!!).delete().addOnSuccessListener {
             Snackbar.make(
                 binding.root, getString(R.string.command_deleted_success), Snackbar.LENGTH_SHORT
             ).show()
+
+            // START THE DELETE SOUND
+            mediaPlayer.start()
 
             // Remove the command from the list
             val removedIndex = commandList.indexOf(command)
@@ -303,12 +314,15 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
                 commandList.removeAt(removedIndex)
                 commandRecyclerView.adapter?.notifyItemRemoved(removedIndex)
             }
+
+            mediaPlayer.release() // Release the MediaPlayer resources
         }.addOnFailureListener { exception ->
             val errorMessage = getString(
                 R.string.failed_to_delete_command, exception.message
             )
             Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT).show()
             // Handle the failure to delete the command
+            mediaPlayer.release() // Release the MediaPlayer resources
         }
     }
 

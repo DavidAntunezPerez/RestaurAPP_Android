@@ -17,6 +17,7 @@ import com.example.restaurapp.entities.Dish
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import java.math.RoundingMode
 
 /**
  * Adapter class for displaying dishes in a RecyclerView.
@@ -107,7 +108,7 @@ class DishAdapter(private var dishList: ArrayList<Dish>, private val context: Co
             // ADDING DISH PRICE TO TOTAL PRICE
             if (selectedPrice != null) {
                 totalPrice += selectedPrice
-                totalPrice = "%.2f".format(totalPrice).toDouble()
+                totalPrice = totalPrice.toBigDecimal().setScale(2, RoundingMode.HALF_UP).toDouble()
             }
 
             // UPDATE THE TOTAL PRICE
