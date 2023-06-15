@@ -1,5 +1,6 @@
 package com.example.restaurapp.adapters
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurapp.R
 import com.example.restaurapp.entities.Command
-import com.example.restaurapp.entities.Dish
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
 
@@ -23,7 +23,8 @@ import java.util.Locale
 class CommandAdapter(
     private var commandList: List<Command>,
     private val longClickListener: OnCommandLongClickListener,
-    private val itemClickListener: OnItemClickListener
+    private val itemClickListener: OnItemClickListener,
+    private val context: Context
 ) : RecyclerView.Adapter<CommandAdapter.CommandViewHolder>() {
 
     /**
@@ -108,7 +109,7 @@ class CommandAdapter(
         holder.tvDescr.text = command.description
 
         // TRANSLATE THE TEXT DEPENDING ON THE LANGUAGE SET
-        val totalPriceText = when (Locale.getDefault().language) {
+        val totalPriceText = when (context.resources.configuration.locale.language) {
             "es" -> "PRECIO TOTAL: $${command.totalPrice}"
             else -> "TOTAL PRICE: $${command.totalPrice}"
         }
@@ -120,10 +121,11 @@ class CommandAdapter(
         tableRef?.get()?.addOnSuccessListener { documentSnapshot ->
             if (documentSnapshot?.exists() == true) {
                 val tableNumber = documentSnapshot.getLong("number")
-                val tableText = when (Locale.getDefault().language) {
+                val tableText = when (context.resources.configuration.locale.language) {
                     "es" -> "MESA: ${tableNumber ?: "N/A"}"
                     else -> "TABLE: ${tableNumber ?: "N/A"}"
                 }
+
                 holder.tvTableAssigned.text = tableText
             } else {
                 val tableText = when (Locale.getDefault().language) {
@@ -133,7 +135,7 @@ class CommandAdapter(
                 holder.tvTableAssigned.text = tableText
             }
         }?.addOnFailureListener { exception ->
-            val tableText = when (Locale.getDefault().language) {
+            val tableText = when (context.resources.configuration.locale.language) {
                 "es" -> "MESA: N/A"
                 else -> "TABLE: N/A"
             }

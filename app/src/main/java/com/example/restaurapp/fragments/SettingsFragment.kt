@@ -155,8 +155,6 @@ class SettingsFragment : Fragment() {
         val languageIndex = currentLanguage?.let { getLanguageIndex(it) } ?: 0
         languageSpinner.setSelection(languageIndex)
 
-        // SET SPINNER DEFAULT VALUE
-        onStartSetLocale()
 
         // RETRIEVE THE USER DATA FROM FIREBASE
         // Retrieve user document from Firestore
@@ -310,31 +308,6 @@ class SettingsFragment : Fragment() {
 
     }
 
-    /**
-     * Function to set the locale of the default spinner value
-     */
-    private fun onStartSetLocale() {
-
-        if (languageSpinner.selectedItem.toString() == "\uD83C\uDDEA\uD83C\uDDF8") {
-
-            val spanishLocale = Locale("es", "ES")
-            Locale.setDefault(spanishLocale)
-            val config = resources.configuration
-            config.setLocale(spanishLocale)
-            resources.updateConfiguration(config, resources.displayMetrics)
-
-
-        } else if (languageSpinner.selectedItem.toString() == "\uD83C\uDDEC\uD83C\uDDE7") {
-
-            val englishLocale = Locale("en", "US")
-            Locale.setDefault(englishLocale)
-            val config = resources.configuration
-            config.setLocale(englishLocale)
-            resources.updateConfiguration(config, resources.displayMetrics)
-        }
-
-        changeLangStrings()
-    }
 
     /**
      * Returns the index of the given language in the list of supported languages.

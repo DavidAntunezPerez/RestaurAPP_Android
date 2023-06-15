@@ -147,7 +147,8 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
                         commandList.add(command)
                     }
                 }
-                commandRecyclerView.adapter = CommandAdapter(commandList, this, this)
+                commandRecyclerView.adapter =
+                    CommandAdapter(commandList, this, this, requireContext())
 
                 // ADD ANIMATION WHEN LOADING ALL THE RV
                 commandRecyclerView.startLayoutAnimation()
@@ -185,12 +186,16 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
     private fun filterList(query: String?) {
         if (query != null) {
             val filteredList = ArrayList<Command>()
-            for (i in commandList) {
-                if ((i.title?.lowercase(Locale.ROOT)
-                        ?.contains(query) == true) || (i.description?.lowercase(Locale.ROOT)
-                        ?.contains(query) == true)
+            val lowerCaseQuery = query.lowercase(Locale.ROOT)
+            for (command in commandList) {
+                val lowerCaseTitle = command.title?.lowercase(Locale.ROOT)
+                val lowerCaseDescription = command.description?.lowercase(Locale.ROOT)
+
+                if (lowerCaseTitle?.contains(lowerCaseQuery) == true || lowerCaseDescription?.contains(
+                        lowerCaseQuery
+                    ) == true
                 ) {
-                    filteredList.add(i)
+                    filteredList.add(command)
                 }
             }
 

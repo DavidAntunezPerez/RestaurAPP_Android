@@ -175,9 +175,16 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
     private fun filterList(query: String?) {
         if (query != null) {
             val filteredList = ArrayList<Dish>()
-            for (i in dishList) {
-                if (i.name?.lowercase(Locale.ROOT)?.contains(query) == true) {
-                    filteredList.add(i)
+            val lowerCaseQuery = query.lowercase(Locale.ROOT)
+            for (dish in dishList) {
+                val lowerCaseName = dish.name?.lowercase(Locale.ROOT)
+                val upperCaseName = dish.name?.uppercase(Locale.ROOT)
+
+                if (lowerCaseName?.contains(lowerCaseQuery) == true || upperCaseName?.contains(
+                        lowerCaseQuery
+                    ) == true
+                ) {
+                    filteredList.add(dish)
                 }
             }
 
