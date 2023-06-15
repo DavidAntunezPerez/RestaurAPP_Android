@@ -58,3 +58,17 @@ click [aqui](https://github.com/DavidAntunezPerez/RestaurAPP_Android/commits)
 Para descargar la APP, puedes hacer click en el apartado RELEASES de GitHub o hacer click [aqui](https://github.com/DavidAntunezPerez/RestaurAPP_Android/releases)
 
 Procura descargar la última versión de la aplicación. Al descargar el release, tendrás acceso a un archivo .apk que podrás utilizar en tu dispositivo Android para instalar la aplicación.
+
+### Manual de instalación y dependencias
+
+Los requisitos para que tengamos instalados la aplicación son los siguientes:
+
+- Disponer de espacio suficiente para poder descargar e instalar la aplicación.
+- Un dispositivo Android con una versión de API mínima de 30 y una máxima de 32. Se recomienda el uso de la API 30.
+- Tener los Servicios de Google actualizados y con un funcionamiento correcto.
+- Para la consulta de archivos .CSV, utilizar una aplicación de lectura de estos archivos, como recomendación, podeis usar [Excel de Microsoft](https://play.google.com/store/apps/details?id=com.microsoft.office.excel).
+
+Una vez cumplamos con todos los requisitos, podemos pasar a instalar la aplicación:
+- Descargar el [archivo APK de la aplicación](https://github.com/DavidAntunezPerez/RestaurAPP_Android/releases). 
+- Haga click en el archivo APK en su dispositivo Android y haga click en Instalar.
+- Se instalará RestaurAPP en su dispositivo y ya estará lista para su uso.
