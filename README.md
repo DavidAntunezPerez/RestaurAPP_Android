@@ -10,6 +10,12 @@ Para acceder al repositorio de RestaurAPP conjunto haga click [aqui](https://git
 
 Para acceder al repositorio principal de IESCampanillas de proyectos haga click [aqui](https://github.com/IESCampanillas/proyectos-dam-2023)
 
+## Índice: 
+1. [Descripción](#descripción)
+2. [Gestión del proyecto](#gestión-del-proyecto)
+3. [Histórico de cambios](#histórico-de-cambios)
+4. [Descarga de la APP](#descarga-de-la-app)
+
 ### Descripción
 
 Aplicación nativa del proyecto RestaurAPP. 
