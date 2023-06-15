@@ -17,7 +17,8 @@ Para acceder al repositorio principal de IESCampanillas de proyectos haga click 
 4. [Histórico de cambios](#histórico-de-cambios)
 5. [Descarga de la APP](#descarga-de-la-app)
 6. [Manual de instalación y dependencias](#manual-de-instalación-y-dependencias)
-7. [Bibliografía](#bibliografía)
+7. [Manual de uso de la aplicación](#manual-de-uso-de-la-aplicación)
+8. [Bibliografía](#bibliografía)
 
 ### Descripción y funcionalidades
 
@@ -83,6 +84,45 @@ Una vez cumplamos con todos los requisitos, podemos pasar a instalar la aplicaci
 - Descargar el [archivo APK de la aplicación](https://github.com/DavidAntunezPerez/RestaurAPP_Android/releases). 
 - Haga click en el archivo APK en su dispositivo Android y haga click en Instalar.
 - Se instalará RestaurAPP en su dispositivo y ya estará lista para su uso.
+
+### Manual de uso de la aplicación
+
+En esta sección se detallará cada una de las pantallas de la aplicación y sus funcionalidades.
+
+#### Pantalla de Inicio de Sesión
+<img src="./images/sign_in_page.png" style="width:35%">
+
+Esta es la pantalla que veremos la primera vez que iniciemos la aplicación. En ella se lleva a cabo un proceso de inicio de sesión, que es posible tanto con cuenta de Google como con tu correo electrónico y contraseña. El inicio de sesión cuenta con una validación que avisarán al usuario cuando la información de inicio de sesión presente algún error (bien sea porque no hay conexión a Internet, porque los credenciales no son válidos...). Agregar también que para el inicio de sesión con Google puedes utilizar cualquier cuenta de Google, si la cuenta de Google no estaba registrada en la aplicación, el registro y acceso es automático.
+
+Además, esta pantalla permite la opción de cambio de idioma, entre Inglés o Español, en el botón de arriba a la derecha del cuadro blanco, al pulsarlo se desplegará un menú donde podremos seleccionar un idioma y este cambiará automáticamente.
+
+<img src="./images/change_language_signin.png" style="width:35%">
+
+Finalmente, si no disponemos aun de una cuenta, y no contamos con una cuenta de Google, podemos pulsar en el texto inferior para acceder a la pantalla de registro.
+
+#### Pantalla de Registro
+<img src="./images/sign_up_page.png" style="width:35%">
+
+Esta pantalla presenta utilidad cuando queremos crear una cuenta nueva de correo electrónico y contraseña. 
+Al igual que la página de inicio de sesión, cuenta con la opción de cambio de idioma. Y, con una validación que guiará al usuario para poder crear una cuenta en caso de que los datos que haya agregado sean incorrectos o presenten un defecto.
+
+También, cuenta con un botón para poder ver la contraseña que estás escribiendo, y así guiar al usuario y que no se confunda.
+Al crear una nueva cuenta, serás direccionado a la siguiente parte de la aplicación, al igual que ocurre si inicias sesión.
+
+#### Aplicación una vez realizado el registro
+Al inciar sesión en la aplicación, el usuario accederá a una barra inferior donde se podrán escoger entre tres opciones:
+- Páginas de creación de comanda
+- Páginas de visualización de comandas
+- Página de ajustes
+
+Cada una está destinada a una funcionalidad que veremos en los siguientes apartados de la guía.
+
+#### Páginas de creación de comanda
+
+##### Pantalla de Selección de Mesas
+<img src="./images/create_page.png" style="width:35%">
+
+
 
 ### Bibliografía
 
