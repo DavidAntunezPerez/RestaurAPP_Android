@@ -87,7 +87,7 @@ Una vez cumplamos con todos los requisitos, podemos pasar a instalar la aplicaci
 
 ### Manual de uso de la aplicación
 
-Para acceder al manual, puedes visitar la Wiki de este repositorio [aqui](https://github.com/DavidAntunezPerez/RestaurAPP_Android/wiki)
+Para acceder al manual tanto para Español como para Inglés, puedes visitar la Wiki de este repositorio [aqui](https://github.com/DavidAntunezPerez/RestaurAPP_Android/wiki)
 
 
 ### Bibliografía
