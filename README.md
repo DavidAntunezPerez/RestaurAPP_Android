@@ -1,5 +1,11 @@
 # RestaurAPP Android
 
+##  Selecciona Idioma / Select Language
+* [Español](#español)
+* [English](#english)
+
+# Español
+
 Versión para dispositivos móviles Android de la aplicación RestaurAPP
 
 <p align="center">
@@ -110,3 +116,116 @@ Para el desarrollo de esta aplicación, se han utilizado diferentes herramientas
 - [Git](https://git-scm.com/): Usado como  sistema de control de versiones en el proyecto.
 - [Glide](https://github.com/bumptech/glide): Para la gestión de los archivos multimedia de la aplicación.
 - [ERDPlus](https://erdplus.com/): Para la creación del diagrama ERD de la base de datos.
+
+# English
+
+Android mobile devices version of RestaurAPP application
+
+<p align="center">
+    <img src="restaurapp_android.png">
+</p>
+
+To access the joint RestaurAPP repository click [here](https://github.com/DavidAntunezPerez/RestaurAPP)
+
+To access the main IESCampanillas project repository click [here](https://github.com/IESCampanillas/proyectos-dam-2023)
+
+## Index:
+1. [Description and functionalities](#description-and-functionalities)
+2. [Database Diagram](#database-diagram)
+3. [Project Management](#project-management)
+4. [Change history](#change-history)
+5. [APP download](#app-download)
+6. [Installation manual and dependencies](#installation-manual-and-dependencies)
+7. [Manual of use of the application](#manual-of-use-of-the-application)
+8. [Bibliography](#bibliography)
+
+### Description and functionalities
+
+Native application of the RestaurAPP project.
+This application works together with the [RestaurAPP hybrid application](https://github.com/AleCueto/restauraap) for the [2nd cycle end project DAM 22/23](https://github.com/IESCampanillas /projects-dam-2023).
+
+The application is fully developed by [David Antúnez Pérez](https://github.com/DavidAntunezPerez) using mainly the [Android Studio](https://developer.android.com/studio) development environment together to the [Kotlin](https://kotlinlang.org/) language with the use of [Python](https://www.python.org/) for some functionality.
+
+This application is developed to carry the system of tables and orders for each waiter in any restaurant. It will allow you to create, view, edit or delete a series of commands (or orders) depending on the waiter's need at the time.
+
+The application also allows you to add a description and a title to each command when it is created (or add it later when editing it). Also, it allows you to filter results to easily find both a dish and an order through a search bar located above the lists on the page.
+
+In addition, it also allows the function of managing the application settings, as well as creating a profile where you can add a Name, Description, Location or Image for your restaurant. As for the image, you can both take an image from your own camera at that moment or upload one from the device's gallery, as well as delete the profile image to leave the default one in the application.
+
+It also has the option to change the language between English and Spanish, which is present in the Settings section or in the Login and Registration tabs.
+
+In addition to the Login and Registration options themselves, which can be done both with email and password and with a Google account.
+
+Another functionality to mention is that of Export to CSV, which, by using the [Chaquopy](https://chaquo.com/chaquopy/) library, allows you to execute a Python script that will download a .CSV file to your mobile device with the account of an order, including title, description, list of dishes ordered with their price, total price to pay... Waiters can use this functionality to show the customer the final account of the order and thus save paper and printing material . In addition to having the information of each command saved on the mobile device in a simple way.
+
+### Database Diagram
+
+This is the database schema raised with [ERDPlus](https://erdplus.com/). In addition, from this image, you can find a file to import the schema [here](https://github.com/DavidAntunezPerez/RestaurAPP_Android/blob/master/erd_diagram/restaurapp_android.erdplus).
+
+<p align="center">
+    <img src="./erd_diagram/ERD_Diagram.png">
+</p>
+
+### Project management
+
+The tool [Jira Software](https://www.atlassian.com/es/software/jira) has been used to manage this project.
+
+In it, the project tasks have been divided into five columns:
+  - Main Tasks: Main tasks to be carried out, fundamental tasks.
+  - Secondary Tasks: Tasks that are a little simpler, that do not require so much time, and of secondary interest.
+  - In Progress: Tasks that are currently in the development process.
+  - Bugs: Known errors and still to be solved.
+  - Deprecated/Future Tasks: Tasks that are intended to be added in the future or that have been discarded for now.
+ 
+  In total there have been thirty-two tasks divided into these four columns.
+ 
+### History of changes
+
+To access the change history of the application, click
+click [here](https://github.com/DavidAntunezPerez/RestaurAPP_Android/commits)
+
+### Download the APP
+
+To download the APP, you can click on the RELEASES section of GitHub or click [here](https://github.com/DavidAntunezPerez/RestaurAPP_Android/releases)
+
+Try to download the latest version of the application. When you download the release, you'll have access to an .apk file that you can use on your Android device to install the app.
+
+### Installation manual and dependencies
+
+The requirements for us to have the application installed are the following:
+
+- Have enough space to download and install the application.
+- An Android device with a minimum API version of 30 and a maximum of 32 (That is, from Android 11: Red Velvet Cake to Android 12: Snow Cone). The use of API 30 is recommended.
+- Have Google Services updated and functioning correctly.
+- To consult .CSV files, use an application that reads these files, as a recommendation, you can use [Microsoft Excel](https://play.google.com/store/apps/details?id=com.microsoft .office.excel).
+
+Once we meet all the requirements, we can proceed to install the application:
+- Download the [application APK file](https://github.com/DavidAntunezPerez/RestaurAPP_Android/releases).
+- Click on the APK file on your Android device and click Install.
+- RestaurAPP will be installed on your device and it will be ready to use.
+
+### Application user manual
+
+To access the manual in English, you can visit the Wiki of this repository [here](https://github.com/DavidAntunezPerez/RestaurAPP_Android/wiki/%5BEN%5D-RestaurAPP-Android-user-manual)
+
+
+### Bibliography
+
+For the development of this application, different tools have been used and different sources have been studied:
+
+- [Canva](https://www.canva.com/): As a tool to design images and the logo itself.
+- [Iconos8](https://iconos8.es/): As a tool for downloading and using the project's icons in different formats.
+- [Figma](https://www.figma.com/): Used to develop the [Blueprint](https://github.com/DavidAntunezPerez/restaurapp#blueprint).
+- [Jira Software](): Used to manage the project during its development, more information in the [project management section](https://github.com/DavidAntunezPerez/RestaurAPP_Android#gesti%C3%B3n-del-proyecto ).
+- [Google Firebase](https://firebase.google.com/): Used as an external service to consume data and as a database with Firestore, to store images with Storage, and as a user authentication tool with Authentication.
+- [PowerBI](https://powerbi.microsoft.com/es-es/): To comply with the [interface development module requirements](https://github.com/IESCampanillas/proyectos-dam-2023/ wiki/Desarrollo-de-Interfaces) and with the [requirements for the business management systems module](https://github.com/IESCampanillas/proyectos-dam-2023/wiki/Sistemas-de-Gesti%C3%B3n- business).
+- [Material Design](https://m2.material.io/): As a complete guide for visual design, and as a tool for layout design.
+- [Kotlin](https://kotlinlang.org/): As the main programming language to make the application.
+- [Python](https://www.python.org/) and [Chaquopy](https://chaquo.com/chaquopy/): Used for the creation and execution of the script in charge of generating CSV files. The libraries of [Numpy](https://numpy.org/) and [Pandas](https://pandas.pydata.org/) have been used for the development of the script.
+- [Android Studio](https://developer.android.com/studio): As an integrated development environment for application development.
+- [DaFont](https://www.dafont.com/): For downloading text fonts used in the application.
+- [Dokka](https://github.com/Kotlin/dokka): To generate the [project documentation](https://github.com/DavidAntunezPerez/RestaurAPP_Android/tree/master/documentation/dokka/htmlMultiModule) .
+- [GitHub](https://github.com/): To manage the project, control code versions and store the project code in the cloud.
+- [Git](https://git-scm.com/): Used as version control system in the project.
+- [Glide](https://github.com/bumptech/glide): For managing the application's multimedia files.
+- [ERDPlus](https://erdplus.com/): For the creation of the ERD diagram of the database.
