@@ -7,6 +7,7 @@ Versión para dispositivos móviles Android de la aplicación RestaurAPP
 </p>
 
 Para acceder al repositorio de RestaurAPP conjunto haga click [aqui](https://github.com/DavidAntunezPerez/RestaurAPP)
+
 Para acceder al repositorio principal de IESCampanillas de proyectos haga click [aqui](https://github.com/IESCampanillas/proyectos-dam-2023)
 
 ### Histórico de cambios
@@ -26,3 +27,9 @@ En ella se han dividido las tareas del proyecto en cinco columnas:
  - Deprecated/Future Tasks: Tareas que están pensadas para ser agregadas en un futuro o que han sido descartadas por el momento.
  
  En total se han tratado de treinta y dos tareas divididas en estas cuatro columnas.
+
+### Descarga de la APP
+
+Para descargar la APP, puedes hacer click en el apartado RELEASES de GitHub o hacer click [aqui](https://github.com/DavidAntunezPerez/RestaurAPP_Android/releases)
+
+Procura descargar la última versión de la aplicación. Al descargar el release, tendrás acceso a un archivo .apk que podrás utilizar en tu dispositivo Android para instalar la aplicación.
