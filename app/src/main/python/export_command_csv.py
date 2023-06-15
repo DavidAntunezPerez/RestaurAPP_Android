@@ -4,6 +4,7 @@ import pandas as pd
 import os
 import csv
 
+
 def format_price(price):
     # Format price as money with the dollar sign at the end
     return f"${price:.2f}"
@@ -43,6 +44,7 @@ def main(file_path):
 
     # Create a DataFrame from the dish data
     df = pd.DataFrame([
+        {'DISH': '', 'PRICE': ''},
         {'DISH': 'TITLE', 'PRICE': title},
         {'DISH': 'DESCRIPTION', 'PRICE': description},
         {'DISH': 'DISH', 'PRICE': 'PRICE'}
