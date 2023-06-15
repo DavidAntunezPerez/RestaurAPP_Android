@@ -15,7 +15,7 @@ Para acceder al repositorio principal de IESCampanillas de proyectos haga click 
 2. [Gestión del proyecto](#gestión-del-proyecto)
 3. [Histórico de cambios](#histórico-de-cambios)
 4. [Descarga de la APP](#descarga-de-la-app)
-5. [Bibliografía de la aplicación](#bibliografía-de-la-aplicación)
+5. [Bibliografía](#bibliografía)
 
 ### Descripción y funcionalidades
 
@@ -74,7 +74,7 @@ Una vez cumplamos con todos los requisitos, podemos pasar a instalar la aplicaci
 - Haga click en el archivo APK en su dispositivo Android y haga click en Instalar.
 - Se instalará RestaurAPP en su dispositivo y ya estará lista para su uso.
 
-### Bibliografía de la aplicación
+### Bibliografía
 
 Para el desarrollo de esta aplicación, se han utilizado diferentes herramientas y estudiado distintas fuentes:
 
