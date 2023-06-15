@@ -77,7 +77,6 @@ Una vez cumplamos con todos los requisitos, podemos pasar a instalar la aplicaci
 
 Para el desarrollo de esta aplicación, se han utilizado diferentes herramientas y estudiado distintas fuentes:
 
-#### Herramientas utilizadas en el proyecto
 - [Canva](https://www.canva.com/): Como herramienta de diseño de imágenes y el propio logo.
 - [Iconos8](https://iconos8.es/): Como herramienta para la descarga y utilización de los iconos del proyecto en diferentes formatos.
 - [Figma](https://www.figma.com/): Utilizado para desarrollar el [Anteproyecto](https://github.com/DavidAntunezPerez/restaurapp#anteproyecto).
@@ -92,3 +91,4 @@ Para el desarrollo de esta aplicación, se han utilizado diferentes herramientas
 - [Dokka](https://github.com/Kotlin/dokka): Para la generar la [documentación del proyecto](https://github.com/DavidAntunezPerez/RestaurAPP_Android/tree/master/documentation/dokka/htmlMultiModule)
 - [GitHub](https://github.com/): Para gestionar el proyecto, controlar versiones de código y almacenar el código del proyecto en la nube.
 - [Git](https://git-scm.com/): Usado como  sistema de control de versiones en el proyecto.
+- [Glide](https://github.com/bumptech/glide): Para la gestión de los archivos multimedia de la aplicación.
