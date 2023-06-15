@@ -15,7 +15,7 @@
             android:id="@+id/textCCMoreDishName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
@@ -24,8 +24,9 @@
             android:textColor="@color/yellow"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@+id/btnCCMoreDelete"
-            app:layout_constraintStart_toEndOf="@+id/txtCCMorePrizeDollar"
+            app:layout_constraintStart_toEndOf="@+id/txtCCMoreDishPrize"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -47,6 +48,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="20dp"
             android:paddingBottom="18dp"
             android:text="@string/txt_testNumber"
             android:textColor="@color/yellow"
