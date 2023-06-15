@@ -1,4 +1,4 @@
-# RestaurAPP_Android
+# RestaurAPP Android
 
 Versión para dispositivos móviles Android de la aplicación RestaurAPP
 
@@ -10,10 +10,12 @@ Para acceder al repositorio de RestaurAPP conjunto haga click [aqui](https://git
 
 Para acceder al repositorio principal de IESCampanillas de proyectos haga click [aqui](https://github.com/IESCampanillas/proyectos-dam-2023)
 
-### Histórico de cambios
+### Descripción
 
-Para acceder al histórico de cambios de la aplicación haga
-click [aqui](https://github.com/DavidAntunezPerez/RestaurAPP_Android/commits)
+Aplicación nativa del proyecto RestaurAPP. 
+Esta aplicación funciona de forma conjunta con la [aplicación híbrida de RestaurAPP](https://github.com/AleCueto/restauraap) para el [Proyecto fin de ciclo 2º DAM 22/23](https://github.com/IESCampanillas/proyectos-dam-2023). 
+
+La aplicación está desarrollada en su totalidad por [David Antúnez Pérez](https://github.com/DavidAntunezPerez) utilizando principalmente el entorno de desarrollo de [Android Studio](https://developer.android.com/studio) en conjunto al lenguaje [Kotlin](https://kotlinlang.org/) con el uso de [Python](https://www.python.org/) para alguna funcionalidad.
 
 ### Gestión del proyecto
 
@@ -27,6 +29,11 @@ En ella se han dividido las tareas del proyecto en cinco columnas:
  - Deprecated/Future Tasks: Tareas que están pensadas para ser agregadas en un futuro o que han sido descartadas por el momento.
  
  En total se han tratado de treinta y dos tareas divididas en estas cuatro columnas.
+ 
+### Histórico de cambios
+
+Para acceder al histórico de cambios de la aplicación haga
+click [aqui](https://github.com/DavidAntunezPerez/RestaurAPP_Android/commits)
 
 ### Descarga de la APP
 
