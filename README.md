@@ -2,7 +2,9 @@
 
 Versión para dispositivos móviles Android de la aplicación RestaurAPP
 
-![image](restaurapp_android.png)
+<p align="center">
+   <img src="restaurapp_android.png">
+</p>
 
 ### Histórico de cambios
 
