@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restaurapp.R
 import com.example.restaurapp.entities.Command
+import com.example.restaurapp.entities.Dish
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
 
@@ -20,7 +21,7 @@ import java.util.Locale
  * @param itemClickListener The listener for item click events.
  */
 class CommandAdapter(
-    private val commandList: List<Command>,
+    private var commandList: List<Command>,
     private val longClickListener: OnCommandLongClickListener,
     private val itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<CommandAdapter.CommandViewHolder>() {
@@ -156,4 +157,15 @@ class CommandAdapter(
     override fun getItemCount(): Int {
         return commandList.size
     }
+
+    /**
+     * Changes the command list into the filtered list
+     *
+     * @param commandList new List of Commands with the filter function
+     */
+    fun setFilteredList(commandList: ArrayList<Command>) {
+        this.commandList = commandList
+        notifyDataSetChanged()
+    }
+
 }

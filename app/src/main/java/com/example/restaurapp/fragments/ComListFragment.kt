@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,7 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
 
     private lateinit var commandRecyclerView: RecyclerView
     private lateinit var commandList: ArrayList<Command>
+    private lateinit var searchView: SearchView
     private val db = Firebase.firestore
 
     /**
@@ -66,6 +68,8 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
         val userUID = sharedPreference.getString("userUID", "userUID")
         val language = sharedPreference.getString("language", Locale.getDefault().language)
 
+        // INITIALIZE SEARCHVIEW
+        searchView = binding.searchCommand
 
         // LOADING ANIMATIONS
         // LOAD RV
@@ -157,7 +161,51 @@ class ComListFragment : Fragment(), CommandAdapter.OnCommandLongClickListener,
             // HIDE LOADING ANIMATION
             stopAnimation(loadingImageView)
         }
+
+        // SEARCH FUNCTION
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+
+        })
+
     }
+
+    /**
+     * Function that filter the list of commands depending on the user input
+     *
+     * @param query Text inputted from the user
+     */
+    private fun filterList(query: String?) {
+        if (query != null) {
+            val filteredList = ArrayList<Command>()
+            for (i in commandList) {
+                if ((i.title?.lowercase(Locale.ROOT)
+                        ?.contains(query) == true) || (i.description?.lowercase(Locale.ROOT)
+                        ?.contains(query) == true)
+                ) {
+                    filteredList.add(i)
+                }
+            }
+
+            if (filteredList.isEmpty()) {
+                Snackbar.make(
+                    binding.root, getString(R.string.notfoundcomfilter), Snackbar.LENGTH_SHORT
+                ).show()
+            }
+
+            val adapter = commandRecyclerView.adapter as CommandAdapter
+            adapter.setFilteredList(filteredList)
+            commandRecyclerView.adapter = adapter
+        }
+    }
+
 
     /**
      * Stops the animation for the loading image.

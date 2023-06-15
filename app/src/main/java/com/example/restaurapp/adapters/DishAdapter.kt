@@ -220,6 +220,11 @@ class DishAdapter(private var dishList: ArrayList<Dish>, private val context: Co
         totalPriceTextView?.text = "0" // Set the value to 0
     }
 
+    /**
+     * Changes the dish list into the filtered list
+     *
+     * @param dishList new List of Dishes with the filter function
+     */
     fun setFilteredList(dishList: ArrayList<Dish>){
         this.dishList = dishList
         notifyDataSetChanged()

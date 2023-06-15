@@ -26,6 +26,8 @@
     <!-- FOR COMMAND LIST -->
     <string name="txt_testCommandTitle">Command title</string>
     <string name="txt_command_page_information">Select a Command to Edit its information</string>
+    <string name="txtsearchcom">Search Command…</string>
+    <string name="notfoundcomfilter">Command not found</string>
 
     <!--COMMAND DELETION STRINGS-->
     <string name="delete_confirmation_title">Delete Command</string>

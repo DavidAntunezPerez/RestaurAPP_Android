@@ -16,17 +16,25 @@
         android:textColor="@color/app_primary"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintBottom_toTopOf="@+id/searchCommand"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchCommand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintTop_toBottomOf="@+id/txtInfoCommand"
+        app:queryBackground="@android:color/transparent"
+        app:queryHint="@string/txtsearchcom" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/txtInfoCommand">
+        app:layout_constraintTop_toBottomOf="@id/searchCommand">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/commandrecyclerview"
@@ -41,6 +49,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
+            android:contentDescription="@string/loading_animation_logo"
             android:pivotX="50%"
             android:pivotY="50%"
             android:rotation="0"
@@ -48,8 +57,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/loading_animation_logo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </FrameLayout>
 
