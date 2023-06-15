@@ -64,7 +64,7 @@ Procura descargar la última versión de la aplicación. Al descargar el release
 Los requisitos para que tengamos instalados la aplicación son los siguientes:
 
 - Disponer de espacio suficiente para poder descargar e instalar la aplicación.
-- Un dispositivo Android con una versión de API mínima de 30 y una máxima de 32. Se recomienda el uso de la API 30.
+- Un dispositivo Android con una versión de API mínima de 30 y una máxima de 32 (Es decir, desde Android 11: Red Velvet Cake hasta Android 12: Snow Cone) . Se recomienda el uso de la API 30.
 - Tener los Servicios de Google actualizados y con un funcionamiento correcto.
 - Para la consulta de archivos .CSV, utilizar una aplicación de lectura de estos archivos, como recomendación, podeis usar [Excel de Microsoft](https://play.google.com/store/apps/details?id=com.microsoft.office.excel).
 
@@ -72,3 +72,23 @@ Una vez cumplamos con todos los requisitos, podemos pasar a instalar la aplicaci
 - Descargar el [archivo APK de la aplicación](https://github.com/DavidAntunezPerez/RestaurAPP_Android/releases). 
 - Haga click en el archivo APK en su dispositivo Android y haga click en Instalar.
 - Se instalará RestaurAPP en su dispositivo y ya estará lista para su uso.
+
+### Bibliografía de la aplicación
+
+Para el desarrollo de esta aplicación, se han utilizado diferentes herramientas y estudiado distintas fuentes:
+
+#### Herramientas utilizadas en el proyecto
+- [Canva](https://www.canva.com/): Como herramienta de diseño de imágenes y el propio logo.
+- [Iconos8](https://iconos8.es/): Como herramienta para la descarga y utilización de los iconos del proyecto en diferentes formatos.
+- [Figma](https://www.figma.com/): Utilizado para desarrollar el [Anteproyecto](https://github.com/DavidAntunezPerez/restaurapp#anteproyecto).
+- [Jira Software](): Utilizado para gestionar el proyecto durante su desarrollo, más información en el [apartado de gestión del proyecto](https://github.com/DavidAntunezPerez/RestaurAPP_Android#gesti%C3%B3n-del-proyecto)
+- [Google Firebase](https://firebase.google.com/): Utilizado como servicio externo para consumir datos y como base de datos con Firestore, para almacenar imágenes con Storage, y como herramienta de autenticación de usuarios con Authentication.
+- [PowerBI](https://powerbi.microsoft.com/es-es/): Para cumplir con los [requisitos del módulo desarrollo de interfaces](https://github.com/IESCampanillas/proyectos-dam-2023/wiki/Desarrollo-de-Interfaces) y con los [requisitos del módulo de sistemas de gestión empresarial](https://github.com/IESCampanillas/proyectos-dam-2023/wiki/Sistemas-de-Gesti%C3%B3n-Empresarial)
+- [Material Design](https://m2.material.io/): Como guía completa para el diseño visual, y como herramienta para el diseño de los layouts.
+- [Kotlin](https://kotlinlang.org/): Como lenguaje principal de programación para realizar la aplicación.
+- [Python](https://www.python.org/) y [Chaquopy](https://chaquo.com/chaquopy/): Utilizados para la creación y ejecución del script encargado de la generación de archivos CSV.
+- [Android Studio](https://developer.android.com/studio):Como entorno de desarrollo integrado para el desarrollo de la aplicación.
+- [DaFont](https://www.dafont.com/): Para la descarga de fuentes de texto usadas en la aplicación.
+- [Dokka](https://github.com/Kotlin/dokka): Para la generar la [documentación del proyecto](https://github.com/DavidAntunezPerez/RestaurAPP_Android/tree/master/documentation/dokka/htmlMultiModule)
+- [GitHub](https://github.com/): Para gestionar el proyecto, controlar versiones de código y almacenar el código del proyecto en la nube.
+- [Git](https://git-scm.com/): Usado como  sistema de control de versiones en el proyecto.
