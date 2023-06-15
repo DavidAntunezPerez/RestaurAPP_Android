@@ -78,6 +78,8 @@
     <string name="success_create_command">Command Created successfully</string>
     <string name="cannot_create_command">You cannot create an empty Command!</string>
     <string name="dish_added_command">Dish added to the Command</string>
+    <string name="searchdishtxt">Search dish…</string>
+    <string name="notfoundfilter">Dish not found</string>
 
 
     <!-- EDIT COM -->

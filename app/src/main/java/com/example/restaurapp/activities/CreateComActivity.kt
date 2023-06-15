@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.Locale
 
 /**
  *  Activity made for managing the creation of Commands
@@ -31,6 +34,7 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
     private lateinit var dishList: ArrayList<Dish>
     private lateinit var adapter: DishAdapter
     private lateinit var moreFragment: CreateComFragment
+    private lateinit var searchView: SearchView
     private var db = Firebase.firestore
 
     // TITLE AND DESCRIPTION RETRIEVED IN THE FRAGMENT INPUT
@@ -53,6 +57,9 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
 
         // INITIALIZING THE ADAPTER
         adapter = DishAdapter(dishList, this)
+
+        // INITIALIZE SEARCHVIEW
+        searchView = findViewById(R.id.searchView)
 
         // CREATE SHARED PREFERENCES ITEM AND RETRIEVING USER UID
         val sharedPreference = getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
@@ -144,7 +151,47 @@ class CreateComActivity : AppCompatActivity(), CreateComFragment.OnDataPass,
         binding.btnCreateCom.setOnClickListener {
             saveComFirestore(userUID, tableDocId, title, description, it)
         }
+
+        // SEARCH FUNCTION
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+
+        })
+
     }
+
+    /**
+     * Function that filter the list of dishes depending on the user input
+     *
+     * @param query Text inputted from the user
+     */
+    private fun filterList(query: String?) {
+        if (query != null) {
+            val filteredList = ArrayList<Dish>()
+            for (i in dishList) {
+                if (i.name?.lowercase(Locale.ROOT)?.contains(query) == true) {
+                    filteredList.add(i)
+                }
+            }
+
+            if (filteredList.isEmpty()) {
+                Snackbar.make(
+                    binding.root, getString(R.string.notfoundfilter), Snackbar.LENGTH_SHORT
+                ).show()
+            }
+
+            adapter.setFilteredList(filteredList)
+            dishRecyclerView.adapter = adapter
+        }
+    }
+
 
     /**
      * Receives the data passed from the fragment and stores the title and description.

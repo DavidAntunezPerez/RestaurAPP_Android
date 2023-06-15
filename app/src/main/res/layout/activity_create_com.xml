@@ -44,6 +44,16 @@
         app:layout_constraintStart_toEndOf="@+id/txtCreateComFor"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintTop_toBottomOf="@+id/btnBack"
+        app:queryBackground="@android:color/transparent"
+        app:queryHint="@string/searchdishtxt" />
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
@@ -51,13 +61,13 @@
         app:layout_constraintBottom_toTopOf="@+id/materialCardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBack">
+        app:layout_constraintTop_toBottomOf="@+id/searchView">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
-            android:layoutAnimation="@anim/rv_load_anim_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layoutAnimation="@anim/rv_load_anim_layout"
             android:paddingHorizontal="5dp"
             tools:listitem="@layout/dishes_list" />
 

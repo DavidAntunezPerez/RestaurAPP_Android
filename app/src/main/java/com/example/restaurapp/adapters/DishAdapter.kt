@@ -24,7 +24,7 @@ import com.google.firebase.storage.ktx.storage
  * @param dishList The list of dishes to display.
  * @param context The context of the application/activity.
  */
-class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Context) :
+class DishAdapter(private var dishList: ArrayList<Dish>, private val context: Context) :
     RecyclerView.Adapter<DishAdapter.DishViewHolder>() {
 
     // MUTABLE LIST CONTAINING ALL THE DISHES ADDED IN A COMMAND
@@ -219,4 +219,10 @@ class DishAdapter(private val dishList: ArrayList<Dish>, private val context: Co
         totalPrice = 0.0
         totalPriceTextView?.text = "0" // Set the value to 0
     }
+
+    fun setFilteredList(dishList: ArrayList<Dish>){
+        this.dishList = dishList
+        notifyDataSetChanged()
+    }
+
 }

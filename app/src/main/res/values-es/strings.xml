@@ -70,6 +70,9 @@
     <string name="success_create_command">Comanda creada con éxito</string>
     <string name="cannot_create_command">¡No puedes crear una Comanda vacía!</string>
     <string name="dish_added_command">Plato añadido a la Comanda</string>
+    <string name="searchdishtxt">Buscar plato…</string>
+    <string name="notfoundfilter">Plato no encontrado</string>
+
 
     <!-- EDIT COM -->
     <string name="command_table_edit_com_txt">Mesa de Comanda</string>
