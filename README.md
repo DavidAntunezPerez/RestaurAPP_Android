@@ -86,7 +86,7 @@ Para el desarrollo de esta aplicación, se han utilizado diferentes herramientas
 - [PowerBI](https://powerbi.microsoft.com/es-es/): Para cumplir con los [requisitos del módulo desarrollo de interfaces](https://github.com/IESCampanillas/proyectos-dam-2023/wiki/Desarrollo-de-Interfaces) y con los [requisitos del módulo de sistemas de gestión empresarial](https://github.com/IESCampanillas/proyectos-dam-2023/wiki/Sistemas-de-Gesti%C3%B3n-Empresarial)
 - [Material Design](https://m2.material.io/): Como guía completa para el diseño visual, y como herramienta para el diseño de los layouts.
 - [Kotlin](https://kotlinlang.org/): Como lenguaje principal de programación para realizar la aplicación.
-- [Python](https://www.python.org/) y [Chaquopy](https://chaquo.com/chaquopy/): Utilizados para la creación y ejecución del script encargado de la generación de archivos CSV.
+- [Python](https://www.python.org/) y [Chaquopy](https://chaquo.com/chaquopy/): Utilizados para la creación y ejecución del script encargado de la generación de archivos CSV. Se han utilizado las librerías de [Numpy](https://numpy.org/) y [Pandas](https://pandas.pydata.org/) para el desarrollo del script.
 - [Android Studio](https://developer.android.com/studio):Como entorno de desarrollo integrado para el desarrollo de la aplicación.
 - [DaFont](https://www.dafont.com/): Para la descarga de fuentes de texto usadas en la aplicación.
 - [Dokka](https://github.com/Kotlin/dokka): Para la generar la [documentación del proyecto](https://github.com/DavidAntunezPerez/RestaurAPP_Android/tree/master/documentation/dokka/htmlMultiModule)
