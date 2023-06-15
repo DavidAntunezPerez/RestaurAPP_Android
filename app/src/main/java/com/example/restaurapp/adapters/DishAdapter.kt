@@ -106,7 +106,8 @@ class DishAdapter(private var dishList: ArrayList<Dish>, private val context: Co
 
             // ADDING DISH PRICE TO TOTAL PRICE
             if (selectedPrice != null) {
-                totalPrice = totalPrice.plus(selectedPrice)
+                totalPrice += selectedPrice
+                totalPrice = "%.2f".format(totalPrice).toDouble()
             }
 
             // UPDATE THE TOTAL PRICE
@@ -225,7 +226,7 @@ class DishAdapter(private var dishList: ArrayList<Dish>, private val context: Co
      *
      * @param dishList new List of Dishes with the filter function
      */
-    fun setFilteredList(dishList: ArrayList<Dish>){
+    fun setFilteredList(dishList: ArrayList<Dish>) {
         this.dishList = dishList
         notifyDataSetChanged()
     }

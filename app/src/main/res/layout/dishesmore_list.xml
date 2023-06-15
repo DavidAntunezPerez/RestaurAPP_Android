@@ -9,22 +9,23 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/textCCMoreDishName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="135dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
             android:gravity="center"
             android:paddingBottom="18dp"
             android:text="@string/txt_testdishname"
             android:textColor="@color/yellow"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/txtCCMorePrizeDollar"
+            app:layout_constraintEnd_toStartOf="@+id/btnCCMoreDelete"
+            app:layout_constraintStart_toEndOf="@+id/txtCCMorePrizeDollar"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -68,6 +69,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>
