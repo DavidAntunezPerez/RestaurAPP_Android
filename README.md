@@ -142,7 +142,7 @@ To access the main IESCampanillas project repository click [here](https://github
 ### Description and functionalities
 
 Native application of the RestaurAPP project.
-This application works together with the [RestaurAPP hybrid application](https://github.com/AleCueto/restauraap) for the [2nd cycle end project DAM 22/23](https://github.com/IESCampanillas /projects-dam-2023).
+This application works together with the [RestaurAPP hybrid application](https://github.com/AleCueto/restauraap) for the [2nd cycle end project DAM 22/23](https://github.com/IESCampanillas/proyectos-dam-2023).
 
 The application is fully developed by [David Antúnez Pérez](https://github.com/DavidAntunezPerez) using mainly the [Android Studio](https://developer.android.com/studio) development environment together to the [Kotlin](https://kotlinlang.org/) language with the use of [Python](https://www.python.org/) for some functionality.
 
@@ -215,10 +215,10 @@ For the development of this application, different tools have been used and diff
 
 - [Canva](https://www.canva.com/): As a tool to design images and the logo itself.
 - [Iconos8](https://iconos8.es/): As a tool for downloading and using the project's icons in different formats.
-- [Figma](https://www.figma.com/): Used to develop the [Blueprint](https://github.com/DavidAntunezPerez/restaurapp#blueprint).
-- [Jira Software](): Used to manage the project during its development, more information in the [project management section](https://github.com/DavidAntunezPerez/RestaurAPP_Android#gesti%C3%B3n-del-proyecto ).
+- [Figma](https://www.figma.com/): Used to develop the [Blueprint](https://github.com/DavidAntunezPerez/restaurapp#anteproyecto).
+- [Jira Software](): Used to manage the project during its development, more information in the [project management section](https://github.com/DavidAntunezPerez/RestaurAPP_Android#project-management).
 - [Google Firebase](https://firebase.google.com/): Used as an external service to consume data and as a database with Firestore, to store images with Storage, and as a user authentication tool with Authentication.
-- [PowerBI](https://powerbi.microsoft.com/es-es/): To comply with the [interface development module requirements](https://github.com/IESCampanillas/proyectos-dam-2023/ wiki/Desarrollo-de-Interfaces) and with the [requirements for the business management systems module](https://github.com/IESCampanillas/proyectos-dam-2023/wiki/Sistemas-de-Gesti%C3%B3n- business).
+- [PowerBI](https://powerbi.microsoft.com/es-es/): To comply with the [interface development module requirements](https://github.com/IESCampanillas/proyectos-dam-2023/wiki/Desarrollo-de-Interfaces) and with the [requirements for the business management systems module](https://github.com/IESCampanillas/proyectos-dam-2023/wiki/Sistemas-de-Gesti%C3%B3n-Empresarial).
 - [Material Design](https://m2.material.io/): As a complete guide for visual design, and as a tool for layout design.
 - [Kotlin](https://kotlinlang.org/): As the main programming language to make the application.
 - [Python](https://www.python.org/) and [Chaquopy](https://chaquo.com/chaquopy/): Used for the creation and execution of the script in charge of generating CSV files. The libraries of [Numpy](https://numpy.org/) and [Pandas](https://pandas.pydata.org/) have been used for the development of the script.
