@@ -133,10 +133,10 @@ To access the main IESCampanillas project repository click [here](https://github
 1. [Description and functionalities](#description-and-functionalities)
 2. [Database Diagram](#database-diagram)
 3. [Project Management](#project-management)
-4. [Change history](#change-history)
-5. [APP download](#app-download)
+4. [History of changes](#history-of-changes)
+5. [Download the APP](#download-the-app)
 6. [Installation manual and dependencies](#installation-manual-and-dependencies)
-7. [Manual of use of the application](#manual-of-use-of-the-application)
+7. [Application user manual](#application-user-manual)
 8. [Bibliography](#bibliography)
 
 ### Description and functionalities
