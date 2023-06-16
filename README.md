@@ -131,6 +131,12 @@ Para la búsqueda de información que me ha ayudado a realizar el proyecto se ha
 - [Documentación de Git](https://git-scm.com/doc)
 - [StackOverflow](https://stackoverflow.com/)
 
+### Presentación del proyecto
+Para acceder a la presentación interactiva del proyecto, haga click [aqui](https://www.canva.com/design/DAFl-x5F_lg/2UAVk_Qh2eeAPhs5xIkHKA/view)
+Si el enlace anterior no funciona, haga click [aquí](https://www.canva.com/design/DAFl-x5F_lg/2UAVk_Qh2eeAPhs5xIkHKA/view?utm_content=DAFl-x5F_lg&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink) para visualizarla
+
+Para descargar la presentación en formato PDF, haga click [aqui](./pdfpresentation/RestaurAPP_ANDROID_PRESENTATION.pdf)
+
 # English
 
 Android mobile devices version of RestaurAPP application
