@@ -197,7 +197,7 @@ The requirements for us to have the application installed are the following:
 - Have enough space to download and install the application.
 - An Android device with a minimum API version of 30 and a maximum of 32 (That is, from Android 11: Red Velvet Cake to Android 12: Snow Cone). The use of API 30 is recommended.
 - Have Google Services updated and functioning correctly.
-- To consult .CSV files, use an application that reads these files, as a recommendation, you can use [Microsoft Excel](https://play.google.com/store/apps/details?id=com.microsoft .office.excel).
+- To consult .CSV files, use an application that reads these files, as a recommendation, you can use [Microsoft Excel](https://play.google.com/store/apps/details?id=com.microsoft.office.excel).
 
 Once we meet all the requirements, we can proceed to install the application:
 - Download the [application APK file](https://github.com/DavidAntunezPerez/RestaurAPP_Android/releases).
