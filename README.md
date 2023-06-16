@@ -181,8 +181,7 @@ In it, the project tasks have been divided into five columns:
  
 ### History of changes
 
-To access the change history of the application, click
-click [here](https://github.com/DavidAntunezPerez/RestaurAPP_Android/commits)
+To access the change history of the application, click [here](https://github.com/DavidAntunezPerez/RestaurAPP_Android/commits)
 
 ### Download the APP
 
