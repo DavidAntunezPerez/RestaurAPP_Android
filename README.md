@@ -26,7 +26,7 @@ Para acceder al repositorio principal de IESCampanillas de proyectos haga click 
 7. [Manual de uso de la aplicación](#manual-de-uso-de-la-aplicación)
 8. [Bibliografía](#bibliografía)
 9. [Presentación del proyecto](#presentación-del-proyecto)
-10. [Video Final de RestaurAPP Android](#video-final-de-restaurapp-android
+10. [Video Final de RestaurAPP Android](#video-final-de-restaurapp-android)
 
 ### Descripción y funcionalidades
 
