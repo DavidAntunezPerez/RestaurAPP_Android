@@ -25,6 +25,7 @@ Para acceder al repositorio principal de IESCampanillas de proyectos haga click 
 6. [Manual de instalación y dependencias](#manual-de-instalación-y-dependencias)
 7. [Manual de uso de la aplicación](#manual-de-uso-de-la-aplicación)
 8. [Bibliografía](#bibliografía)
+9. [Presentación del proyecto](#presentación-del-proyecto)
 
 ### Descripción y funcionalidades
 
@@ -158,6 +159,7 @@ To access the main IESCampanillas project repository click [here](https://github
 6. [Installation manual and dependencies](#installation-manual-and-dependencies)
 7. [Application user manual](#application-user-manual)
 8. [Bibliography](#bibliography)
+9. [Project Presentation](#project-presentation)
 
 ### Description and functionalities
 
@@ -262,3 +264,9 @@ For the information search that helped me in completing the project, the followi
 - [ChatGPT](https://chat.openai.com)
 - [Git Documentation](https://git-scm.com/doc)
 - [StackOverflow](https://stackoverflow.com/)
+
+### Project Presentation
+To access the interactive project presentation, click [here](https://www.canva.com/design/DAFl-x5F_lg/2UAVk_Qh2eeAPhs5xIkHKA/view).
+If the above link doesn't work, click [here](https://www.canva.com/design/DAFl-x5F_lg/2UAVk_Qh2eeAPhs5xIkHKA/view?utm_content=DAFl-x5F_lg&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink) to view it.
+
+To download the presentation in PDF format, click [here](./pdfpresentation/RestaurAPP_ANDROID_PRESENTATION.pdf).
