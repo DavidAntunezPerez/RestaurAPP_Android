@@ -117,6 +117,20 @@ Para el desarrollo de esta aplicación, se han utilizado diferentes herramientas
 - [Glide](https://github.com/bumptech/glide): Para la gestión de los archivos multimedia de la aplicación.
 - [ERDPlus](https://erdplus.com/): Para la creación del diagrama ERD de la base de datos.
 
+Para la búsqueda de información que me ha ayudado a realizar el proyecto se han usado estas fuentes:
+
+- [Documentación de Kotlin](https://kotlinlang.org/docs/home.html)
+- [Documentación de Android](https://developer.android.com/)
+- [Documentación de Python](https://docs.python.org/es/3/)
+- [Documentación de Chaquopy](https://chaquo.com/chaquopy/)
+- Apuntes tomados en clases
+- [Repositorio de Glide](https://github.com/bumptech/glide)
+- [Repositorio de Dokka](https://github.com/Kotlin/dokka)
+- [Tutoriales de Android y Kotlin de Youtube](https://www.youtube.com/watch?v=vJapzH_46a8&list=PL8ie04dqq7_OcBYDpvHrcSFVoggLi3cm_&ab_channel=Programaci%C3%B3nAndroidbyAristiDevs)
+- [ChatGPT](https://chat.openai.com)
+- [Documentación de Git](https://git-scm.com/doc)
+- [StackOverflow](https://stackoverflow.com/)
+
 # English
 
 Android mobile devices version of RestaurAPP application
@@ -228,3 +242,17 @@ For the development of this application, different tools have been used and diff
 - [Git](https://git-scm.com/): Used as version control system in the project.
 - [Glide](https://github.com/bumptech/glide): For managing the application's multimedia files.
 - [ERDPlus](https://erdplus.com/): For the creation of the ERD diagram of the database.
+
+For the information search that helped me in completing the project, the following sources were used:
+
+- [Kotlin Documentation](https://kotlinlang.org/docs/home.html)
+- [Android Documentation](https://developer.android.com/)
+- [Python Documentation](https://docs.python.org/es/3/)
+- [Chaquopy Documentation](https://chaquo.com/chaquopy/)
+- Class notes
+- [Glide Repository](https://github.com/bumptech/glide)
+- [Dokka Repository](https://github.com/Kotlin/dokka)
+- [Android and Kotlin Tutorials on Youtube](https://www.youtube.com/watch?v=vJapzH_46a8&list=PL8ie04dqq7_OcBYDpvHrcSFVoggLi3cm_&ab_channel=Programaci%C3%B3nAndroidbyAristiDevs)
+- [ChatGPT](https://chat.openai.com)
+- [Git Documentation](https://git-scm.com/doc)
+- [StackOverflow](https://stackoverflow.com/)
